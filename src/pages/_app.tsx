@@ -19,6 +19,7 @@ const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page)
   const layout = getLayout(<Component {...pageProps} />)
   return (
+    // <ApolloProvider client={apolloClient}></ApolloProvider>
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
