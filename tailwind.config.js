@@ -8,6 +8,10 @@ module.exports = {
     './src/**/*.{ts,tsx}',
 	],
   theme: {
+    colors: {
+      'primary': '#008BE7',
+      'brand': '#052A42'
+    },
     container: {
       center: true,
       padding: "2rem",
