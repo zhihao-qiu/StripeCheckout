@@ -17,6 +17,13 @@ const config = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:prettier/recommended',
   ],
+  ignorePatterns: [
+    '/src/components/ui/**/*',
+    'tailwind.config.js',
+    'postcss.config.js',
+    'next.config.js',
+    'cypress/**/*',
+  ],
   rules: {
     // These opinionated rules are enabled in stylistic-type-checked above.
     // Feel free to reconfigure them to your own preference.
