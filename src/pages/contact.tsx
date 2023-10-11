@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 function Contact() {
   return (
-    <div className="h-screen w-screen bg-paleBule pl-10 pt-24">
+    <div className="bg-paleBlue h-screen w-screen pl-10 pt-24">
       <div className="flex max-w-lg flex-col">
         <h2 className="relative text-subtitle">
           <span className="mr-2 font-thin text-black">CONTACT</span>
