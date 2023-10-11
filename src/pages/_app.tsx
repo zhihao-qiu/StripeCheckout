@@ -9,7 +9,6 @@ import { ApolloProvider } from '@apollo/client'
 import { apolloClient } from '@/lib/graphql'
 
 import Head from 'next/head'
-import Header from '@/components/Header/Header'
 import '@/styles/globals.css'
 
 const nunito = Nunito({
@@ -32,11 +31,10 @@ const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
     <ApolloProvider client={apolloClient}>
       <main className={nunito.className}>
         <Head>
-          <title>Reture-Pal</title>
+          <title>Return-Pal</title>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Header></Header>
         {layout}
         <Toaster />
       </main>
