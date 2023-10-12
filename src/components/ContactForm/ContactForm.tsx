@@ -59,6 +59,7 @@ function ContactForm() {
   return (
     <Form {...form}>
       <form
+        // TODO figure out api call for email sending
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={form.handleSubmit(onSubmit)}
         className="max-w-lg space-y-6"

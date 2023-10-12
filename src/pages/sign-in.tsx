@@ -9,7 +9,7 @@ function SignIn() {
   const [isGuest, setIsGuest] = useState(false)
 
   return (
-    <div className="bg-paleBlue relative flex min-h-screen w-screen flex-col items-center justify-start  transition-opacity delay-500">
+    <div className="relative flex min-h-screen w-screen flex-col items-center justify-start bg-paleBlue  transition-opacity delay-500">
       <Image
         src="/images/returnpal-short-logo.png"
         alt="Return Pal logo"
