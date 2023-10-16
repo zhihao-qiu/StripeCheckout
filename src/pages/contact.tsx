@@ -15,6 +15,8 @@ function Contact() {
         </h2>
         <ContactForm />
 
+        <input type="radio" name="" id="" />
+
         <Image
           className="mt-4 self-center"
           src="/images/robot.png"

@@ -11,7 +11,9 @@ const nunito = Nunito({
 export default function DefaultLayout({ children }: PropsWithChildren) {
   return (
     <>
-      <div className={`flex h-[100dvh] overflow-hidden ${nunito.className}`}>
+      <div
+        className={`flex h-[100dvh] overflow-hidden ${nunito.className} bg-paleBlue`}
+      >
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           <Header />
           <main className="grow">{children}</main>

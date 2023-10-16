@@ -16,6 +16,10 @@ module.exports = {
       },
     },
     extend: {
+      screens: {
+        'xs': '475px',
+        'xxs': '280px'
+      },
       colors: {
         primary: '#008BE7',
         brand: '#052A42',

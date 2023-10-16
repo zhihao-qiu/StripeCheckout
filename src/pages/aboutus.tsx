@@ -1,3 +1,5 @@
+import React from 'react'
+import Image from 'next/image'
 import {
   HomeSection,
   HomeSectionDescription,
@@ -5,18 +7,17 @@ import {
   HomeSectionTitleHighlight,
 } from '@/components/home/Home'
 import { getLayout } from '@/layouts/DefaultLayout'
-import Image from 'next/image'
 
-export default function AboutUs() {
+function AboutUs() {
   return (
     <div className="container mx-auto flex max-w-5xl pb-16 pt-20">
-      <div className="mx-auto w-full space-y-16 px-4 sm:px-3">
+      <div className="w-full space-y-16">
         <HomeSection>
-          <HomeSectionTitle>
+          <HomeSectionTitle className="text-center">
             How <HomeSectionTitleHighlight>ReturnPal</HomeSectionTitleHighlight>{' '}
             Began
           </HomeSectionTitle>
-          <HomeSectionDescription>
+          <HomeSectionDescription className="md:w-4/6">
             ReturnPal was born out of a simple realization: the traditional
             process of returning online purchases is far too complicated. Two
             brothers after waiting in line at the post office, decided there had
@@ -29,7 +30,7 @@ export default function AboutUs() {
         <div className="m-[calc(-50vw+50%)]">
           <div className="relative">
             <svg
-              className="h-[45rem] w-full fill-brand"
+              className="h-[60rem] w-screen fill-brand md:h-[45rem]" // TODO: w-fit for mobile?
               version="1.1"
               preserveAspectRatio="none"
               id="Layer_1"
@@ -63,43 +64,47 @@ export default function AboutUs() {
               <g id="Layer_2"></g>
             </svg>
 
-            <div className="absolute top-32 w-full py-2.5 text-center text-xs leading-4 text-white">
-              <div className="container mx-auto max-w-5xl space-y-10">
-                <p className="text-4xl">
+            <div className="absolute top-28 w-full py-2.5 text-center text-xs leading-4 text-white">
+              <div className="container mx-auto max-w-5xl space-y-10 md:space-y-14">
+                <p className="text-4xl lg:text-5xl">
                   <a className="text-white">Our</a>{' '}
                   <a className="font-bold text-primary">Founders</a>
                 </p>
-                <div className="flex justify-between px-12">
-                  <div>
+                {/* <div className="flex justify-between space-x-10 sm:space-x-32 md:px-12"> */}
+                {/* <div className="grid place-items-center gap-2 md:flex md:grid-cols-2"> */}
+                <div className="grid max-w-5xl place-items-center gap-7 md:flex md:grid-cols-2 md:justify-between md:px-9">
+                  <div className="space-y-4">
                     <Image
-                      className="border-8 border-primary"
-                      src={'/images/returnpals-hasan.png'}
-                      alt="Hasan-Ali"
+                      className="h-52 w-52 rounded-full border-8 border-primary md:h-72 md:w-72"
+                      src={'/images/Hasan-cropped_founder.jpg'}
+                      alt="CEO of ReturnPal Hasan-Ali Abidi"
                       width={300}
                       height={300}
                     />
-                    <p className="text-lg font-bold text-white">
-                      Mohammed Al-Salem
-                    </p>
-                    <p className="text-lg text-white">
-                      Co-Founder of ReturnPal
-                    </p>
+                    <div>
+                      <p className="text-lg font-bold text-white">
+                        Hasan-Ali Abidi
+                      </p>
+                      <p className="text-lg text-white">CEO of ReturnPal</p>
+                    </div>
                   </div>
 
-                  <div>
+                  <div className="space-y-4">
                     <Image
-                      className="rounded-full border-8 border-primary"
-                      src={'/images/returnpals-hasan.png'}
-                      alt="Hasan-Ali"
+                      className="h-52 w-52 rounded-full border-8 border-primary md:h-72 md:w-72"
+                      src={'/images/Mohammed-cropped_founder.jpg'}
+                      alt="Co-Founder of ReturnPal Mohammed Al-Salem"
                       width={300}
                       height={300}
                     />
-                    <p className="text-lg font-bold text-white">
-                      Mohammed Al-Salem
-                    </p>
-                    <p className="text-lg text-white">
-                      Co-Founder of ReturnPal
-                    </p>
+                    <div>
+                      <p className="text-lg font-bold text-white">
+                        Mohammed Al-Salem
+                      </p>
+                      <p className="text-lg text-white">
+                        Co-Founder of ReturnPal
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -111,7 +116,7 @@ export default function AboutUs() {
           <HomeSectionTitle>
             Our <HomeSectionTitleHighlight>Mission</HomeSectionTitleHighlight>
           </HomeSectionTitle>
-          <HomeSectionDescription>
+          <HomeSectionDescription className="md:w-4/6">
             Our goal is to revolutionize the returns process for online shoppers
             by offering a hassle-free and convenient solution. We aim to
             alleviate the stress of the return process by managing the entire
@@ -123,7 +128,7 @@ export default function AboutUs() {
         <div className="m-[calc(-50vw+50%)]">
           <div className="relative">
             <svg
-              className="h-[45rem] w-screen fill-brand"
+              className="h-[45rem] w-screen fill-brand sm:h-[45rem]"
               version="1.1"
               preserveAspectRatio="none"
               id="Layer_1"
@@ -148,14 +153,24 @@ export default function AboutUs() {
               <rect y="203" className="st1" width="1920" height="603" />
             </svg>
 
-            <div className="absolute top-32 w-full py-2.5 text-center leading-4 text-white">
-              <div className="container mx-auto space-y-20">
-                <HomeSection>
+            <div className="absolute top-28 w-full py-2.5 text-center leading-4 text-white">
+              <div className="container mx-auto space-y-8">
+                <HomeSection className="space-y-5 text-white">
                   <HomeSectionTitle>
                     Why Choose{' '}
                     <HomeSectionTitleHighlight>Us</HomeSectionTitleHighlight>?
                   </HomeSectionTitle>
-                  <HomeSectionDescription className="w-2/4 leading-6 text-white">
+                  <HomeSectionDescription className="text-white">
+                    <HomeSectionTitleHighlight className="text-xl lg:text-xl">
+                      You
+                    </HomeSectionTitleHighlight>{' '}
+                    can help us create{' '}
+                    <HomeSectionTitleHighlight className="text-xl lg:text-xl">
+                      Social Impact
+                    </HomeSectionTitleHighlight>{' '}
+                    together
+                  </HomeSectionDescription>
+                  <HomeSectionDescription className="leading-6 text-white md:w-4/6">
                     We value sustainability and community empowerment. Through
                     our Corporate Social Responsibility (CSR) initiatives, we
                     collaborate with businesses to repurpose and donate goods,
@@ -165,8 +180,9 @@ export default function AboutUs() {
                     positive change together.
                   </HomeSectionDescription>
                 </HomeSection>
-                <div className="flex items-end justify-evenly">
+                <div className="hidden items-end justify-evenly sm:flex">
                   <svg
+                    className="h-36 w-36 shrink"
                     width="134"
                     height="182"
                     viewBox="0 0 134 182"
@@ -179,6 +195,7 @@ export default function AboutUs() {
                     />
                   </svg>
                   <svg
+                    className="h-36 w-36"
                     width="170"
                     height="149"
                     viewBox="0 0 170 149"
@@ -223,6 +240,7 @@ export default function AboutUs() {
                     />
                   </svg>
                   <svg
+                    className="h-36 w-36"
                     width="168"
                     height="182"
                     viewBox="0 0 168 182"
@@ -266,7 +284,7 @@ export default function AboutUs() {
               Our{' '}
               <HomeSectionTitleHighlight>Operation</HomeSectionTitleHighlight>
             </HomeSectionTitle>
-            <HomeSectionDescription>
+            <HomeSectionDescription className="md:w-4/6">
               We are all over the greater Toronto area, operating a local
               facility designed to ensure that the repackaging of items can
               accommodate same-day return needs.
@@ -274,6 +292,7 @@ export default function AboutUs() {
           </HomeSection>
 
           <svg
+            className="h-56 w-56 flex-shrink fill-current"
             width="340"
             height="334"
             viewBox="0 0 340 334"
@@ -302,5 +321,7 @@ export default function AboutUs() {
     </div>
   )
 }
+
+export default AboutUs
 
 AboutUs.getLayout = getLayout
