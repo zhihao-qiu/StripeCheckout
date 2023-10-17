@@ -1,46 +1,41 @@
+import {
+  type IconDefinition,
+  faInstagram,
+  faYoutube,
+  faXTwitter,
+  faLinkedin,
+  faTiktok,
+  faFacebook,
+} from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
-import { FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa'
+
+type FooterButtonLinkProps = {
+  href: string
+  icon: IconDefinition
+}
+
+function FooterButtonLink({ href, icon }: FooterButtonLinkProps) {
+  return (
+    <li>
+      <Link href={href} target="_blank">
+        <FontAwesomeIcon icon={icon} width={'35'} className="text-primary" />
+      </Link>
+    </li>
+  )
+}
 
 export default function Footer() {
   return (
-    <div className="w-full space-y-5 bg-[#052A42] p-5">
-      <p className=" text-center text-lg text-white">Check Us Out</p>
-      <ul className="mb-4 flex items-center justify-center gap-x-8">
-        <li>
-          <Link
-            href="/"
-            className="flex content-center items-center justify-center"
-          >
-            <FaInstagram size={45} className="text-primary" />
-          </Link>
-        </li>
-
-        <li>
-          <Link
-            href="/"
-            className="flex content-center items-center justify-center"
-          >
-            <FaYoutube size={45} className="text-primary" />
-          </Link>
-        </li>
-
-        <li>
-          <Link
-            href="/"
-            className="flex content-center items-center justify-center"
-          >
-            <FaTwitter size={45} className="text-primary" />
-          </Link>
-        </li>
-
-        <li>
-          <Link
-            href="/"
-            className="flex content-center items-center justify-center"
-          >
-            <FaLinkedin size={45} className="text-primary" />
-          </Link>
-        </li>
+    <div className="w-full space-y-5 bg-brand p-5">
+      <p className="text-center text-lg text-white">Check Us Out</p>
+      <ul className="flew-row grid grid-cols-3 place-content-center place-items-center content-center items-center justify-center gap-2 gap-x-6 xs:flex">
+        <FooterButtonLink icon={faInstagram} href="/" />
+        <FooterButtonLink icon={faYoutube} href="/" />
+        <FooterButtonLink icon={faXTwitter} href="/" />
+        <FooterButtonLink icon={faLinkedin} href="/" />
+        <FooterButtonLink icon={faTiktok} href="/" />
+        <FooterButtonLink icon={faFacebook} href="/" />
       </ul>
     </div>
   )
