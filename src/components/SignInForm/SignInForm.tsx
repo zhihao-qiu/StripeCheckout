@@ -34,8 +34,9 @@ function SignInForm() {
   return (
     <Form {...form}>
       <form
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col items-center justify-start space-y-8"
+        className="mt-2 flex flex-col items-center justify-start"
       >
         <FormField
           control={form.control}
@@ -44,7 +45,7 @@ function SignInForm() {
             <FormItem>
               <FormControl>
                 <Input
-                  className="h-12 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[325px]"
+                  className="my-4 h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[275px]"
                   type="email"
                   placeholder="Email"
                   {...field}
@@ -61,7 +62,7 @@ function SignInForm() {
             <FormItem>
               <FormControl>
                 <Input
-                  className="h-12 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[325px]"
+                  className="my-4 h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[275px]"
                   type="password"
                   placeholder="Password"
                   {...field}
@@ -71,12 +72,15 @@ function SignInForm() {
             </FormItem>
           )}
         />
-        <Link href="/sign-in" className="font-semibold text-grey underline">
+        <Link
+          href="/sign-in"
+          className="mb-5 mt-1 font-semibold text-grey underline"
+        >
           Forgot your password?
         </Link>
         <Button
           type="submit"
-          className="h-10 w-[150px] rounded-3xl text-lg sm:h-12 sm:w-[200px]"
+          className="h-10 w-[150px] rounded-3xl text-lg sm:h-12 sm:w-[150px]"
         >
           Sign In&nbsp;&nbsp;
           <svg

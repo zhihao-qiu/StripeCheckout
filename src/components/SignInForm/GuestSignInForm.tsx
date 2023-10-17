@@ -32,10 +32,11 @@ function GuestSignInForm() {
   return (
     <Form {...form}>
       <form
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col items-center justify-start space-y-8"
       >
-        <div className="mt-14 pb-20 sm:mt-12 sm:pb-24">
+        <div className="mt-14 pb-20 sm:mt-14 sm:pb-20">
           <FormField
             control={form.control}
             name="email"
@@ -43,7 +44,7 @@ function GuestSignInForm() {
               <FormItem>
                 <FormControl>
                   <Input
-                    className="h-12 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[325px]"
+                    className="h-12 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[275px]"
                     type="email"
                     placeholder="Email"
                     {...field}
@@ -56,7 +57,7 @@ function GuestSignInForm() {
         </div>
         <Button
           type="submit"
-          className="h-10 w-[150px] rounded-3xl text-lg sm:h-12 sm:w-[200px]"
+          className="h-10 w-[150px] rounded-3xl text-lg sm:h-12 sm:w-[150px]"
         >
           Next&nbsp;&nbsp;
           <svg
