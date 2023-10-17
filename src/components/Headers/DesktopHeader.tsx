@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '../ui/button'
 import { HeaderContent } from './Header'
-import { useMemo } from 'react'
 
 export type MenuItem = {
   title: string
@@ -31,26 +30,24 @@ const menuItems: MenuItem[] = [
 
 export default function DesktopHeader() {
   const pathname = usePathname()
-  const menuLinksMemo = useMemo(() => {
-    return menuItems.map((menuItem) => {
-      return (
-        <Link
-          key={menuItem.href}
-          href={menuItem.href}
-          className={cn(
-            'text-secondary shrink font-bold drop-shadow-lg',
-            pathname === menuItem.href && 'text-primary'
-          )}
-        >
-          {menuItem.title}
-        </Link>
-      )
-    })
-  }, [pathname])
   return (
     <HeaderContent className="hidden justify-between align-middle md:flex">
       <div className="flex w-full shrink justify-center gap-x-4">
-        {menuLinksMemo}
+        {/* NOTE: This causes a hydration warning message because usePathname is a client component and therefore the class names will be different when rendered on the server. */}
+        {menuItems.map((menuItem) => {
+          return (
+            <Link
+              key={menuItem.href}
+              href={menuItem.href}
+              className={cn(
+                'text-secondary shrink font-bold drop-shadow-lg',
+                pathname === menuItem.href && 'text-primary'
+              )}
+            >
+              {menuItem.title}
+            </Link>
+          )
+        })}
       </div>
       <div className="flex space-x-2 lg:space-x-5">
         <Button variant={'secondary'} className="h-9 w-24">
