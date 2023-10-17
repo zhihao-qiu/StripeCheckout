@@ -67,13 +67,13 @@ export default function MobileMenu() {
           <MobileLink href="/" icon={faCircleInfo}>
             How it Works
           </MobileLink>
-          <MobileLink href="/" icon={faTags}>
+          <MobileLink href="/temp-dashboard" icon={faTags}>
             Pricing
           </MobileLink>
           <MobileLink href="/" icon={faUsers}>
             About Us
           </MobileLink>
-          <MobileLink href="/" icon={faRightToBracket}>
+          <MobileLink href="/sign-in" icon={faRightToBracket}>
             Sign In
           </MobileLink>
           <MobileLink href="/" icon={faTruck}>

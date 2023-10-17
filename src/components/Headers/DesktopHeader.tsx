@@ -16,7 +16,7 @@ const menuItems: MenuItem[] = [
   },
   {
     title: 'Pricing',
-    href: '/pricing',
+    href: '/temp-dashboard',
   },
   {
     title: 'About Us',
@@ -50,8 +50,8 @@ export default function DesktopHeader() {
         })}
       </div>
       <div className="flex space-x-2 lg:space-x-5">
-        <Button variant={'secondary'} className="h-9 w-24">
-          Sign In
+        <Button asChild variant={'secondary'} className="h-9 w-24">
+          <Link href="/sign-in">Sign In</Link>
         </Button>
         <Button className="h-9 w-36">Schedule Pickup</Button>
       </div>

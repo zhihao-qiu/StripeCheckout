@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Plan from './Plan'
 import { RadioGroup } from '@/components/ui/radio-group'
 import { Button } from './ui/button'
+import Link from 'next/link'
 
 const planData = [
   {
@@ -48,7 +49,7 @@ export default function ChoosePlan() {
   return (
     <div className="flex min-h-screen w-screen flex-col items-center justify-start bg-paleBlue p-10">
       <RadioGroup className="flex w-full flex-wrap justify-center gap-8">
-        {planData.map(plan => {
+        {planData.map((plan) => {
           const status = !selectedPlanName
             ? 'normal'
             : selectedPlanName === plan.name
@@ -65,26 +66,28 @@ export default function ChoosePlan() {
         })}
       </RadioGroup>
       <div className="mt-8 flex w-10/12 justify-between">
-        <button
-          type="button"
-          className="flex items-center bg-transparent text-base font-semibold text-primary sm:bottom-[80px] sm:left-[10%] sm:text-xl"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="h-4 w-4"
+        <Link href="/">
+          <button
+            type="button"
+            className="flex items-center bg-transparent text-base font-semibold text-primary sm:bottom-[80px] sm:left-[10%] sm:text-xl"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-            />
-          </svg>
-          <span>&nbsp;Back</span>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="h-4 w-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+              />
+            </svg>
+            <span>&nbsp;Back</span>
+          </button>
+        </Link>
         <Button
           type="button"
           className="h-10 w-[100px] rounded-3xl text-lg sm:h-10 sm:w-[125px]"
