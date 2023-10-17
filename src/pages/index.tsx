@@ -2,9 +2,9 @@ import React from 'react'
 import Image from 'next/image'
 import {
   HomeSection,
-  HomeSectionDescription,
-  HomeSectionTitle,
-  HomeSectionTitleHighlight,
+  SectionDescription,
+  SectionHeader,
+  SectionHeaderHighlight,
 } from '@/components/home/Home'
 import { getLayout } from '@/layouts/DefaultLayout'
 import { Button } from '@/components/ui/button'
@@ -21,15 +21,15 @@ function Home() {
         <div className="w-full space-y-8 px-4 sm:px-3 xl:space-y-12">
           <section className="flex gap-8">
             <HomeSection className="flex-1">
-              <HomeSectionTitle className="font-medium">
+              <SectionHeader className="font-medium">
                 Return Your Package The{' '}
-                <HomeSectionTitleHighlight>Easy Way</HomeSectionTitleHighlight>
-              </HomeSectionTitle>
-              <HomeSectionDescription className="px-10 text-start text-sm sm:text-base md:px-0 lg:text-lg">
+                <SectionHeaderHighlight>Easy Way</SectionHeaderHighlight>
+              </SectionHeader>
+              <SectionDescription className="px-10 text-start text-sm sm:text-base md:px-0 lg:text-lg">
                 We handle returns of purchases from all online retailers. No
                 need for printing labels, packaging, or visits to the post
                 office.
-              </HomeSectionDescription>
+              </SectionDescription>
               <Button className="  self-stretch md:self-start">
                 Schedule a Pickup Now
               </Button>
