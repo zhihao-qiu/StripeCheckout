@@ -4,7 +4,17 @@ import { RadioGroup } from '@/components/ui/radio-group'
 import { Button } from './ui/button'
 import Link from 'next/link'
 
-const planData = [
+export type PlanDataType = {
+  name: string
+  price: number
+  period: string
+  total: string
+  duration: string
+  speed: string
+  support: string
+}
+
+const planData: PlanDataType[] = [
   {
     name: 'Bronze',
     price: 1099,

@@ -15,8 +15,16 @@ import { Separator } from '@/components/ui/separator'
 import { Label } from '@/components/ui/label'
 import { RadioGroupItem } from '@/components/ui/radio-group'
 import Stamp from './Stamp'
+import { type PlanDataType } from './ChoosePlan'
+import { type Dispatch, type SetStateAction } from 'react'
 
-export default function Plan({ plan, status, setSelectedPlanName }) {
+type PlanProps = {
+  plan: PlanDataType
+  status: 'normal' | 'selected' | 'unselected'
+  setSelectedPlanName: Dispatch<SetStateAction<string>>
+}
+
+export default function Plan({ plan, status, setSelectedPlanName }: PlanProps) {
   const formatUnselected = status === 'unselected' ? 'opacity-50' : ''
   const formatSelected =
     status === 'selected' ? 'border-[6px] border-primary shadow-xl' : ''
