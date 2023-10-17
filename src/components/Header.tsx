@@ -3,8 +3,8 @@ import { HeaderRoot, HeaderSub } from '@components/Headers/Header'
 import MobileMenu from '@components/Headers/MobileHeader'
 import DesktopHeader from '@components/Headers/DesktopHeader'
 
-import Logo from '@components/icon/Logo'
-import ReturnPalTitle from '@components/icon/ReturnPalTitle'
+import Logo from '@/components/SvgComponents/Logo'
+import ReturnPalTitle from '@/components/SvgComponents/ReturnPalTitle'
 
 export default function Header() {
   return (

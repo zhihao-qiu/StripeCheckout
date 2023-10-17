@@ -17,12 +17,12 @@ import { getLayout } from '@/layouts/DefaultLayout'
 import hasanFounderImage from '@images/Hasan-cropped_founder.jpg'
 import mohammedFounderImage from '@images/Mohammed-cropped_founder.jpg'
 
-import Earth from '@/components/svg/Earth'
-import People from '@/components/svg/People'
-import Hands from '@/components/svg/Hands'
-import Toronto from '@/components/svg/Toronto'
-import OurFoundersBackground from '@/components/svg/OurFoundersBackground'
-import WhyChooseUsBackground from '@/components/svg/WhyChooseUsBackground'
+import Earth from '@/components/SvgComponents/Earth'
+import People from '@/components/SvgComponents/People'
+import Hands from '@/components/SvgComponents/Hands'
+import Toronto from '@/components/SvgComponents/Toronto'
+import OurFoundersBackground from '@/components/SvgComponents/OurFoundersBackground'
+import WhyChooseUsBackground from '@/components/SvgComponents/WhyChooseUsBackground'
 
 export default function AboutUs() {
   return (

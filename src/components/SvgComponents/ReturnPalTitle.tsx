@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { type IconType } from './types'
+import { type IconType } from '../icon/types'
 
 export default function ReturnPalTitle({ className, ...rest }: IconType) {
   return (
