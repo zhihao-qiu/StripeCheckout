@@ -9,7 +9,7 @@ const HeaderRoot = React.forwardRef<
   <header
     ref={ref}
     className={cn(
-      'sticky top-0 z-50 flex h-24 w-screen border-b border-white bg-white px-9 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]',
+      'sticky top-0 z-50 flex w-screen border-b border-white bg-white px-9 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]',
       className
     )}
     {...props}
@@ -23,7 +23,7 @@ const HeaderSub = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('flex w-full items-center', className)}
+    className={cn('flex h-24 w-full items-center', className)}
     {...props}
   />
 ))
