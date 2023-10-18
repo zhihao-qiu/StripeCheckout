@@ -17,6 +17,7 @@ import React from 'react'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import { getLayout } from '@/layouts/ReturnProcessLayout'
 import Head from 'next/head'
+import { Button } from '@/components/ui/button'
 
 // TODO: Change type to just accept a full date instead of having 2 props for day number and actual name date
 type PickCardType = React.HTMLAttributes<HTMLDivElement> & {
@@ -158,6 +159,15 @@ export default function PickDate() {
               <p className="text-xl">Last Week</p>
             </div>
           </div>
+        </div>
+
+        <div className="flex w-full flex-row-reverse">
+          {/* TODO: Move this into separate component */}
+          <Link href="/address">
+            <Button className="rounded-full" size={'lg'}>
+              Next
+            </Button>
+          </Link>
         </div>
       </div>
     </>

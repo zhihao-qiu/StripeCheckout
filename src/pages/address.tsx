@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator'
 import { Label } from '@/components/ui/label'
 import Router from 'next/router'
 import { useToast } from '@/components/ui/use-toast'
+import Link from 'next/link'
 
 function Address() {
   const [addresses, setAddresses] = useState<
@@ -237,16 +238,21 @@ function Address() {
           </form>
         )}
         <span className="mt-5 flex justify-between">
-          <Button className="bg-transparent font-bold text-primary hover:bg-transparent ">
-            ← Back{' '}
-          </Button>
-          <Button
-            className="next font-bold text-white"
-            onClick={handleAddressSelection}
-          >
-            {' '}
-            Next →{' '}
-          </Button>
+          <Link href="/pick-date">
+            <Button className="bg-transparent font-bold text-primary hover:bg-transparent ">
+              ← Back{' '}
+            </Button>
+          </Link>
+          {/* TODO: Validate form - This link is only here for viewing purposes! Will be changed later */}
+          <Link href="/pickup">
+            <Button
+              className="next font-bold text-white"
+              //onClick={handleAddressSelection}
+            >
+              {' '}
+              Next →{' '}
+            </Button>
+          </Link>
         </span>
       </div>
 

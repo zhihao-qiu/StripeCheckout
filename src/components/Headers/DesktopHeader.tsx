@@ -20,14 +20,6 @@ const menuItems: MenuItem[] = [
     href: '/temp-dashboard',
   },
   {
-    title: 'Manage Addresses',
-    href: '/address',
-  },
-  {
-    title: 'Choose Pickup Method',
-    href: '/pickup',
-  },
-  {
     title: 'About Us',
     href: '/about',
   },
@@ -63,7 +55,9 @@ export default function DesktopHeader() {
           <Link href="/sign-in">Sign In</Link> */}
         <SigninModal headerType="desktop" />
         {/* </Button> */}
-        <Button className="h-9 w-36">Schedule Pickup</Button>
+        <Link href="/pick-date">
+          <Button className="h-9 w-36">Schedule Pickup</Button>
+        </Link>
       </div>
     </HeaderContent>
   )

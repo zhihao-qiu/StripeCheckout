@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { Input } from '@/components/ui/input'
 import Router from 'next/router'
 import { Label } from '@/components/ui/label'
+import Link from 'next/link'
 
 function Pickup() {
   const [selectedMethod, setSelectedMethod] = useState('')
@@ -153,19 +154,26 @@ function Pickup() {
       </form>
 
       <span className="mt-5 flex justify-between">
-        <Button
-          className="bg-transparent font-bold text-primary hover:bg-transparent"
-          onClick={() => void Router.push('/address')}
-        >
-          ← Back{' '}
-        </Button>
-        <Button
+        <Link href="/address">
+          <Button
+            className="bg-transparent font-bold text-primary hover:bg-transparent"
+            // onClick={() => void Router.push('/address')}
+          >
+            ← Back{' '}
+          </Button>
+        </Link>
+        <Link href="/temp-dashboard">
+          <Button className="rounded-full" size={'lg'}>
+            Next
+          </Button>
+        </Link>
+        {/* <Button
           className="next font-bold text-white"
           onClick={() => console.log(3)}
         >
           {' '}
           Next →{' '}
-        </Button>
+        </Button> */}
       </span>
     </div>
   )

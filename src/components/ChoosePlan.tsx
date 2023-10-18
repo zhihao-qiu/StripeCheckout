@@ -78,7 +78,7 @@ export default function ChoosePlan() {
         })}
       </RadioGroup>
       <div className="mt-8 flex w-10/12 items-center justify-between">
-        <Link href="/">
+        <Link href="/pickup">
           <button
             type="button"
             className="flex items-center bg-transparent text-base font-semibold text-primary sm:bottom-[80px] sm:left-[10%] sm:text-xl"
@@ -98,13 +98,15 @@ export default function ChoosePlan() {
           </button>
         </Link>
         {/* Next button blue in desktop view */}
-        <Button
-          type="button"
-          className="hidden rounded-3xl text-lg sm:inline-flex sm:h-10 sm:w-[125px]"
-        >
-          Next&nbsp;&nbsp;
-          <NextArrow />
-        </Button>
+        <Link href="/">
+          <Button
+            type="button"
+            className="hidden rounded-3xl text-lg sm:inline-flex sm:h-10 sm:w-[125px]"
+          >
+            Next&nbsp;&nbsp;
+            <NextArrow />
+          </Button>
+        </Link>
       </div>
     </div>
   )
