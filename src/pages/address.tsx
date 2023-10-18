@@ -95,6 +95,7 @@ function Address() {
   }
   useEffect(() => {
     setAddresses(mockAddresses)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const addNewAddress = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -263,7 +264,7 @@ function Address() {
                   onChange={handleRadioChange} />
               </div>
             </div>
-            
+
             <div className="justify-center border-4 border-brand rounded-[12px] mx-4 py-2 px-4 max-w-[40%]">
               <div className="flex justify-center text-smallText font-bold ">
                 Leave on Doorstep </div>

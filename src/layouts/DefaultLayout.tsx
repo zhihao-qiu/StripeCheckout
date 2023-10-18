@@ -8,16 +8,23 @@ const nunito = Nunito({
   subsets: ['latin'],
 })
 
-export default function DefaultLayout({ children }: PropsWithChildren) {
+export default function DefaultLayout({
+  children,
+  isHeaderShow = true,
+  isFooterShow = true,
+}: PropsWithChildren & {
+  isHeaderShow?: boolean
+  isFooterShow?: boolean
+}) {
   return (
     <>
       <div
         className={`flex h-[100dvh] overflow-hidden ${nunito.className} bg-paleBlue`}
       >
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-          <Header />
+          {isHeaderShow ? <Header /> : null}
           <main className="grow">{children}</main>
-          <Footer />
+          {isFooterShow ? <Footer /> : null}
         </div>
       </div>
     </>

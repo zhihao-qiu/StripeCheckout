@@ -1,7 +1,7 @@
 import React from 'react'
 import ContactForm from '@/components/ContactForm/ContactForm'
 import Image from 'next/image'
-import { getLayout } from '@/layouts/DefaultLayout'
+import DefaultLayout from '@/layouts/DefaultLayout'
 
 function Contact() {
   return (
@@ -35,6 +35,12 @@ function Contact() {
     </>
   )
 }
-Contact.getLayout = getLayout
+Contact.getLayout = (page: React.ReactElement) => {
+  return (
+    <DefaultLayout isHeaderShow={true} isFooterShow={false}>
+      {page}
+    </DefaultLayout>
+  )
+}
 
 export default Contact
