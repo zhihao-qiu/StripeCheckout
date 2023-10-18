@@ -20,6 +20,14 @@ const menuItems: MenuItem[] = [
     href: '/temp-dashboard',
   },
   {
+    title: 'Manage Addresses',
+    href: '/address',
+  },
+  {
+    title: 'Choose Pickup Method',
+    href: '/pickup',
+  },
+  {
     title: 'About Us',
     href: '/about',
   },
