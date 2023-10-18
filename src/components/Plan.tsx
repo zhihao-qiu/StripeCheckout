@@ -14,7 +14,7 @@ import { Check } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { Label } from '@/components/ui/label'
 import { RadioGroupItem } from '@/components/ui/radio-group'
-import Stamp from './Stamp'
+import Stamp from './SvgComponents/Stamp'
 import { type PlanDataType } from './ChoosePlan'
 import { type Dispatch, type SetStateAction } from 'react'
 
@@ -31,7 +31,7 @@ export default function Plan({ plan, status, setSelectedPlanName }: PlanProps) {
 
   return (
     <Card
-      className={`min-w-72 flex h-[450px] w-[275px] flex-col items-center justify-start rounded-2xl border-2 border-brand bg-white text-brand ${formatUnselected} ${formatSelected}`}
+      className={`min-w-72 flex h-[450px] w-[275px] scale-90 flex-col items-center justify-start rounded-2xl border-2 border-brand bg-white text-brand sm:scale-100 ${formatUnselected} ${formatSelected}`}
       onClick={() => setSelectedPlanName(plan.name)}
     >
       <CardHeader className="pb-3">
