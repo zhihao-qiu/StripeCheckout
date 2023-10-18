@@ -2,10 +2,10 @@ import Image from 'next/image'
 import SignInForm from '@/components/SignInForm/SignInForm'
 import GuestSignInForm from '@/components/SignInForm/GuestSignInForm'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
-import { MobileLink } from '@/components/Headers/MobileHeader'
 
 function SigninModal({
   headerType = 'desktop',
@@ -20,9 +20,15 @@ function SigninModal({
             Sign In
           </Button>
         ) : (
-          <MobileLink href="/sign-in" icon={faRightToBracket}>
-            Sign In
-          </MobileLink>
+          <Button
+            variant="link"
+            className="text-secondary h-fit p-0 text-base hover:text-primary hover:no-underline"
+          >
+            <p className="flex gap-x-2">
+              <FontAwesomeIcon icon={faRightToBracket} width={'17'} />
+              Sign In
+            </p>
+          </Button>
         )}
       </DialogTrigger>
       <DialogContent className="m-0 flex h-3/4 flex-col flex-nowrap items-center justify-start gap-0 bg-paleBlue p-0">

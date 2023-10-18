@@ -30,7 +30,10 @@ type MobileViewType = PropsWithChildren & {
 export function MobileLink({ href, icon, children }: MobileViewType) {
   return (
     <SheetClose asChild>
-      <Link href={href} className="text-secondary hover:text-primary">
+      <Link
+        href={href}
+        className="text-secondary hover:text-primary active:scale-95"
+      >
         <p className="flex gap-x-2">
           <FontAwesomeIcon icon={icon} width={'17'} />
           {children}
