@@ -9,6 +9,7 @@ import { apolloClient } from '@/lib/graphql'
 
 import Head from 'next/head'
 import '@/styles/globals.css'
+import { Nunito } from 'next/font/google'
 
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -17,6 +18,11 @@ export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
+
+const nunito = Nunito({
+  weight: ['400', '500', '700', '900'],
+  subsets: ['latin'],
+})
 
 const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page)
@@ -28,8 +34,10 @@ const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {layout}
-      <Toaster />
+      <div className={`${nunito.className}`}>
+        {layout}
+        <Toaster />
+      </div>
     </ApolloProvider>
   )
 }

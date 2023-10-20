@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import Plan from './Plan'
 import { RadioGroup } from '@/components/ui/radio-group'
-import { Button } from './ui/button'
 import Link from 'next/link'
-import BackArrow from './SvgComponents/BackArrow'
-import NextArrow from './SvgComponents/NextArrow'
+import { ReturnProcessBackButton, ReturnProcessNextButton } from './ui/common'
 
 export type PlanDataType = {
   name: string
@@ -79,26 +77,34 @@ export default function ChoosePlan() {
       </RadioGroup>
       <div className="mt-8 flex w-10/12 items-center justify-between">
         <Link href="/pickup">
-          <button
+          <ReturnProcessBackButton />
+          {/* <button
             type="button"
             className="flex items-center bg-transparent text-base font-semibold text-primary sm:bottom-[80px] sm:left-[10%] sm:text-xl"
           >
             <BackArrow />
             <span>&nbsp;Back</span>
-          </button>
+          </button> */}
         </Link>
         {/* Next button transparent in mobile view */}
         <Link href="/">
-          <button
+          {/* <Link href="/address">
+          <ReturnProcessBackButton />
+        </Link>
+        <Link href="/temp-dashboard">
+          <ReturnProcessNextButton />
+        </Link> */}
+          <ReturnProcessNextButton />
+          {/* <button
             type="button"
             className="flex items-center bg-transparent text-base font-semibold text-primary sm:bottom-[80px] sm:left-[10%] sm:hidden sm:text-xl"
           >
             <span>Next&nbsp;</span>
             <NextArrow />
-          </button>
+          </button> */}
         </Link>
         {/* Next button blue in desktop view */}
-        <Link href="/">
+        {/* <Link href="/">
           <Button
             type="button"
             className="hidden rounded-3xl text-lg sm:inline-flex sm:h-10 sm:w-[125px]"
@@ -106,7 +112,7 @@ export default function ChoosePlan() {
             Next&nbsp;&nbsp;
             <NextArrow />
           </Button>
-        </Link>
+        </Link> */}
       </div>
     </div>
   )
