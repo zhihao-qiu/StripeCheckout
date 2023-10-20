@@ -9,6 +9,10 @@ import { Label } from '@/components/ui/label'
 import Router from 'next/router'
 import { useToast } from '@/components/ui/use-toast'
 import Link from 'next/link'
+import {
+  ReturnProcessBackButton,
+  ReturnProcessNextButton,
+} from '@/components/ui/common'
 
 function Address() {
   const [addresses, setAddresses] = useState<
@@ -239,19 +243,13 @@ function Address() {
         )}
         <span className="mt-5 flex justify-between">
           <Link href="/pick-date">
-            <Button className="bg-transparent font-bold text-primary hover:bg-transparent ">
-              ← Back{' '}
-            </Button>
+            <ReturnProcessBackButton />
           </Link>
           {/* TODO: Validate form - This link is only here for viewing purposes! Will be changed later */}
           <Link href="/pickup">
-            <Button
-              className="next font-bold text-white"
-              //onClick={handleAddressSelection}
-            >
-              {' '}
-              Next →{' '}
-            </Button>
+            <ReturnProcessNextButton
+            // onClick={handleAddressSelection}
+            />
           </Link>
         </span>
       </div>

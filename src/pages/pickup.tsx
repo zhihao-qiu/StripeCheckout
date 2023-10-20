@@ -1,11 +1,13 @@
 import React from 'react'
 import { getLayout } from '@/layouts/DefaultLayout'
-import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
 import { Input } from '@/components/ui/input'
-import Router from 'next/router'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
+import {
+  ReturnProcessBackButton,
+  ReturnProcessNextButton,
+} from '@/components/ui/common'
 
 function Pickup() {
   const [selectedMethod, setSelectedMethod] = useState('')
@@ -155,25 +157,11 @@ function Pickup() {
 
       <span className="mt-5 flex justify-between">
         <Link href="/address">
-          <Button
-            className="bg-transparent font-bold text-primary hover:bg-transparent"
-            // onClick={() => void Router.push('/address')}
-          >
-            ← Back{' '}
-          </Button>
+          <ReturnProcessBackButton />
         </Link>
         <Link href="/temp-dashboard">
-          <Button className="rounded-full" size={'lg'}>
-            Next
-          </Button>
+          <ReturnProcessNextButton />
         </Link>
-        {/* <Button
-          className="next font-bold text-white"
-          onClick={() => console.log(3)}
-        >
-          {' '}
-          Next →{' '}
-        </Button> */}
       </span>
     </div>
   )
