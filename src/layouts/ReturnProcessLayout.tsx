@@ -3,7 +3,6 @@ import ReturnProcessHeader from '@/components/Headers/ReturnProcess/ReturnProces
 import ReturnProcessContextProvider from '@/context/ReturnProcessContext'
 
 export default function ReturnProcessLayout({ children }: PropsWithChildren) {
-  // TODO: ${nunito.className} - Move this into _app?
   return (
     <ReturnProcessContextProvider>
       <div className={`flex h-[100dvh] overflow-hidden bg-paleBlue`}>

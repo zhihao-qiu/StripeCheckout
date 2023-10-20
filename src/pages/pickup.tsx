@@ -1,5 +1,4 @@
 import React from 'react'
-import { getLayout } from '@/layouts/DefaultLayout'
 import { useState, useEffect } from 'react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -8,6 +7,7 @@ import {
   ReturnProcessBackButton,
   ReturnProcessNextButton,
 } from '@/components/ui/common'
+import { getLayout } from '@/layouts/ReturnProcessLayout'
 
 function Pickup() {
   const [selectedMethod, setSelectedMethod] = useState('')

@@ -1,5 +1,4 @@
 import React from 'react'
-import { getLayout } from '@/layouts/DefaultLayout'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
 import { z } from 'zod'
@@ -13,8 +12,9 @@ import {
   ReturnProcessBackButton,
   ReturnProcessNextButton,
 } from '@/components/ui/common'
+import { getLayout } from '@/layouts/ReturnProcessLayout'
 
-function Address() {
+export default function Address() {
   const [addresses, setAddresses] = useState<
     { name: string; address: string; default: boolean }[]
   >([])
@@ -290,6 +290,5 @@ function Address() {
     </div>
   )
 }
-Address.getLayout = getLayout
 
-export default Address
+Address.getLayout = getLayout
