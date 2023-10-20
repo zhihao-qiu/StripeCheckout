@@ -2,11 +2,12 @@ import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 type DashBoardHeaderProps = {
-  username: string
+  firstName: string
+  lastName: string
   email: string
 }
 
-function DashBoardHeader({ username, email }: DashBoardHeaderProps) {
+function DashBoardHeader({ firstName, lastName, email }: DashBoardHeaderProps) {
   return (
     <div className="relative h-[25vh] w-full bg-[url('/images/returnpal-gta.webp')]  bg-cover bg-center text-title text-white">
       <div className="absolute h-full w-full backdrop-blur-sm"></div>
@@ -15,9 +16,11 @@ function DashBoardHeader({ username, email }: DashBoardHeaderProps) {
           <AvatarImage
             src={`https://robohash.org/${email}.png?set=set5&size=100x100`}
           />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>RP</AvatarFallback>
         </Avatar>
-        <span>{username}</span>
+        <span>
+          {firstName} {lastName}
+        </span>
       </div>
     </div>
   )
