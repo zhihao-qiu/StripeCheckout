@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 import { cn } from '@/lib/utils'
 import React from 'react'
+import ReturnPalTitle from '../SvgComponents/ReturnPalTitle'
+import Logo from '../SvgComponents/Logo'
+import { type IconType } from '../SvgComponents/types'
 
 const HeaderRoot = React.forwardRef<
   HTMLHeadElement,
@@ -29,6 +32,34 @@ const HeaderSub = React.forwardRef<
 ))
 HeaderSub.displayName = 'HeaderSub'
 
+const HeaderLogoRoot = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn('flex items-center space-x-2', className)}
+    {...props}
+  />
+))
+HeaderLogoRoot.displayName = 'HeaderLogoRoot'
+
+const HeaderLogoTitle = ({ className, ...props }: IconType) => (
+  <ReturnPalTitle
+    className={cn('hidden h-10 w-40 fill-white lg:flex', className)}
+    {...props}
+  />
+)
+HeaderLogoTitle.displayName = 'HeaderLogoTitle'
+
+const HeaderLogoImage = ({ className, ...props }: IconType) => (
+  <Logo
+    className={cn('hidden h-7 w-7 shrink-0 fill-primary sm:flex', className)}
+    {...props}
+  />
+)
+HeaderLogoImage.displayName = 'HeaderLogoImage'
+
 const HeaderContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -41,4 +72,11 @@ const HeaderContent = React.forwardRef<
 ))
 HeaderContent.displayName = 'HeaderContent'
 
-export { HeaderRoot, HeaderSub, HeaderContent }
+export {
+  HeaderRoot,
+  HeaderSub,
+  HeaderLogoRoot,
+  HeaderLogoTitle,
+  HeaderLogoImage,
+  HeaderContent,
+}
