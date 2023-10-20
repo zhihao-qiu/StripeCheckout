@@ -1,7 +1,6 @@
 import FastTruck from '@/components/SvgComponents/FastTruck'
 import { Button } from '@/components/ui/button'
 import { getLayout } from '@/layouts/ReturnProcessLayout'
-import { link } from 'fs'
 import { X } from 'lucide-react'
 import Link from 'next/link'
 
