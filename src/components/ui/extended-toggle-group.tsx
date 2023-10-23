@@ -181,7 +181,7 @@ ExtendedToggleGroup.displayName = TOGGLE_GROUP_NAME
 
 type ToggleGroupContextValue = {
   firstSelected: boolean
-  onFirstSelectedValueChange: void
+  onFirstSelectedValueChange(value: boolean): void
   rovingFocus: boolean
   disabled: boolean
 }
@@ -244,6 +244,10 @@ const ToggleGroupImpl = React.forwardRef<
   useEffect(() => {
     if (!value) {
       setValue(context.value.length !== 0)
+    } else {
+      if(context.value.length === 0) {
+        setValue(false)
+      }
     }
   }, [context.value])
 
@@ -357,7 +361,7 @@ const ToggleGroupItemImpl = React.forwardRef<
         if (pressed) {
           valueContext.onItemActivate(value)
         } else {
-          // valueContext.onItemDeactivate(value);
+          valueContext.onItemDeactivate(value);
         }
       }}
     />
