@@ -231,8 +231,6 @@ const ToggleGroupImpl = React.forwardRef<
     TOGGLE_GROUP_NAME,
     props.__scopeToggleGroup
   )
-  // const [firstSelectedValue, setFirstSelectedValue] = useState(firstSelected)
-
   const [value = false, setValue] = useControllableState({
     prop: firstSelected,
     defaultProp: false,
@@ -312,8 +310,7 @@ const ExtendedToggleGroupItem = React.forwardRef<
   return context.rovingFocus ? (
     <RovingFocusGroup.Item
       asChild
-      // data-state={!context.firstSelected ? "uni" : pressed ? 'on' : 'off'}
-      data-state={context.firstSelected ? pressed ? 'on' : 'off' : "uni"}
+      data-state={context.firstSelected ? pressed ? 'on' : 'off' : "unselected"}
       {...rovingFocusGroupScope}
       focusable={!disabled}
       active={pressed}
