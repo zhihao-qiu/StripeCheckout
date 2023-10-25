@@ -5,7 +5,7 @@ import {
   SectionHeaderHighlight,
 } from '@/components/home/Home'
 import { Card, CardContent } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import { cn, getDayName } from '@/lib/utils'
 import {
   faChevronLeft,
   faChevronRight,
@@ -18,19 +18,16 @@ import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import { getLayout } from '@/layouts/ReturnProcessLayout'
 import Head from 'next/head'
 import { ReturnProcessNextButton } from '@/components/ui/common'
+import { useDateSelection } from '@/hooks/useDateSelection'
 
-// TODO: Change type to just accept a full date instead of having 2 props for day number and actual name date
 type PickCardType = React.HTMLAttributes<HTMLDivElement> & {
-  dayNum: number
-  day: string
-  selected?: boolean
+  date: Date
 }
-
 // TODO: Selecting a card moves all the other cards down, make sure only the selected card grows and the other ones don't move
 
 const PickDateCard = React.forwardRef<HTMLDivElement, PickCardType>(
   // eslint-disable-next-line react/prop-types
-  ({ day, dayNum, className, ...props }, ref) => {
+  ({ date, className, ...props }, ref) => {
     return (
       <Card
         className={cn(
@@ -41,9 +38,13 @@ const PickDateCard = React.forwardRef<HTMLDivElement, PickCardType>(
         {...props}
       >
         <CardContent className="flex flex-col items-center space-y-4 pt-6">
-          <p className="text-2xl font-semibold">Sep</p>
-          <p className="text-5xl font-bold">{dayNum}</p>
-          <p className="text-2xl font-semibold">{day}</p>
+          <p className="text-2xl font-semibold">
+            {getDayName(date.getDay())?.substring(0, 3)}
+          </p>
+          <p className="text-5xl font-bold">{date.getDate()}</p>
+          <p className="flex text-lg font-semibold">
+            {date.toLocaleString('en-us', { month: 'short', year: 'numeric' })}
+          </p>
         </CardContent>
       </Card>
     )
@@ -52,6 +53,17 @@ const PickDateCard = React.forwardRef<HTMLDivElement, PickCardType>(
 PickDateCard.displayName = 'PickDateCard'
 
 export default function PickDate() {
+  const dateSelection = useDateSelection(new Date())
+
+  // TODO: These functions are temporary until we move these into Back/Forward button components
+  function nextWeek() {
+    dateSelection.forward()
+  }
+
+  function lastWeek() {
+    dateSelection.back()
+  }
+
   return (
     <>
       <Head>
@@ -84,35 +96,45 @@ export default function PickDate() {
         <div className="flex-row justify-center gap-x-4 space-y-11">
           {/* <div className="flex  items-center justify-center space-y-4 text-center font-semibold text-brand"> */}
           <div className="flex justify-center gap-x-11 xl:hidden">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center font-semibold text-brand hover:cursor-pointer hover:text-primary">
+            <div
+              // className="flex select-none flex-col items-center justify-center space-y-4 text-center font-semibold text-brand hover:cursor-pointer hover:text-primary"
+              className="flex select-none flex-col items-center justify-center space-y-4 text-center font-semibold text-gray-600 hover:cursor-not-allowed"
+              onClick={() => lastWeek()}
+            >
               <FontAwesomeIcon
                 size="2x"
                 width={'50'}
                 height={'60'}
                 icon={faChevronLeft}
               />
-              <p className="text-2xl">Last Week</p>
+              <p className="select-none text-2xl ">Last Week1</p>
             </div>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center font-semibold text-brand hover:cursor-pointer hover:text-primary">
+            <div
+              className="flex flex-col items-center justify-center space-y-4 text-center font-semibold text-brand hover:cursor-pointer hover:text-primary"
+              onClick={() => nextWeek()}
+            >
               <FontAwesomeIcon
                 size="2x"
                 width={'50'}
                 height={'60'}
                 icon={faChevronRight}
               />
-              <p className="text-2xl">Last Week</p>
+              <p className="text-2xl">Next Week1</p>
             </div>
           </div>
 
           <div className="flex">
-            <div className="hidden w-fit flex-col items-center justify-center space-y-4 text-center font-semibold text-brand hover:cursor-pointer hover:text-primary xl:flex">
+            <div
+              className="hidden w-fit select-none flex-col items-center justify-center space-y-4 text-center font-semibold text-brand hover:cursor-pointer hover:text-primary xl:flex"
+              onClick={() => lastWeek()}
+            >
               <FontAwesomeIcon
                 size="2x"
                 width={'30'}
                 height={'45'}
                 icon={faChevronLeft}
               />
-              <p className="text-xl">Last Week</p>
+              <p className="text-xl">Last Week2</p>
             </div>
             <ToggleGroup.Root
               type="single"
@@ -121,42 +143,29 @@ export default function PickDate() {
                 console.log('New value: ', s)
               }}
             >
-              <ToggleGroup.Item value="fri-22" asChild>
-                <PickDateCard dayNum={22} day="Fri" />
-              </ToggleGroup.Item>
-
-              <ToggleGroup.Item value="sat-23" asChild>
-                <PickDateCard dayNum={23} day="Sat" />
-              </ToggleGroup.Item>
-
-              <ToggleGroup.Item value="sun-24" asChild>
-                <PickDateCard dayNum={24} day="Sun" />
-              </ToggleGroup.Item>
-
-              <ToggleGroup.Item value="mon-25" asChild>
-                <PickDateCard dayNum={25} day="Mon" />
-              </ToggleGroup.Item>
-
-              <ToggleGroup.Item value="tue-26" asChild>
-                <PickDateCard dayNum={26} day="Tue" />
-              </ToggleGroup.Item>
-
-              <ToggleGroup.Item value="wed-27" asChild>
-                <PickDateCard dayNum={27} day="Wed" />
-              </ToggleGroup.Item>
-
-              <ToggleGroup.Item value="thu-28" asChild>
-                <PickDateCard dayNum={28} day="Thu" />
-              </ToggleGroup.Item>
+              {dateSelection.getCurrentDays.map((date) => {
+                return (
+                  <ToggleGroup.Item
+                    key={date.getDate()}
+                    value={`${date.getDate()}-${date.getMonth()}`}
+                    asChild
+                  >
+                    <PickDateCard date={date} />
+                  </ToggleGroup.Item>
+                )
+              })}
             </ToggleGroup.Root>
-            <div className="hidden w-fit flex-col items-center justify-center space-y-4 text-center font-semibold text-brand hover:cursor-pointer hover:text-primary xl:flex">
+            <div
+              className="hidden w-fit flex-col items-center justify-center space-y-4 text-center font-semibold text-brand hover:cursor-pointer hover:text-primary xl:flex"
+              onClick={() => nextWeek()}
+            >
               <FontAwesomeIcon
                 size="2x"
                 width={'30'}
                 height={'45'}
                 icon={faChevronRight}
               />
-              <p className="text-xl">Last Week</p>
+              <p className="select-none text-xl">Next Week2</p>
             </div>
           </div>
         </div>
