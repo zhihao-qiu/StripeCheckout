@@ -69,7 +69,10 @@ function Home() {
           </section>
         </div>
       </div>
-      <PartnerBanner />
+      <div className="carousel-container min-w-screen relative mx-0 flex overflow-hidden whitespace-nowrap bg-[#008BE7] px-0 py-0 before:w-[25px] after:w-[25px] sm:before:w-[75px] sm:after:w-[75px] md:before:w-[150px] md:after:w-[150px]">
+        <PartnerBanner />
+        <PartnerBanner />
+      </div>
       <div className="container mx-auto flex max-w-5xl pb-16 pt-12 md:pt-20 xl:max-w-7xl">
         <div className="w-full space-y-8 px-4 sm:px-3 xl:space-y-12">
           <section className="flex flex-col items-center gap-8">
@@ -91,7 +94,10 @@ function Home() {
           </section>
         </div>
       </div>
-      <CourierBanner />
+      <div className="delivery-container min-w-screen relative mx-0 flex overflow-hidden whitespace-nowrap bg-[#FFFFFF] px-0 py-0 before:w-[25px] after:w-[25px] sm:before:w-[75px] sm:after:w-[75px] md:before:w-[150px] md:after:w-[150px]">
+        <CourierBanner />
+        <CourierBanner />
+      </div>
       <section className=" flex h-[75rem] w-full flex-col items-center justify-around space-y-10 bg-brand">
         <h3 className="mb-10 text-center text-largeText text-white md:text-subtitle xl:text-7xl">
           FAQs

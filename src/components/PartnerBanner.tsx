@@ -1,44 +1,29 @@
-import React from 'react'
-import Image from 'next/image'
+import Amazon from './SvgComponents/PartnerLogos/Amazon'
+import Costco from './SvgComponents/PartnerLogos/Costco'
+import HomeDepot from './SvgComponents/PartnerLogos/HomeDepot'
+import Nike from './SvgComponents/PartnerLogos/Nike'
+import Walmart from './SvgComponents/PartnerLogos/Walmart'
 
 function PartnerBanner() {
+  const imageContainerCSS = 'flex justify-center items-center mx-2'
+
   return (
-    <section className="my-20 flex h-32 w-full gap-12 overflow-x-scroll bg-primary xl:h-36 xl:justify-around xl:gap-6 xl:overflow-auto">
-      <Image
-        src="/images/amazon.png"
-        className="px-4 py-2"
-        alt="amazon"
-        width={300}
-        height={100}
-      />
-      <Image
-        className="px-8 py-12 lg:px-16"
-        src="/images/walmart.png"
-        alt="walmart"
-        width={320}
-        height={150}
-      />
-      <Image
-        className="w-32 py-8"
-        src="/images/homedepot.png"
-        alt="homedepot"
-        width={100}
-        height={100}
-      />
-      <Image
-        src="/images/costco.png"
-        className="p-10 lg:px-16"
-        alt="costco"
-        width={300}
-        height={100}
-      />
-      <Image
-        src="/images/nike.png"
-        className="p-8"
-        alt="nike"
-        width={200}
-        height={100}
-      />
+    <section className="carousel flex h-[50px] min-w-[100%] max-w-[100%] items-center justify-around sm:h-[100px] lg:h-[145px]">
+      <div className={`${imageContainerCSS} mt-1 h-[47.449px] w-[225px]`}>
+        <Amazon />
+      </div>
+      <div className={`${imageContainerCSS} mb-2 h-[59.4px] w-[250px]`}>
+        <Walmart />
+      </div>
+      <div className={`${imageContainerCSS} h-[120px] w-[120px]`}>
+        <HomeDepot />
+      </div>
+      <div className={`${imageContainerCSS} mb-2 h-[91.5px] w-[256px]`}>
+        <Costco />
+      </div>
+      <div className={`${imageContainerCSS} h-[150px] w-[150px]`}>
+        <Nike />
+      </div>
     </section>
   )
 }

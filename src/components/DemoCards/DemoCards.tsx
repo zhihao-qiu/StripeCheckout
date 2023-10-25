@@ -81,7 +81,7 @@ function DemoCards() {
       <section className="px-20">
         <div className=" mx-auto flex max-w-7xl justify-between gap-6">
           <title className="mb-4 block max-w-5xl text-left text-mediumText md:text-largeText lg:text-5xl xl:text-subtitle">
-            Your Benifits
+            Your Benefits
           </title>
         </div>
         <div className=" mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 md:flex-row md:justify-between">
