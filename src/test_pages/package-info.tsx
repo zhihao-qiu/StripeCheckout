@@ -40,7 +40,7 @@ import { Form } from '@/components/ui/form'
 import {
   ReturnProcessBackButton,
   ReturnProcessNextButton,
-} from '@/components/ui/common'
+} from '@/components/home/common'
 
 const uploads: FileUploadType[] = [
   {
@@ -693,9 +693,9 @@ export default function PackageInfo() {
               </div>
             </div>
             <span className="mt-5 flex justify-between">
-              <ReturnProcessBackButton onClick={() => returnProcess.back()} />
+              <ReturnProcessBackButton />
 
-              <ReturnProcessNextButton formState={form.formState} />
+              <ReturnProcessNextButton />
             </span>
           </div>
         </form>
