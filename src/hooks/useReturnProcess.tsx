@@ -18,7 +18,7 @@ export function useReturnProcess() {
   }
 
   const getCurrentStep = useMemo(() => {
-    return context.steps[context.currentStepIndex]
+    return context.steps[context.currentStepIndex]!
   }, [context.currentStepIndex, context.steps])
 
   function forward() {
