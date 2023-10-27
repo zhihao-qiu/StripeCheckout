@@ -1,5 +1,6 @@
 import { type UseFormReturn } from 'react-hook-form'
 import * as z from 'zod'
+import { type ColumnDef } from '@tanstack/react-table'
 
 export const addressSchema = z.object({
   apartmentUnitNumber: z
@@ -64,6 +65,7 @@ export const profileFormSchema = z.object({
       message: 'Last name must be less than 60 characters',
     }),
   primaryAddress: addressSchema,
+  role: z.enum(['Admin', 'Platinum', 'Gold', 'Silver', 'Bronze']),
   email: z.string().email({
     message: 'Please enter a valid email address',
   }),
@@ -94,6 +96,7 @@ export type EditProfileFormPropsType = {
       postal: string
       apartmentUnitNumber?: string | undefined
     }
+    role: 'Admin' | 'Platinum' | 'Gold' | 'Silver' | 'Bronze'
     email: string
     additionalAddress:
       | {
@@ -107,4 +110,25 @@ export type EditProfileFormPropsType = {
       | undefined
   }>
   onSubmit: (values: UserInfo) => void
+}
+
+export type Mail = {
+  id: string
+  email: string
+  message: string
+  pickupAddress: Address
+  deliveryAddress: Address
+  retrunDate: string
+  amount: number
+  shippingStatus: 'Delivered' | 'In Transit' | 'Pending' | 'Error'
+}
+
+export type InboxDataTablePropsType = {
+  data: Mail[]
+  columns: ColumnDef<Mail>[]
+}
+
+export type ProfilePropsType = {
+  userInfo: UserInfo
+  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>
 }

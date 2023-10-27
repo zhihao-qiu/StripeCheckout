@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import FedEx from './SvgComponents/PartnerLogos/FedEx'
 import DHL from './SvgComponents/PartnerLogos/DHL'
 import UPS from './SvgComponents/PartnerLogos/UPS'
