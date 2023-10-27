@@ -30,9 +30,9 @@ function Home() {
                 need for printing labels, packaging, or visits to the post
                 office.
               </SectionDescription>
-              <Button className="  self-stretch md:self-start">
-                Schedule a Pickup Now
-              </Button>
+              <Link href="/return">
+                <Button className="h-9">Schedule a Pickup Now</Button>
+              </Link>
             </HomeSection>
             <div className="hidden aspect-[1.35/1] flex-1 md:block">
               <Image
