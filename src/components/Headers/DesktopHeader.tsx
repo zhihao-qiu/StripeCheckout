@@ -12,14 +12,6 @@ export type MenuItem = {
 
 const menuItems: MenuItem[] = [
   {
-    title: 'How it Works',
-    href: '/howitworks',
-  },
-  {
-    title: 'Pricing',
-    href: '/temp-dashboard',
-  },
-  {
     title: 'About Us',
     href: '/about',
   },
