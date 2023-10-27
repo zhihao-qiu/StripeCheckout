@@ -180,6 +180,7 @@ ExtendedToggleGroup.displayName = TOGGLE_GROUP_NAME
 /* -----------------------------------------------------------------------------------------------*/
 
 type ToggleGroupContextValue = {
+  selectionType: 'selected' | 'unselect'
   firstSelected: boolean
   onFirstSelectedValueChange(value: boolean): void
   rovingFocus: boolean
@@ -195,6 +196,7 @@ type RovingFocusGroupProps = Radix.ComponentPropsWithoutRef<
 type ToggleGroupImplElement = React.ElementRef<typeof Primitive.div>
 type PrimitiveDivProps = Radix.ComponentPropsWithoutRef<typeof Primitive.div>
 interface ToggleGroupImplProps extends PrimitiveDivProps {
+  selectionType?: 'selected' | 'unselect'
   firstSelected?: boolean
   onFirstSelectedValueChange?(): void
   /**
@@ -221,6 +223,7 @@ const ToggleGroupImpl = React.forwardRef<
     disabled = false,
     rovingFocus = true,
     orientation,
+    selectionType = 'selected',
     dir,
     firstSelected,
     onFirstSelectedValueChange = () => {},
@@ -231,13 +234,12 @@ const ToggleGroupImpl = React.forwardRef<
     TOGGLE_GROUP_NAME,
     props.__scopeToggleGroup
   )
+
   const [value = false, setValue] = useControllableState({
     prop: firstSelected,
     defaultProp: false,
     onChange: onFirstSelectedValueChange,
   })
-
-  console.log('NEW VALUE: ', value)
 
   useEffect(() => {
     if (!value) {
@@ -260,6 +262,7 @@ const ToggleGroupImpl = React.forwardRef<
   return (
     <ToggleGroupContext
       firstSelected={value}
+      selectionType={selectionType}
       onFirstSelectedValueChange={setValue}
       scope={__scopeToggleGroup}
       rovingFocus={rovingFocus}
@@ -343,6 +346,7 @@ const ToggleGroupItemImpl = React.forwardRef<
 >((props: ScopedProps<ToggleGroupItemImplProps>, forwardedRef) => {
   const { __scopeToggleGroup, value, ...itemProps } = props
   const valueContext = useToggleGroupValueContext(ITEM_NAME, __scopeToggleGroup)
+  const context = useToggleGroupContext(ITEM_NAME, props.__scopeToggleGroup)
   const singleProps = {
     role: 'radio',
     'aria-checked': props.pressed,
@@ -357,7 +361,7 @@ const ToggleGroupItemImpl = React.forwardRef<
       onPressedChange={(pressed) => {
         if (pressed) {
           valueContext.onItemActivate(value)
-        } else {
+        } else if(context.selectionType === 'selected') {
           valueContext.onItemDeactivate(value);
         }
       }}

@@ -1,8 +1,21 @@
-import { useState } from 'react'
-import Plan from './Plan'
-import { RadioGroup } from '@/components/ui/radio-group'
-import Link from 'next/link'
 import { ReturnProcessBackButton, ReturnProcessNextButton } from './ui/common'
+import { useReturnProcess } from '@/hooks/useReturnProcess'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form'
+import Plan from './Plan'
+import {
+  ExtendedToggleGroup,
+  ExtendedToggleGroupItem,
+} from './ui/extended-toggle-group'
+import { Button } from './ui/button'
 
 export type PlanDataType = {
   name: string
@@ -53,67 +66,77 @@ const planData: PlanDataType[] = [
   },
 ]
 
+const formSchema = z.object({
+  plan: z.union([
+    z.literal('bronze'),
+    z.literal('silver'),
+    z.literal('gold'),
+    z.literal('platinum'),
+  ]),
+})
+
 export default function ChoosePlan() {
-  const [selectedPlanName, setSelectedPlanName] = useState('')
+  const returnProcess = useReturnProcess()
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      plan: returnProcess.currentData.plan,
+    },
+  })
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log('Submitted:', values)
+    returnProcess.setCurrentData(values)
+    returnProcess.forward()
+  }
 
   return (
-    <div className="flex min-h-screen w-screen flex-col items-center justify-start bg-paleBlue p-10">
-      <RadioGroup className="flex w-full flex-wrap justify-center gap-8">
-        {planData.map((plan) => {
-          const status = !selectedPlanName
-            ? 'normal'
-            : selectedPlanName === plan.name
-            ? 'selected'
-            : 'unselected'
-          return (
-            <Plan
-              key={plan.name}
-              plan={plan}
-              status={status}
-              setSelectedPlanName={setSelectedPlanName}
-            />
-          )
-        })}
-      </RadioGroup>
-      <div className="mt-8 flex w-10/12 items-center justify-between">
-        <Link href="/pickup">
-          <ReturnProcessBackButton />
-          {/* <button
-            type="button"
-            className="flex items-center bg-transparent text-base font-semibold text-primary sm:bottom-[80px] sm:left-[10%] sm:text-xl"
-          >
-            <BackArrow />
-            <span>&nbsp;Back</span>
-          </button> */}
-        </Link>
-        {/* Next button transparent in mobile view */}
-        <Link href="/">
-          {/* <Link href="/address">
-          <ReturnProcessBackButton />
-        </Link>
-        <Link href="/temp-dashboard">
-          <ReturnProcessNextButton />
-        </Link> */}
-          <ReturnProcessNextButton />
-          {/* <button
-            type="button"
-            className="flex items-center bg-transparent text-base font-semibold text-primary sm:bottom-[80px] sm:left-[10%] sm:hidden sm:text-xl"
-          >
-            <span>Next&nbsp;</span>
-            <NextArrow />
-          </button> */}
-        </Link>
-        {/* Next button blue in desktop view */}
-        {/* <Link href="/">
-          <Button
-            type="button"
-            className="hidden rounded-3xl text-lg sm:inline-flex sm:h-10 sm:w-[125px]"
-          >
-            Next&nbsp;&nbsp;
-            <NextArrow />
-          </Button>
-        </Link> */}
-      </div>
-    </div>
+    <Form {...form}>
+      <form
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8"
+      >
+        <div className="flex min-h-screen w-screen flex-col items-center justify-start bg-paleBlue p-10">
+          <FormField
+            control={form.control}
+            name="plan"
+            render={({ field }) => (
+              <FormItem className="space-y-3">
+                <FormControl>
+                  <ExtendedToggleGroup
+                    type="single"
+                    selectionType="unselect"
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex w-full flex-wrap justify-center gap-8"
+                  >
+                    {/* <RadioGroup className="flex w-full flex-wrap justify-center gap-8"> */}
+                    {planData.map((plan) => {
+                      return (
+                        <ExtendedToggleGroupItem
+                          key={plan.name}
+                          value={plan.name.toLowerCase()}
+                          asChild
+                        >
+                          <Plan plan={plan} />
+                        </ExtendedToggleGroupItem>
+                      )
+                    })}
+                  </ExtendedToggleGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="mt-8 flex w-10/12 items-center justify-between">
+            <ReturnProcessBackButton onClick={() => returnProcess.back()} />
+
+            <ReturnProcessNextButton formState={form.formState} />
+          </div>
+        </div>
+      </form>
+    </Form>
   )
 }

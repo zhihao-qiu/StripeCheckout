@@ -32,5 +32,11 @@ export function useDateSelection(initialDate: Date) {
     return cursorStartDate.getTime() > initialStartingDate.getTime()
   }
 
-  return { back, forward, getCurrentDays, canGoBackwards }
+  return {
+    back,
+    forward,
+    getCurrentDays,
+    canGoBackwards,
+    initialDate: initialStartingDate,
+  }
 }
