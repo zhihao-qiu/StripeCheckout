@@ -1,7 +1,8 @@
 import TestReturnProcessRender from '@/components/Headers/ReturnProcess/TestReturnProcessRender'
 import { getLayout } from '@/layouts/ReturnProcessLayout'
-export default function ContextTest() {
+
+export default function ReturnProcess() {
   return <TestReturnProcessRender />
 }
 
-ContextTest.getLayout = getLayout
+ReturnProcess.getLayout = getLayout
