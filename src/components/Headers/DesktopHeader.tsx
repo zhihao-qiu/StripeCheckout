@@ -44,7 +44,7 @@ export default function DesktopHeader() {
       </div>
       <div className="flex space-x-2 lg:space-x-5">
         <SigninModal headerType="desktop" />
-        <Link href="/pick-date">
+        <Link href="/return">
           <Button className="h-9 w-36">Schedule Pickup</Button>
         </Link>
       </div>
