@@ -32,7 +32,7 @@ import HandingPackage from '@/components/SvgComponents/HandingPackage'
 import {
   ReturnProcessBackButton,
   ReturnProcessNextButton,
-} from '@/components/ui/common'
+} from '@/components/home/common'
 
 const formSchema = z.object({
   pickupType: z.union([z.literal('direct'), z.literal('doorstep')]),
@@ -83,7 +83,7 @@ export default function Pickup() {
                   <FormControl>
                     <ExtendedToggleGroup
                       type="single"
-                      selectionType="unselect"
+                      selectionType="keep-selected"
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                       className="flex w-full justify-center gap-x-10"
@@ -130,9 +130,9 @@ export default function Pickup() {
             />
 
             <span className="mt-5 flex justify-between">
-              <ReturnProcessBackButton onClick={() => returnProcess.back()} />
+              <ReturnProcessBackButton />
 
-              <ReturnProcessNextButton formState={form.formState} />
+              <ReturnProcessNextButton />
             </span>
           </div>
         </form>

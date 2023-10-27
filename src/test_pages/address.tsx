@@ -10,7 +10,7 @@ import { useToast } from '@/components/ui/use-toast'
 import {
   ReturnProcessBackButton,
   ReturnProcessNextButton,
-} from '@/components/ui/common'
+} from '@/components/home/common'
 import { useReturnProcess } from '@/hooks/useReturnProcess'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -338,9 +338,9 @@ export default function Address() {
                 </form>
               )}
               <span className="mt-5 flex justify-between">
-                <ReturnProcessBackButton onClick={() => returnProcess.back()} />
+                <ReturnProcessBackButton />
 
-                <ReturnProcessNextButton formState={form.formState} />
+                <ReturnProcessNextButton />
               </span>
             </div>
           </div>

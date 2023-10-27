@@ -90,7 +90,7 @@ const ToggleGroupImplSingle = React.forwardRef<
   const {
     value: valueProp,
     defaultValue,
-    onValueChange = () => {},
+    onValueChange = () => { },
     ...toggleGroupSingleProps
   } = props
 
@@ -138,7 +138,7 @@ const ToggleGroupImplMultiple = React.forwardRef<
   const {
     value: valueProp,
     defaultValue,
-    onValueChange = () => {},
+    onValueChange = () => { },
     ...toggleGroupMultipleProps
   } = props
 
@@ -180,7 +180,7 @@ ExtendedToggleGroup.displayName = TOGGLE_GROUP_NAME
 /* -----------------------------------------------------------------------------------------------*/
 
 type ToggleGroupContextValue = {
-  selectionType: 'selected' | 'unselect'
+  selectionType: 'keep-selected' | 'unselect'
   firstSelected: boolean
   onFirstSelectedValueChange(value: boolean): void
   rovingFocus: boolean
@@ -196,7 +196,7 @@ type RovingFocusGroupProps = Radix.ComponentPropsWithoutRef<
 type ToggleGroupImplElement = React.ElementRef<typeof Primitive.div>
 type PrimitiveDivProps = Radix.ComponentPropsWithoutRef<typeof Primitive.div>
 interface ToggleGroupImplProps extends PrimitiveDivProps {
-  selectionType?: 'selected' | 'unselect'
+  selectionType?: 'keep-selected' | 'unselect'
   firstSelected?: boolean
   onFirstSelectedValueChange?(): void
   /**
@@ -223,10 +223,10 @@ const ToggleGroupImpl = React.forwardRef<
     disabled = false,
     rovingFocus = true,
     orientation,
-    selectionType = 'selected',
+    selectionType = 'keep-selected',
     dir,
     firstSelected,
-    onFirstSelectedValueChange = () => {},
+    onFirstSelectedValueChange = () => { },
     loop = true,
     ...toggleGroupProps
   } = props
@@ -245,7 +245,7 @@ const ToggleGroupImpl = React.forwardRef<
     if (!value) {
       setValue(context.value.length !== 0)
     } else {
-      if(context.value.length === 0) {
+      if (context.value.length === 0) {
         setValue(false)
       }
     }
@@ -361,7 +361,7 @@ const ToggleGroupItemImpl = React.forwardRef<
       onPressedChange={(pressed) => {
         if (pressed) {
           valueContext.onItemActivate(value)
-        } else if(context.selectionType === 'selected') {
+        } else if (context.selectionType === 'unselect') {
           valueContext.onItemDeactivate(value);
         }
       }}

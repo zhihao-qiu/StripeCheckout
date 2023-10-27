@@ -22,7 +22,7 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useDateSelection } from '@/hooks/useDateSelection'
-import { ReturnProcessNextButton } from '@/components/ui/common'
+import { ReturnProcessNextButton } from '@/components/home/common'
 import {
   LastWeekButton,
   NextWeekButton,
@@ -104,7 +104,7 @@ export default function PickDate() {
                 <NextWeekButton size="default" onClick={() => weekForwards()} />
               </div>
 
-              <div className="flex">
+              <div className="flex justify-center">
                 <LastWeekButton
                   className="hidden xl:flex"
                   size="small"
@@ -151,7 +151,7 @@ export default function PickDate() {
               </div>
             </div>
             <span className="mt-5 flex justify-end">
-              <ReturnProcessNextButton formState={form.formState} />
+              <ReturnProcessNextButton />
             </span>
           </div>
         </form>

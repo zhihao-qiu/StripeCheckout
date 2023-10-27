@@ -10,10 +10,10 @@ import { useReturnProcess } from '@/hooks/useReturnProcess'
 type ProgressBarProps2 = {
   name: string
   state: 'not-completed' | 'in-progress' | 'completed'
-  start?: boolean // TODO: We will most likely move this into an array, so we won't need this variable later
+  start?: boolean
 }
 
-function ProgressBarItem2({ name, start = false, state }: ProgressBarProps2) {
+function ProgressBarItem({ name, start = false, state }: ProgressBarProps2) {
   return (
     <div className="w-1/4">
       <div className="relative mb-2">
@@ -81,7 +81,7 @@ export default function ReturnProcessHeader() {
                   ? 'completed'
                   : 'not-completed'
               return (
-                <ProgressBarItem2
+                <ProgressBarItem
                   key={step.id}
                   start={index === 0}
                   name={step.name}
@@ -89,11 +89,6 @@ export default function ReturnProcessHeader() {
                 />
               )
             })}
-            {/* <ProgressBarItem2 start name="Pickup Date" state="completed" />
-            <ProgressBarItem2 name="Pickup Details" state="completed" />
-            <ProgressBarItem2 name="Choose Plan" state="in-progress" />
-            <ProgressBarItem2 name="Package Details" state="not-completed" />
-            <ProgressBarItem2 name="Confirm" state="not-completed" /> */}
           </div>
         </HeaderContent>
       </HeaderSub>
