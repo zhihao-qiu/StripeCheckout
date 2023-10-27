@@ -12,10 +12,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   type IconDefinition,
   faBars,
-  faCircleInfo,
   faUsers,
   faTruck,
-  faTags,
+  faHome,
+  faMailBulk,
 } from '@fortawesome/free-solid-svg-icons'
 import { type PropsWithChildren } from 'react'
 import { HeaderContent } from './Header'
@@ -67,18 +67,17 @@ export default function MobileMenu() {
             Menu
           </p>
           <Separator className="bg-gray-900" />
-          <MobileLink href="/" icon={faCircleInfo}>
-            How it Works
+          <MobileLink href="/" icon={faHome}>
+            Home
           </MobileLink>
-          <MobileLink href="/temp-dashboard" icon={faTags}>
-            Pricing
-          </MobileLink>
-          <MobileLink href="/" icon={faUsers}>
+          <MobileLink href="/about" icon={faUsers}>
             About Us
           </MobileLink>
-
+          <MobileLink href="/contact" icon={faMailBulk}>
+            Contact Us
+          </MobileLink>
           <SigninModal headerType="mobile" />
-          <MobileLink href="/" icon={faTruck}>
+          <MobileLink href="/return" icon={faTruck}>
             Schedule Pickup
           </MobileLink>
           <MobileHeaderFooter />
