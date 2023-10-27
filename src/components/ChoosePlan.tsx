@@ -15,7 +15,6 @@ import {
   ExtendedToggleGroup,
   ExtendedToggleGroupItem,
 } from './ui/extended-toggle-group'
-import { Button } from './ui/button'
 
 export type PlanDataType = {
   name: string

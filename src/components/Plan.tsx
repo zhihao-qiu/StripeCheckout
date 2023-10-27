@@ -16,6 +16,16 @@ type PlanProps = {
   plan: PlanDataType
 }
 
+export const planTextClassName = (plan: string) => {
+  return `${
+    plan === 'Bronze' ? 'from-orange-400 via-amber-600 to-lime-900' : ''
+  } ${plan === 'Silver' ? 'from-gray-200 via-gray-400 to-gray-600' : ''} ${
+    plan === 'Gold' ? ' from-yellow-200 via-yellow-400 to-yellow-600' : ''
+  } ${
+    plan === 'Platinum' ? 'from-slate-200 via-slate-400 to-slate-600' : ''
+  } bg-gradient-to-b bg-clip-text text-2xl font-extrabold tracking-wider text-transparent`
+}
+
 const Plan = React.forwardRef<HTMLDivElement, PlanProps>(
   ({ plan, ...props }, ref) => {
     return (
@@ -25,21 +35,12 @@ const Plan = React.forwardRef<HTMLDivElement, PlanProps>(
         className="min-w-72 ${formatSelected} flex h-[450px] w-[275px] scale-90 flex-col items-center justify-start rounded-2xl border-2 border-brand bg-white text-brand data-[state=on]:border-[6px] data-[state=on]:border-primary data-[state=off]:opacity-50 data-[state=on]:shadow-xl sm:scale-100"
       >
         <CardHeader className="pb-3">
-          {plan.name === 'Bronze' && (
-            <CardTitle className="bg-gradient-to-b from-orange-400 via-amber-600 to-lime-900 bg-clip-text text-2xl font-extrabold tracking-wider text-transparent">
+          {plan.name !== 'Platinum' ? (
+            <CardTitle className={planTextClassName(plan.name)}>
               {plan.name}
             </CardTitle>
-          )}
-          {plan.name === 'Silver' && (
-            <CardTitle className="bg-gradient-to-b from-gray-200 via-gray-400 to-gray-600 bg-clip-text text-2xl font-extrabold tracking-wider text-transparent">
-              {plan.name}
-            </CardTitle>
-          )}
-          {plan.name === 'Gold' && (
-            <CardTitle className="bg-gradient-to-b from-yellow-200 via-yellow-400 to-yellow-600 bg-clip-text text-2xl font-extrabold tracking-wider text-transparent">
-              {plan.name}
-            </CardTitle>
-          )}
+          ) : null}
+
           {plan.name === 'Platinum' && (
             <CardTitle className="relative bg-gradient-to-b from-slate-200 via-slate-400 to-slate-600 bg-clip-text text-2xl font-extrabold tracking-wider text-transparent">
               {plan.name}
