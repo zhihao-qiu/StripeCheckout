@@ -40,25 +40,10 @@ import { Form } from '@/components/ui/form'
 import {
   ReturnProcessBackButton,
   ReturnProcessNextButton,
-} from '@/components/home/common'
-
-const uploads: FileUploadType[] = [
-  {
-    attachment: 'INV001',
-    labelType: 'Physical',
-    description: 'nike shoes',
-  },
-  {
-    attachment: 'INV002',
-    labelType: 'Digital',
-    description: 'nike shoes',
-  },
-  {
-    attachment: 'supercalifragilisticexpialidocious',
-    labelType: 'Amazon',
-    description: 'The rain in Spain stays mainly in the plain',
-  },
-]
+  ReturnProcessRoot,
+  ReturnProcessSection,
+} from '@/components/common/return-process'
+import { SectionDescription, SectionHeader } from '@/components/common/section'
 
 const ACCEPTED_FILE_TYPES = ['JPG', 'PNG', 'PDF']
 
@@ -326,74 +311,75 @@ export default function PackageInfo() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8"
         >
-          <div className="mx-5 my-10 flex flex-col flex-wrap justify-around lg:mx-10">
-            <div className="my-5 text-mediumText font-bold text-brand">
-              Package Details
-            </div>
-            <div className="mb-5 mr-5 flex justify-between text-brand">
-              <div>
-                Select label type and we&apos;ll handle the label printing and
-                repackaging. You can add multiple packages.
-              </div>
-              <Dialog>
-                <DialogTrigger>
-                  <div className="font-bold text-primary">Tutorial</div>
-                </DialogTrigger>
-                <DialogContent className="bg-paleBlue">
-                  <DialogHeader>
-                    <DialogTitle className="text-center font-bold text-brand">
-                      How to add a digital / Amazon QR package label
-                    </DialogTitle>
-                  </DialogHeader>
-                  <div className="px-5 text-brand">
-                    <div className="my-2">
-                      Step 1: Click on the type of label you have.
-                      <Image
-                        height={300}
-                        width={500}
-                        src="/images/Step1.png"
-                        alt="Step 1 example Image"
-                      />
-                    </div>
-                    <div className="my-2">
-                      Step 2: Drag your file over the area or click to browse
-                      your computer&apos;s files
-                      <Image
-                        height={300}
-                        width={500}
-                        src="/images/Step2.png"
-                        alt="Step 2 example image"
-                      />
-                    </div>
-                    <div className="my-2">
-                      Step 3: Fill in the description
-                      <Image
-                        height={300}
-                        width={500}
-                        src="/images/Step3.png"
-                        alt="Step 3 example image"
-                      />
-                    </div>
+          <ReturnProcessRoot>
+            <ReturnProcessSection>
+              <SectionHeader>Pickup Details</SectionHeader>
+              <SectionDescription className="flex w-full justify-between">
+                <p>
+                  Select label type and we&apos;ll handle the label printing and
+                  repackaging. You can add multiple packages.
+                </p>
 
-                    <div className="my-2">
-                      Step 4: Click &quot;Add Package&quot; to add it to the
-                      list.
-                      <Image
-                        height={300}
-                        width={500}
-                        src="/images/Step4.png"
-                        alt="Step 4 example image"
-                      />
+                <Dialog>
+                  <DialogTrigger className="pr-5">
+                    <div className="font-bold text-primary">Tutorial</div>
+                  </DialogTrigger>
+                  <DialogContent className="bg-paleBlue">
+                    <DialogHeader>
+                      <DialogTitle className="text-center font-bold text-brand">
+                        How to add a digital / Amazon QR package label
+                      </DialogTitle>
+                    </DialogHeader>
+                    <div className="px-5 text-brand">
+                      <div className="my-2">
+                        Step 1: Click on the type of label you have.
+                        <Image
+                          height={300}
+                          width={500}
+                          src="/images/Step1.png"
+                          alt="Step 1 example Image"
+                        />
+                      </div>
+                      <div className="my-2">
+                        Step 2: Drag your file over the area or click to browse
+                        your computer&apos;s files
+                        <Image
+                          height={300}
+                          width={500}
+                          src="/images/Step2.png"
+                          alt="Step 2 example image"
+                        />
+                      </div>
+                      <div className="my-2">
+                        Step 3: Fill in the description
+                        <Image
+                          height={300}
+                          width={500}
+                          src="/images/Step3.png"
+                          alt="Step 3 example image"
+                        />
+                      </div>
+
+                      <div className="my-2">
+                        Step 4: Click &quot;Add Package&quot; to add it to the
+                        list.
+                        <Image
+                          height={300}
+                          width={500}
+                          src="/images/Step4.png"
+                          alt="Step 4 example image"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <DialogFooter>
-                    <DialogClose asChild>
-                      <Button className="w-full px-5">Got it!</Button>
-                    </DialogClose>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
-            </div>
+                    <DialogFooter>
+                      <DialogClose asChild>
+                        <Button className="w-full px-5">Got it!</Button>
+                      </DialogClose>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              </SectionDescription>
+            </ReturnProcessSection>
 
             <div className="flex w-full flex-col justify-between lg:flex-row">
               <div className="relative w-full overflow-auto rounded-lg border-2 border-primary bg-white dark:border-gray-700 lg:w-1/2">
@@ -697,7 +683,7 @@ export default function PackageInfo() {
 
               <ReturnProcessNextButton />
             </span>
-          </div>
+          </ReturnProcessRoot>
         </form>
       </Form>
     </>

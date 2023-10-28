@@ -10,7 +10,9 @@ import { useToast } from '@/components/ui/use-toast'
 import {
   ReturnProcessBackButton,
   ReturnProcessNextButton,
-} from '@/components/home/common'
+  ReturnProcessRoot,
+  ReturnProcessSection,
+} from '@/components/common/return-process'
 import { useReturnProcess } from '@/hooks/useReturnProcess'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -23,6 +25,7 @@ import {
 } from '@/components/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import Head from 'next/head'
+import { SectionDescription, SectionHeader } from '@/components/common/section'
 
 const formSchema = z.object({
   address: z.string().min(1),
@@ -203,12 +206,15 @@ export default function Address() {
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onSubmit={form.handleSubmit(onSubmit)}
         >
-          <div className="mx-5 my-5">
-            <div className="text-largeText text-brand">Pickup Details</div>
-            <div>
-              <div className="text-brand">
+          <ReturnProcessRoot>
+            <ReturnProcessSection>
+              <SectionHeader>Pickup Details</SectionHeader>
+              <SectionDescription>
                 Select or add your pickup address
-              </div>
+              </SectionDescription>
+            </ReturnProcessSection>
+
+            <div>
               <div className="mt-5 text-smallText font-bold text-brand">
                 Your Addresses:
               </div>
@@ -228,7 +234,7 @@ export default function Address() {
                           return (
                             <FormItem
                               key={address.address}
-                              className="my-7 flex h-10 w-full items-center"
+                              className="flex h-10 w-full items-center"
                             >
                               <RadioGroupItem value={address.address} />
                               {/* <Input
@@ -343,7 +349,7 @@ export default function Address() {
                 <ReturnProcessNextButton />
               </span>
             </div>
-          </div>
+          </ReturnProcessRoot>
         </form>
       </Form>
     </>

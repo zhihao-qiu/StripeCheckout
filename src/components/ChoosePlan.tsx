@@ -1,4 +1,7 @@
-import { ReturnProcessBackButton, ReturnProcessNextButton } from './home/common'
+import {
+  ReturnProcessBackButton,
+  ReturnProcessNextButton,
+} from './common/return-process'
 import { useReturnProcess } from '@/hooks/useReturnProcess'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

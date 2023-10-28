@@ -7,6 +7,33 @@ import BackArrow from '../SvgComponents/BackArrow'
 import { useFormContext } from 'react-hook-form'
 import { useReturnProcess } from '@/hooks/useReturnProcess'
 
+const ReturnProcessRoot = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn('container space-y-14 bg-paleBlue pt-16', className)}
+    {...props}
+  />
+))
+ReturnProcessRoot.displayName = 'ReturnProcessRoot'
+
+const ReturnProcessSection = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      'flex flex-col items-start justify-center space-y-3 text-brand',
+      className
+    )}
+    {...props}
+  />
+))
+ReturnProcessSection.displayName = 'ReturnProcessSection'
+
 const ReturnProcessNextButton = React.forwardRef<
   HTMLButtonElement,
   ButtonProps
@@ -51,4 +78,9 @@ const ReturnProcessBackButton = React.forwardRef<
 })
 ReturnProcessBackButton.displayName = 'ReturnProcessBackButton'
 
-export { ReturnProcessNextButton, ReturnProcessBackButton }
+export {
+  ReturnProcessRoot,
+  ReturnProcessSection,
+  ReturnProcessNextButton,
+  ReturnProcessBackButton,
+}

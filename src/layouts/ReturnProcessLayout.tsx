@@ -3,11 +3,12 @@ import ReturnProcessHeader from '@/components/Headers/ReturnProcess/ReturnProces
 import ReturnProcessContextProvider, {
   type ReturnProcessStep,
 } from '@/context/ReturnProcessContext'
-import PickDate from '@/test_pages/pick-date'
-import Address from '@/test_pages/address'
-import Pickup from '@/test_pages/pickup'
-import Pricing from '@/test_pages/pricing'
-import PackageInfo from '@/test_pages/package-info'
+import PickDate from '@/return-process/pick-date'
+import Address from '@/return-process/address'
+import Pickup from '@/return-process/pickup'
+import Pricing from '@/return-process/pricing'
+import PackageInfo from '@/return-process/package-info'
+import Confirmation from '@/return-process/confirmation'
 
 const steps: ReturnProcessStep[] = [
   {
@@ -34,6 +35,11 @@ const steps: ReturnProcessStep[] = [
     id: 'package-info',
     name: 'Package Info',
     component: <PackageInfo />,
+  },
+  {
+    id: 'confirmation',
+    name: 'Confirm',
+    component: <Confirmation />,
   },
 ]
 
