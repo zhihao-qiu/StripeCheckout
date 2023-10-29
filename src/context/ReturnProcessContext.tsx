@@ -30,6 +30,8 @@ export type ReturnProcessFullObjectType = {
 export type ReturnProcessContextType = {
   steps: ReturnProcessStep[]
   currentStepIndex: number
+  isFinished: boolean
+  setIsFinished: Dispatch<SetStateAction<boolean>>
   setCurrentStepIndex: Dispatch<SetStateAction<number>>
   currentData: ReturnProcessFullObjectType
   setCurrentData: Dispatch<SetStateAction<ReturnProcessFullObjectType>>
@@ -48,6 +50,7 @@ export default function ReturnProcessContextProvider({
   steps,
 }: PropsWithChildren<ReturnProcessContextProviderType>) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
+  const [isFinished, setIsFinished] = useState(false)
   const [currentData, setCurrentData] = useState<ReturnProcessFullObjectType>(
     {} as ReturnProcessFullObjectType
   )
@@ -58,8 +61,10 @@ export default function ReturnProcessContextProvider({
       steps,
       currentData,
       setCurrentData,
+      isFinished,
+      setIsFinished,
     }),
-    [currentData, currentStepIndex, steps]
+    [currentData, currentStepIndex, isFinished, steps]
   )
   return (
     <ReturnProcessContext.Provider value={returnProcessContextValue}>

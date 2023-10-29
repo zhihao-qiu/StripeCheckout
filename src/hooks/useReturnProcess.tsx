@@ -25,7 +25,11 @@ export function useReturnProcess() {
     if (!canGoForwards()) {
       return
     }
-    context.setCurrentStepIndex(context.currentStepIndex + 1)
+    const nextStep = context.currentStepIndex + 1
+    if (nextStep === context.steps.length - 1) {
+      context.setIsFinished(true)
+    }
+    context.setCurrentStepIndex(nextStep)
   }
 
   function back() {
@@ -57,5 +61,7 @@ export function useReturnProcess() {
     canGoBack,
     setCurrentData,
     currentData: context.currentData,
+    isFinished: context.isFinished,
+    setIsFinished: context.setIsFinished,
   }
 }
