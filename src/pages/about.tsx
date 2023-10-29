@@ -8,7 +8,7 @@ import {
 import { getLayout } from '@/layouts/DefaultLayout'
 
 import hasanFounderImage from '@images/Hasan-cropped_founder.jpg'
-import mohammedFounderImage from '@images/Mohammed-cropped_founder.jpg'
+import alamdarFounderImage from '@images/Alamdar-cropped_founder.jpg'
 
 import Earth from '@/components/SvgComponents/Earth'
 import People from '@/components/SvgComponents/People'
@@ -56,7 +56,7 @@ export default function AboutUs() {
                 <div className="grid w-full place-items-center gap-7 md:flex md:grid-cols-2 md:justify-between md:px-9">
                   <HomeSectionImageRoot>
                     <HomeSectionImage
-                      className="h-52 w-52 md:h-64 md:w-64"
+                      className="h-52 w-52 md:h-72 md:w-72"
                       src={hasanFounderImage}
                       priority
                       alt="CEO of Returnpal of ReturnPal Hasan-Ali Abidi"
@@ -73,14 +73,14 @@ export default function AboutUs() {
 
                   <HomeSectionImageRoot>
                     <HomeSectionImage
-                      className="h-52 w-52 md:h-64 md:w-64"
-                      src={mohammedFounderImage}
+                      className="h-52 w-52 md:h-72 md:w-72"
+                      src={alamdarFounderImage}
                       priority
-                      alt="Co-Founder of ReturnPal Mohammed Al-Salem"
+                      alt="Co-Founder of ReturnPal Alamdar-Ali Abidi"
                     />
                     <HomeSectionImageTitle className="text-center">
                       <HomeSectionImageTitleHeader>
-                        Mohammed Al-Salem
+                        Alamdar-Ali Abidi
                       </HomeSectionImageTitleHeader>
                       <HomeSectionImageTitleDescription>
                         Co-Founder of ReturnPal
