@@ -6,8 +6,6 @@ import { type UserInfo } from '@/components/DashBoard/types'
 import { planTextClassName } from '@/components/Plan'
 
 function DashBoardMain({ userInfo }: { userInfo: UserInfo }) {
-  console.log(planTextClassName(userInfo.role))
-
   return (
     <section className="flex flex-col justify-center space-y-16 p-36">
       <h3 className="text-title">

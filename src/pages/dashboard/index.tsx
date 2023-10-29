@@ -14,9 +14,10 @@ import Profile from '@/components/DashBoard/Profile'
 import Inbox from '@/components/DashBoard/Inbox'
 import Security from '@/components/DashBoard/Security'
 import { type UserInfo } from '@/components/DashBoard/types'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 const tabsTriggerClassName =
-  'data-[state=active]:ml-6 data-[state=active]:scale-105 data-[state=active]:border-l-8 data-[state=active]:bg-paleBlue data-[state=active]:text-primary dark:data-[state=active]:bg-slate-950 dark:data-[state=active]:text-slate-50 pl-10 justify-start'
+  'data-[state=active]:ml-6 data-[state=active]:scale-105 data-[state=active]:border-l-8 data-[state=active]:bg-paleBlue data-[state=active]:text-primary dark:data-[state=active]:bg-slate-950 dark:data-[state=active]:text-slate-50 pl-10 justify-start text-sm sm:text-mediumText md:text-largeText xl:text-subtitle'
 
 const tabsIconClassName = 'mr-2 h-12 w-12'
 function Dashboard() {
@@ -108,9 +109,15 @@ function Dashboard() {
                 key={tab.id}
               >
                 {tab.icon}
-                <p key={`p tag ${tab.id}`} className="ml-4 mt-2">
-                  {tab.title}
-                </p>
+                {tab.title === 'Sign Out' ? (
+                  <Link href={'/'} key={`link ${tab.id}`}>
+                    <p className="ml-4 mt-2">{tab.title}</p>
+                  </Link>
+                ) : (
+                  <p key={`p tag ${tab.id}`} className="ml-4 mt-2">
+                    {tab.title}
+                  </p>
+                )}
               </TabsTrigger>
             </Fragment>
           ))}
@@ -127,8 +134,11 @@ function Dashboard() {
         <TabsContent value="security" className="mt-0 min-h-screen w-3/4">
           <Security />
         </TabsContent>
+        {/* TODO - redirect when logout*/}
         <TabsContent value="signOut" className="mt-0 min-h-screen w-3/4">
-          signOut
+          <div className="flex h-full items-center justify-center text-center">
+            <LoadingSpinner />
+          </div>
         </TabsContent>
       </section>
     </Tabs>

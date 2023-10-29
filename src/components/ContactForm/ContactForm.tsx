@@ -7,6 +7,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@components/ui/form'
+import { Textarea } from '../ui/textarea'
 import { Input } from '@components/ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -31,14 +32,14 @@ const contactFormSchema = z.object({
       message: 'Last name must be less than 60 characters',
     }),
   email: z.string().email(),
-  // message: z
-  //   .string()
-  //   .min(1, {
-  //     message: 'Message is required',
-  //   })
-  //   .max(1000, {
-  //     message: 'Message must be less than 1000 characters',
-  //   }),
+  message: z
+    .string()
+    .min(1, {
+      message: 'Message is required',
+    })
+    .max(1000, {
+      message: 'Message must be less than 1000 characters',
+    }),
 })
 
 function ContactForm() {
@@ -62,9 +63,9 @@ function ContactForm() {
         // TODO figure out api call for email sending
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-lg space-y-6"
+        className="space-y-6  lg:space-y-10"
       >
-        <div className="flex flex-col space-y-6 md:flex-row md:justify-between md:space-y-0">
+        <div className="flex flex-col space-y-6 lg:flex-row lg:justify-between lg:space-y-0">
           <FormField
             control={form.control}
             name="firstName"
@@ -74,7 +75,7 @@ function ContactForm() {
                 <FormControl>
                   <Input
                     minLength={1}
-                    className="mr-10"
+                    className="mr-32"
                     placeholder="Please Enter Your First Name."
                     {...field}
                   />
@@ -92,7 +93,7 @@ function ContactForm() {
                 <FormControl>
                   <Input
                     minLength={1}
-                    className="mr-10"
+                    className="mr-32"
                     placeholder="Please Enter Your Last Name."
                     {...field}
                   />
@@ -115,20 +116,24 @@ function ContactForm() {
             </FormItem>
           )}
         />
-        {/* <FormField
+        <FormField
           control={form.control}
           name="message"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-black">Message</FormLabel>
               <FormControl>
-                <Input placeholder="Please Enter Your Message." {...field} />
+                <Textarea
+                  placeholder="Please Enter Your Message."
+                  className="h-36"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        /> */}
-        <Button className="w-full" type="submit">
+        />
+        <Button className="w-full lg:max-w-xs" type="submit">
           Submit
         </Button>
       </form>

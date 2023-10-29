@@ -13,6 +13,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import useInboxMessage from '@/hooks/useInboxMessage'
 import RemoveMessageDialog from '@/components/DashBoard/InboxMessagesDialog.tsx/RemoveMessageDialog'
 import { type Mail } from '@/components/DashBoard/types'
@@ -108,9 +114,18 @@ function Inbox() {
         accessorKey: 'message',
         header: 'Message',
         cell: ({ row }) => (
-          <div className=" overflow-clip lowercase">
-            {row.getValue('message')}
-          </div>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="max-h-6 cursor-pointer overflow-hidden lowercase">
+                  {row.getValue('message')}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{row.getValue('message')}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         ),
       },
       {

@@ -140,6 +140,7 @@ function InboxDataTable({ data, columns }: InboxDataTablePropsType) {
             {rows.length ? (
               rows.map((row) => (
                 <TableRow
+                  className=" odd:bg-slate-100 even:bg-slate-50"
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                 >
