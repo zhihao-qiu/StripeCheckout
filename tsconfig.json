@@ -16,18 +16,23 @@
     "jsx": "preserve",
     "incremental": true,
     "noUncheckedIndexedAccess": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
-      "@svg/*": ["./public/svg/*"],
       "@images/*": ["./public/images/*"],
       "@components/*": ["./src/components/*"],
+      "@context/*": ["./src/context/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@lib/*": ["./src/lib/*"],
       "@pages/*": ["./src/pages/*"],
+      "@returnprocess/*": ["./src/return-process/*"],
       "@styles/*": ["./src/styles/*"],
-      "@hooks/*": ["./src/hooks/*"]
-    }
+      "@utils/*": ["./src/utils/*"],
+      "@/*": ["./src/*"],
+    },
   },
   "include": [
+    "src",
     ".eslintrc.cjs",
     "next-env.d.ts",
     "**/*.ts",
