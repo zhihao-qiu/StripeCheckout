@@ -8,7 +8,7 @@ import {
 import { Check } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { Label } from '@/components/ui/label'
-import Stamp from './SvgComponents/Stamp'
+import Stamp from '@components/SvgComponents/Stamp'
 import { type PlanDataType } from './ChoosePlan'
 import React from 'react'
 

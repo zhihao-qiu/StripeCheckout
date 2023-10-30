@@ -1,8 +1,8 @@
-import Amazon from './SvgComponents/PartnerLogos/Amazon'
-import Costco from './SvgComponents/PartnerLogos/Costco'
-import HomeDepot from './SvgComponents/PartnerLogos/HomeDepot'
-import Nike from './SvgComponents/PartnerLogos/Nike'
-import Walmart from './SvgComponents/PartnerLogos/Walmart'
+import Amazon from '@components/SvgComponents/PartnerLogos/Amazon'
+import Costco from '@components/SvgComponents/PartnerLogos/Costco'
+import HomeDepot from '@components/SvgComponents/PartnerLogos/HomeDepot'
+import Nike from '@components/SvgComponents/PartnerLogos/Nike'
+import Walmart from '@components/SvgComponents/PartnerLogos/Walmart'
 
 function PartnerBanner() {
   const imageContainerCSS = 'flex justify-center items-center mx-2'

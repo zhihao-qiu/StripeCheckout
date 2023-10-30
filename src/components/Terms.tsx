@@ -7,8 +7,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Button } from './ui/button'
-import { ScrollArea } from './ui/scroll-area'
+import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 export default function Terms(props: {
   setAcceptance: (arg0: boolean) => void
