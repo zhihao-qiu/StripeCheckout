@@ -12,7 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Button } from '@components/ui/button'
 import Link from 'next/link'
-import NextArrow from '../SvgComponents/NextArrow'
+import NextArrow from '@components/SvgComponents/NextArrow'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email' }),
