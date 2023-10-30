@@ -29,17 +29,17 @@ const steps: ReturnProcessStep[] = [
   },
   {
     id: 'pricing',
-    name: 'Pricing',
+    name: 'Choose Plan',
     component: <Pricing />,
   },
   {
     id: 'package-info',
-    name: 'Package Info',
+    name: 'Package Details',
     component: <PackageInfo />,
   },
   {
     id: 'confirm-pickup',
-    name: 'Confirm',
+    name: 'Pay & Confirm',
     component: <ConfirmPickup />,
   },
   {

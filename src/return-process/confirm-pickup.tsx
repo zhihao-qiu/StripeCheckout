@@ -8,7 +8,6 @@ import PickupTrolley from '@/components/SvgComponents/ConfirmPickup/PickupTrolle
 import ScrollDownChevron from '@/components/SvgComponents/ConfirmPickup/ScrollDownChevron'
 import { ReturnProcessBackButton } from '@/components/common/return-process'
 import { Separator } from '@/components/ui/separator'
-import { getLayout } from '@/layouts/ReturnProcessLayout'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
