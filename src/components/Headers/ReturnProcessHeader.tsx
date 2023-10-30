@@ -1,11 +1,16 @@
 import Link from 'next/link'
-import ReturnPalTitle from '../../SvgComponents/ReturnPalTitle'
-import { HeaderContent, HeaderLogoRoot, HeaderRoot, HeaderSub } from '../Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
-import Logo from '../../SvgComponents/Logo'
 import { cn } from '@/lib/utils'
 import { useReturnProcess } from '@/hooks/useReturnProcess'
+import {
+  HeaderContent,
+  HeaderLogoRoot,
+  HeaderRoot,
+  HeaderSub,
+} from '@components/common/header'
+import ReturnPalTitle from '@components/SvgComponents/ReturnPalTitle'
+import Logo from '@components/SvgComponents/Logo'
 
 type ProgressBarProps2 = {
   name: string

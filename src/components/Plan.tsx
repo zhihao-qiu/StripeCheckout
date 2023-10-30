@@ -8,22 +8,23 @@ import {
 import { Check } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { Label } from '@/components/ui/label'
-import Stamp from './SvgComponents/Stamp'
+import Stamp from '@components/SvgComponents/Stamp'
 import { type PlanDataType } from './ChoosePlan'
 import React from 'react'
+import { cn } from '@lib/utils'
 
 type PlanProps = {
   plan: PlanDataType
 }
 
 export const planTextClassName = (plan: string) => {
-  return `${
-    plan === 'Bronze' ? 'from-orange-400 via-amber-600 to-lime-900' : ''
-  } ${plan === 'Silver' ? 'from-gray-200 via-gray-400 to-gray-600' : ''} ${
-    plan === 'Gold' ? ' from-yellow-200 via-yellow-400 to-yellow-600' : ''
-  } ${
-    plan === 'Platinum' ? 'from-slate-200 via-slate-400 to-slate-600' : ''
-  } bg-gradient-to-b bg-clip-text text-2xl font-extrabold tracking-wider text-transparent`
+  return cn(
+    'bg-gradient-to-b bg-clip-text text-2xl font-extrabold tracking-wider text-transparent',
+    plan === 'Bronze' && 'from-orange-400 via-amber-600 to-lime-900',
+    plan === 'Silver' && 'from-gray-200 via-gray-400 to-gray-600',
+    plan === 'Gold' && ' from-yellow-200 via-yellow-400 to-yellow-600',
+    plan === 'Platinum' && 'from-slate-200 via-slate-400 to-slate-600'
+  )
 }
 
 const Plan = React.forwardRef<HTMLDivElement, PlanProps>(
@@ -32,7 +33,7 @@ const Plan = React.forwardRef<HTMLDivElement, PlanProps>(
       <Card
         {...props}
         ref={ref}
-        className="min-w-72 ${formatSelected} flex h-[450px] w-[275px] scale-90 flex-col items-center justify-start rounded-2xl border-2 border-brand bg-white text-brand data-[state=on]:border-[6px] data-[state=on]:border-primary data-[state=off]:opacity-50 data-[state=on]:shadow-xl sm:scale-100"
+        className="min-w-72 flex h-[450px] w-[275px] scale-90 flex-col items-center justify-start rounded-2xl border-2 border-brand bg-white text-brand data-[state=on]:border-[6px] data-[state=on]:border-primary data-[state=off]:opacity-50 data-[state=on]:shadow-xl sm:scale-100"
       >
         <CardHeader className="pb-3">
           {plan.name !== 'Platinum' ? (

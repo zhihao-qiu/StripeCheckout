@@ -1,7 +1,3 @@
-import {
-  ReturnProcessBackButton,
-  ReturnProcessNextButton,
-} from './common/return-process'
 import { useReturnProcess } from '@/hooks/useReturnProcess'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,11 +9,15 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form'
-import Plan from './Plan'
 import {
   ExtendedToggleGroup,
   ExtendedToggleGroupItem,
-} from './ui/extended-toggle-group'
+} from '@/components/ui/extended-toggle-group'
+import Plan from '@components/Plan'
+import {
+  ReturnProcessBackButton,
+  ReturnProcessNextButton,
+} from '@components/common/return-process'
 
 export type PlanDataType = {
   name: string

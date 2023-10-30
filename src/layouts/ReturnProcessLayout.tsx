@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from 'react'
-import ReturnProcessHeader from '@/components/Headers/ReturnProcess/ReturnProcessHeader'
+import ReturnProcessHeader from '@/components/Headers/ReturnProcessHeader'
 import ReturnProcessContextProvider, {
   type ReturnProcessStep,
 } from '@/context/ReturnProcessContext'

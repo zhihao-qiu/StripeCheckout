@@ -12,9 +12,9 @@ import {
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 import { type Mail } from '@/components/DashBoard/types'
-import dollarFormat from '@/utils/dollarFormat'
 import Logo from '@/components/SvgComponents/Logo'
 import { AiOutlineClose } from 'react-icons/ai'
+import dollarFormat from '@lib/utils'
 
 function InboxMessagesDialog({ mailOriginal }: { mailOriginal: Mail }) {
   return (

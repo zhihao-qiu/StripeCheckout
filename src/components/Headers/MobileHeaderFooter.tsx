@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
-export default function MobileMenuFooter() {
+export default function MobileHeaderFooter() {
   return (
     <div className="mt-12 flex w-[70%] justify-around rounded-md border border-primary p-2 text-primary">
       <Link href="/" target="_blank">

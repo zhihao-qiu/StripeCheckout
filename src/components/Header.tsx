@@ -1,10 +1,10 @@
 import Link from 'next/link'
-import { HeaderRoot, HeaderSub } from '@components/Headers/Header'
 import MobileMenu from '@components/Headers/MobileHeader'
 import DesktopHeader from '@components/Headers/DesktopHeader'
 
 import Logo from '@/components/SvgComponents/Logo'
 import ReturnPalTitle from '@/components/SvgComponents/ReturnPalTitle'
+import { HeaderRoot, HeaderSub } from './common/header'
 
 export default function Header() {
   return (

@@ -1,13 +1,12 @@
 /* eslint-disable react/prop-types */
 import { cn, getDayName } from '@/lib/utils'
-import { Card, CardContent } from '../ui/card'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
-import { type VariantProps, cva } from 'class-variance-authority'
+import { Card, CardContent } from '@components/ui/card'
 
 type PickCardType = React.HTMLAttributes<HTMLDivElement> & {
   date: Date
@@ -40,11 +39,11 @@ const PickDateCard = React.forwardRef<HTMLDivElement, PickCardType>(
 )
 PickDateCard.displayName = 'PickDateCard'
 
-export type ButtonProps = {
+export type PickDateButtonProps = {
   size: 'default' | 'small'
 } & React.HTMLAttributes<HTMLDivElement>
 
-const NextWeekButton = React.forwardRef<HTMLDivElement, ButtonProps>(
+const NextWeekButton = React.forwardRef<HTMLDivElement, PickDateButtonProps>(
   ({ className, size = 'default', onClick }, ref) => {
     return (
       <div
@@ -70,7 +69,7 @@ const NextWeekButton = React.forwardRef<HTMLDivElement, ButtonProps>(
 )
 NextWeekButton.displayName = 'NextWeekButton'
 
-const LastWeekButton = React.forwardRef<HTMLDivElement, ButtonProps>(
+const LastWeekButton = React.forwardRef<HTMLDivElement, PickDateButtonProps>(
   ({ className, size = 'default', onClick }, ref) => {
     return (
       <div

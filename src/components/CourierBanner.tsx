@@ -1,9 +1,9 @@
 import React from 'react'
-import FedEx from './SvgComponents/PartnerLogos/FedEx'
-import DHL from './SvgComponents/PartnerLogos/DHL'
-import UPS from './SvgComponents/PartnerLogos/UPS'
-import Purolator from './SvgComponents/PartnerLogos/Purolator'
-import CanadaPost from './SvgComponents/PartnerLogos/CanadaPost'
+import FedEx from '@components/SvgComponents/PartnerLogos/FedEx'
+import DHL from '@components/SvgComponents/PartnerLogos/DHL'
+import UPS from '@components/SvgComponents/PartnerLogos/UPS'
+import Purolator from '@components/SvgComponents/PartnerLogos/Purolator'
+import CanadaPost from '@components/SvgComponents/PartnerLogos/CanadaPost'
 
 function CourierBanner() {
   const imageContainerCSS = 'flex justify-center items-center mx-2'

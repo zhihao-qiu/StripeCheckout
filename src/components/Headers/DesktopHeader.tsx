@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Button } from '../ui/button'
-import { HeaderContent } from './Header'
 import SigninModal from '@/components/SigninModal'
+import { HeaderContent } from '@components/common/header'
+import { Button } from '@components/ui/button'
 
 export type MenuItem = {
   title: string

@@ -26,7 +26,7 @@ import { mailData } from '@/components/DashBoard/dummyData'
 import { Badge } from '@/components/ui/badge'
 import InboxDataTable from '@/components/DashBoard/InboxDataTable'
 import InboxMessagesDialog from './InboxMessagesDialog.tsx'
-import dollarFormat from '@/utils/dollarFormat'
+import dollarFormat from '@lib/utils'
 
 function Inbox() {
   // TODO get data from Apollo Client cache intead of dummy data

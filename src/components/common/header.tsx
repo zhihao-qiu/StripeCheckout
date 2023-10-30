@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { cn } from '@/lib/utils'
 import React from 'react'
-import ReturnPalTitle from '../SvgComponents/ReturnPalTitle'
-import Logo from '../SvgComponents/Logo'
-import { type IconType } from '../SvgComponents/types'
+import ReturnPalTitle from '@components/SvgComponents/ReturnPalTitle'
+import Logo from '@components/SvgComponents/Logo'
+import { type IconType } from '@components/SvgComponents/types'
 
 const HeaderRoot = React.forwardRef<
   HTMLHeadElement,

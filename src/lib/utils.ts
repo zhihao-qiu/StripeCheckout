@@ -47,3 +47,17 @@ export function getDateFrom(startDate: Date, amountOfDays: number): Date {
   currentDate.setDate(currentDate.getDate() + amountOfDays)
   return currentDate
 }
+
+/**
+ * Formats a numeric value as a currency string in Canadian Dollars (CAD).
+ *
+ * @param amount - The numeric value to be formatted as currency.
+ * @returns A string representing the `amount` formatted as a currency in CAD.
+ */
+export default function dollarFormat(amount: number) {
+  const formatted = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'CAD',
+  }).format(amount)
+  return formatted
+}
