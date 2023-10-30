@@ -25,7 +25,7 @@ import {
   LastWeekButton,
   NextWeekButton,
   PickDateCard,
-} from '@/components/PickDate/PickDate'
+} from '@components/common/pick-date'
 import {
   SectionDescription,
   SectionHeader,

@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { cn } from '@/lib/utils'
 import React from 'react'
-import { Button, type ButtonProps } from '../ui/button'
-import NextArrow from '../SvgComponents/NextArrow'
-import BackArrow from '../SvgComponents/BackArrow'
 import { useFormContext } from 'react-hook-form'
 import { useReturnProcess } from '@/hooks/useReturnProcess'
+import { Button, type ButtonProps } from '@components/ui/button'
+import NextArrow from '@components/SvgComponents/NextArrow'
+import BackArrow from '@components/SvgComponents/BackArrow'
 
 const ReturnProcessRoot = React.forwardRef<
   HTMLDivElement,
