@@ -2,8 +2,6 @@
 
 import React from 'react'
 
-import { useState } from 'react'
-
 import { Separator } from '@/components/ui/separator'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -12,40 +10,10 @@ import { useForm } from 'react-hook-form'
 import DashBoardHeader from '@/components/DashBoard/DashBoardHeader'
 import EditProfileForm from '@/components/DashBoard/EditProfileForm'
 import { profileFormSchema, type UserInfo } from './types'
-import EditAddressForm from './EditAddressForm'
+import EditAddressForm from '@/components/DashBoard/EditAddressForm'
+import { type ProfilePropsType } from '@/components/DashBoard/types'
 
-function Profile() {
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    firstName: 'John',
-    lastName: 'Doe',
-    primaryAddress: {
-      apartmentUnitNumber: '12A',
-      streetNumber: 1234,
-      streetName: 'Main St',
-      city: 'Toronto',
-      province: 'ON',
-      postal: 'M1M1M1',
-    },
-    email: 'john@example.com',
-    additionalAddress: [
-      {
-        apartmentUnitNumber: '0',
-        streetNumber: 999,
-        streetName: 'Main St',
-        city: 'Toronto',
-        province: 'ON',
-        postal: 'M1M1M1',
-      },
-      {
-        streetNumber: 123,
-        streetName: 'Main St',
-        city: 'Toronto',
-        province: 'ON',
-        postal: 'M1M1M1',
-      },
-    ],
-  })
-
+function Profile({ userInfo, setUserInfo }: ProfilePropsType) {
   const form = useForm({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
@@ -53,6 +21,7 @@ function Profile() {
       lastName: userInfo.lastName,
       primaryAddress: userInfo.primaryAddress,
       email: userInfo.email,
+      role: userInfo.role,
       additionalAddress: userInfo.additionalAddress,
     },
   })
@@ -70,13 +39,13 @@ function Profile() {
   }
 
   return (
-    <div className="w-full text-brand">
+    <>
       <DashBoardHeader
         firstName={userInfo.firstName}
         lastName={userInfo.lastName}
         email={userInfo.email}
       />
-      <section className="space-y-8 p-10 text-xl">
+      <section className="flex h-[75vh] flex-col justify-between space-y-6 p-10 text-xl">
         <h2 className="mb-4 text-largeText font-semibold">Profile</h2>
 
         <div className="mb-2 flex h-8 items-center gap-10">
@@ -88,7 +57,6 @@ function Profile() {
 
           <span>{userInfo.lastName}</span>
         </div>
-        <Separator orientation="vertical" className="bg-brand" />
         <div className="mb-2 flex gap-10">
           <label className="block">Email:</label>
 
@@ -131,26 +99,27 @@ function Profile() {
                   />
                 )
               })}
-              {/* <Button className="w-40">Add More Address</Button> */}
-              <EditAddressForm
-                type="add"
-                address={{
-                  apartmentUnitNumber: '',
-                  streetNumber: '',
-                  streetName: '',
-                  city: '',
-                  province: '',
-                  postal: '',
-                }}
-                setUserInfo={setUserInfo}
-                index={0}
-              />
             </div>
           </div>
         ) : null}
-        <EditProfileForm form={form} onSubmit={onSubmit} />
+        <div className="flex justify-between">
+          <EditProfileForm form={form} onSubmit={onSubmit} />
+          <EditAddressForm
+            type="add"
+            address={{
+              apartmentUnitNumber: '',
+              streetNumber: '',
+              streetName: '',
+              city: '',
+              province: '',
+              postal: '',
+            }}
+            setUserInfo={setUserInfo}
+            index={0}
+          />
+        </div>
       </section>
-    </div>
+    </>
   )
 }
 

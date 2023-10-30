@@ -1,21 +1,14 @@
 import {
-  HomeSection,
   HomeSectionImage,
   HomeSectionImageRoot,
   HomeSectionImageTitle,
   HomeSectionImageTitleDescription,
   HomeSectionImageTitleHeader,
-  SectionBackground,
-  SectionBackgroundAbsolute,
-  SectionBackgroundContent,
-  SectionDescription,
-  SectionHeader,
-  SectionHeaderHighlight,
-} from '@/components/home/Home'
+} from '@/components/common/home'
 import { getLayout } from '@/layouts/DefaultLayout'
 
 import hasanFounderImage from '@images/Hasan-cropped_founder.jpg'
-import mohammedFounderImage from '@images/Mohammed-cropped_founder.jpg'
+import alamdarFounderImage from '@images/Alamdar-cropped_founder.jpg'
 
 import Earth from '@/components/SvgComponents/Earth'
 import People from '@/components/SvgComponents/People'
@@ -23,12 +16,21 @@ import Hands from '@/components/SvgComponents/Hands'
 import Toronto from '@/components/SvgComponents/Toronto'
 import OurFoundersBackground from '@/components/SvgComponents/OurFoundersBackground'
 import WhyChooseUsBackground from '@/components/SvgComponents/WhyChooseUsBackground'
+import {
+  Section,
+  SectionBackground,
+  SectionBackgroundAbsolute,
+  SectionBackgroundContent,
+  SectionDescription,
+  SectionHeader,
+  SectionHeaderHighlight,
+} from '@/components/common/section'
 
 export default function AboutUs() {
   return (
     <div className="container mx-auto flex max-w-5xl pb-16 pt-20">
       <div className="w-full space-y-16">
-        <HomeSection>
+        <Section>
           <SectionHeader className="text-center">
             How <SectionHeaderHighlight>ReturnPal</SectionHeaderHighlight> Began
           </SectionHeader>
@@ -40,21 +42,21 @@ export default function AboutUs() {
             returns for both consumers and businesses, while also making a
             positive impact on the community.
           </SectionDescription>
-        </HomeSection>
+        </Section>
 
         <SectionBackground>
           <SectionBackgroundContent>
             <OurFoundersBackground className="h-[60rem] w-screen fill-brand md:h-[45rem]" />
 
             <SectionBackgroundAbsolute>
-              <HomeSection className="container mx-auto max-w-5xl space-y-6 text-white">
+              <Section className="container mx-auto max-w-5xl space-y-6 text-white">
                 <SectionHeader className="text-center">
                   Our <SectionHeaderHighlight>Founders</SectionHeaderHighlight>
                 </SectionHeader>
                 <div className="grid w-full place-items-center gap-7 md:flex md:grid-cols-2 md:justify-between md:px-9">
                   <HomeSectionImageRoot>
                     <HomeSectionImage
-                      className="h-52 w-52 md:h-64 md:w-64"
+                      className="h-52 w-52 md:h-72 md:w-72"
                       src={hasanFounderImage}
                       priority
                       alt="CEO of Returnpal of ReturnPal Hasan-Ali Abidi"
@@ -71,14 +73,14 @@ export default function AboutUs() {
 
                   <HomeSectionImageRoot>
                     <HomeSectionImage
-                      className="h-52 w-52 md:h-64 md:w-64"
-                      src={mohammedFounderImage}
+                      className="h-52 w-52 md:h-72 md:w-72"
+                      src={alamdarFounderImage}
                       priority
-                      alt="Co-Founder of ReturnPal Mohammed Al-Salem"
+                      alt="Co-Founder of ReturnPal Alamdar-Ali Abidi"
                     />
                     <HomeSectionImageTitle className="text-center">
                       <HomeSectionImageTitleHeader>
-                        Mohammed Al-Salem
+                        Alamdar-Ali Abidi
                       </HomeSectionImageTitleHeader>
                       <HomeSectionImageTitleDescription>
                         Co-Founder of ReturnPal
@@ -86,12 +88,12 @@ export default function AboutUs() {
                     </HomeSectionImageTitle>
                   </HomeSectionImageRoot>
                 </div>
-              </HomeSection>
+              </Section>
             </SectionBackgroundAbsolute>
           </SectionBackgroundContent>
         </SectionBackground>
 
-        <HomeSection>
+        <Section>
           <SectionHeader>
             Our <SectionHeaderHighlight>Mission</SectionHeaderHighlight>
           </SectionHeader>
@@ -102,14 +104,14 @@ export default function AboutUs() {
             repackaging and delivery process on your behalf, allowing you to sit
             back and relax.
           </SectionDescription>
-        </HomeSection>
+        </Section>
 
         <SectionBackground>
           <SectionBackgroundContent>
             <WhyChooseUsBackground className="h-[45rem] w-screen fill-brand" />
 
             <SectionBackgroundAbsolute>
-              <HomeSection className="container mx-auto max-w-5xl space-y-6 text-white">
+              <Section className="container mx-auto max-w-5xl space-y-6 text-white">
                 <SectionHeader>
                   Why Choose <SectionHeaderHighlight>Us</SectionHeaderHighlight>
                   ?
@@ -135,12 +137,12 @@ export default function AboutUs() {
                   <People />
                   <Hands />
                 </div>
-              </HomeSection>
+              </Section>
             </SectionBackgroundAbsolute>
           </SectionBackgroundContent>
         </SectionBackground>
 
-        <HomeSection>
+        <Section>
           <SectionHeader>
             Our <SectionHeaderHighlight>Operation</SectionHeaderHighlight>
           </SectionHeader>
@@ -150,7 +152,7 @@ export default function AboutUs() {
             same-day return needs.
           </SectionDescription>
           <Toronto className="h-56 w-56" />
-        </HomeSection>
+        </Section>
       </div>
     </div>
   )

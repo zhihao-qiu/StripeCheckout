@@ -15,8 +15,8 @@ import Link from 'next/link'
 import NextArrow from '../SvgComponents/NextArrow'
 
 const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(1, 'Password is required'),
+  email: z.string().email({ message: 'Please enter a valid email' }),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
 function SignInForm() {

@@ -1,11 +1,5 @@
 import React from 'react'
 import Image from 'next/image'
-import {
-  HomeSection,
-  SectionDescription,
-  SectionHeader,
-  SectionHeaderHighlight,
-} from '@/components/home/Home'
 import { getLayout } from '@/layouts/DefaultLayout'
 import { Button } from '@/components/ui/button'
 import HomePageSVG from '@/components/SvgComponents/HomePageSVG'
@@ -13,6 +7,12 @@ import DemoCards from '@/components/DemoCards/DemoCards'
 import CourierBanner from '@/components/CourierBanner'
 import PartnerBanner from '@/components/PartnerBanner'
 import Link from 'next/link'
+import {
+  Section,
+  SectionDescription,
+  SectionHeader,
+  SectionHeaderHighlight,
+} from '@/components/common/section'
 
 function Home() {
   return (
@@ -20,8 +20,8 @@ function Home() {
       <div className="container mx-auto flex max-w-5xl pb-16 pt-12 md:pt-20 xl:max-w-7xl">
         <div className="w-full space-y-8 px-4 sm:px-3 xl:space-y-12">
           <section className="flex gap-8">
-            <HomeSection className="flex-1">
-              <SectionHeader className="font-medium">
+            <Section className="flex-1">
+              <SectionHeader>
                 Return Your Package The{' '}
                 <SectionHeaderHighlight>Easy Way</SectionHeaderHighlight>
               </SectionHeader>
@@ -30,10 +30,10 @@ function Home() {
                 need for printing labels, packaging, or visits to the post
                 office.
               </SectionDescription>
-              <Button className="  self-stretch md:self-start">
-                Schedule a Pickup Now
-              </Button>
-            </HomeSection>
+              <Link href="/return">
+                <Button className="h-9">Schedule a Pickup Now</Button>
+              </Link>
+            </Section>
             <div className="hidden aspect-[1.35/1] flex-1 md:block">
               <Image
                 className="h-full w-full object-cover"

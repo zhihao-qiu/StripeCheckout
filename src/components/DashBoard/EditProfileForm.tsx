@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { type EditProfileFormPropsType } from '@/components/DashBoard/types'
+import { ProvincesSelector } from './ProvincesSelector'
 
 function EditProfileForm({ form, onSubmit }: EditProfileFormPropsType) {
   return (
@@ -162,7 +163,11 @@ function EditProfileForm({ form, onSubmit }: EditProfileFormPropsType) {
                     <FormItem>
                       <FormLabel className="text-right">Province</FormLabel>
                       <FormControl>
-                        <Input id="province" {...field} />
+                        {/* <Input id="province" {...field} /> */}
+                        <ProvincesSelector
+                          defaultValue={field.value}
+                          onValueChange={field.onChange}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -185,7 +190,7 @@ function EditProfileForm({ form, onSubmit }: EditProfileFormPropsType) {
                 />
               </div>
             </div>
-            <DialogFooter>
+            <DialogFooter className="mt-4">
               <DialogClose asChild>
                 <Button type="submit">Save changes</Button>
               </DialogClose>

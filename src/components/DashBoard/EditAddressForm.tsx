@@ -72,12 +72,16 @@ function EditAddressForm({
   }
 
   const onClickDelete = () => {
-    setUserInfo((prev) => ({
-      ...prev,
-      additionalAddress: prev.additionalAddress
-        ? prev.additionalAddress.filter((_, i) => i !== index)
-        : undefined,
-    }))
+    setUserInfo((prev) => {
+      console.log('prev', prev)
+
+      return {
+        ...prev,
+        additionalAddress: prev.additionalAddress
+          ? prev.additionalAddress.filter((_, i) => i !== index)
+          : undefined,
+      }
+    })
   }
 
   return (
@@ -105,7 +109,7 @@ function EditAddressForm({
                 <BiEditAlt />
               </Button>
             ) : (
-              <Button variant="ghost" onClick={() => addressForm.reset()}>
+              <Button variant="secondary" onClick={() => addressForm.reset()}>
                 Create New Address
               </Button>
             )}
@@ -198,7 +202,6 @@ function EditAddressForm({
                       <FormItem>
                         <FormLabel className="text-right">Province</FormLabel>
                         <FormControl>
-                          {/* <Input id="province" {...field} /> */}
                           <ProvincesSelector
                             onValueChange={field.onChange}
                             defaultValue={field.value}
