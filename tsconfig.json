@@ -27,7 +27,6 @@
       "@pages/*": ["./src/pages/*"],
       "@returnprocess/*": ["./src/return-process/*"],
       "@styles/*": ["./src/styles/*"],
-      "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"],
     },
   },
