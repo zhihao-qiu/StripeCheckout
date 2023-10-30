@@ -9,6 +9,7 @@ import Pickup from '@/return-process/pickup'
 import Pricing from '@/return-process/pricing'
 import PackageInfo from '@/return-process/package-info'
 import Confirmation from '@/return-process/confirmation'
+import ConfirmPickup from '@/return-process/confirm-pickup'
 
 const steps: ReturnProcessStep[] = [
   {
@@ -37,6 +38,11 @@ const steps: ReturnProcessStep[] = [
     component: <PackageInfo />,
   },
   {
+    id: 'confirm-pickup',
+    name: 'Confirm',
+    component: <ConfirmPickup />,
+  },
+  {
     id: 'confirmation',
     name: 'Confirm',
     component: <Confirmation />,
@@ -45,7 +51,7 @@ const steps: ReturnProcessStep[] = [
 
 export default function ReturnProcessLayout({ children }: PropsWithChildren) {
   return (
-    <ReturnProcessContextProvider>
+    <ReturnProcessContextProvider steps={steps}>
       <div className={`flex min-h-[100dvh] overflow-hidden bg-paleBlue`}>
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           <ReturnProcessHeader />

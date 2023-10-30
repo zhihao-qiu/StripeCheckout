@@ -12,7 +12,7 @@ import * as z from 'zod'
 import { Button } from '@components/ui/button'
 import Stamp from '../SvgComponents/Stamp'
 import Link from 'next/link'
-import { type MockData } from '@/pages/confirm-pickup'
+import { type MockData } from '@/return-process/confirm-pickup'
 
 interface Props {
   promoState: [string, React.Dispatch<React.SetStateAction<string>>]

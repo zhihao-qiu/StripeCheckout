@@ -234,5 +234,3 @@ export default function ConfirmPickup() {
     </div>
   )
 }
-
-ConfirmPickup.getLayout = getLayout
