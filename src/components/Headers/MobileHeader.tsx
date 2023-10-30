@@ -7,7 +7,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import MobileHeaderFooter from './MobileHeaderFooter'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   type IconDefinition,
@@ -18,9 +17,10 @@ import {
   faMailBulk,
 } from '@fortawesome/free-solid-svg-icons'
 import { type PropsWithChildren } from 'react'
-import { HeaderContent } from './Header'
-import { Separator } from '../ui/separator'
-import SigninModal from '../SigninModal'
+import { HeaderContent } from '@components/common/header'
+import { Separator } from '@components/ui/separator'
+import SigninModal from '@components/SigninModal'
+import MobileHeaderFooter from './MobileHeaderFooter'
 
 type MobileViewType = PropsWithChildren & {
   href: string
