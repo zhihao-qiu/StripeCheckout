@@ -13,6 +13,7 @@ import { Button } from '@components/ui/button'
 import Stamp from '../SvgComponents/Stamp'
 import Link from 'next/link'
 import { type MockData } from '@/return-process/confirm-pickup'
+import { useReturnProcess } from '@hooks/useReturnProcess'
 
 interface Props {
   promoState: [string, React.Dispatch<React.SetStateAction<string>>]
@@ -27,6 +28,7 @@ export default function OrderSummary({
   promoState: [promoCode, setPromoCode],
   orderData,
 }: Props) {
+  const returnProcess = useReturnProcess()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -111,7 +113,10 @@ export default function OrderSummary({
           </Link>
         </div>
       </div>
-      <Button className="mt-6 h-fit w-full max-w-[300px] sm:text-xl">
+      <Button
+        className="mt-6 h-fit w-full max-w-[300px] sm:text-xl"
+        onClick={() => returnProcess.forward()}
+      >
         Confirm Pickup
       </Button>
     </section>
