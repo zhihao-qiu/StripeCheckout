@@ -17,8 +17,8 @@ function SignIn() {
           alt="Return Pal logo"
           width="0"
           height="0"
-          sizes="100vw"
           className="my-4 h-[40px] w-auto sm:my-6"
+          sizes="100vw"
         />
 
         <Tabs defaultValue="account" className="w-[400px]">

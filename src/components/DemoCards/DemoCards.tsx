@@ -59,14 +59,14 @@ const cardData2 = [
 
 function DemoCards() {
   return (
-    <div className="absolute top-64 w-full space-y-12 py-2.5 text-center leading-4 text-white md:top-56">
-      <section className="px-20">
+    <div className="absolute top-52 w-full space-y-12 py-2.5 text-center leading-4 text-white md:top-20 lg:top-24">
+      <section className="xl:px-18 px-10 md:px-7 lg:px-16">
         <div className="mx-auto mt-20 flex max-w-7xl justify-between gap-6 md:mt-10 lg:mt-8">
-          <title className="mb-4 block max-w-5xl text-left text-mediumText md:text-largeText lg:text-5xl xl:text-subtitle">
+          <title className="mb-4 block max-w-5xl text-left text-mediumText lg:text-3xl xl:text-subtitle">
             How It Works
           </title>
         </div>
-        <div className=" mx-auto flex max-w-7xl flex-col items-center gap-6 md:flex-row md:justify-between">
+        <div className=" mx-auto flex max-w-7xl flex-col items-center gap-5 md:flex-row md:justify-evenly">
           {cardData.map((data) => (
             <CardItem
               step={data.step}
@@ -78,13 +78,13 @@ function DemoCards() {
           ))}
         </div>
       </section>
-      <section className="px-20">
+      <section className="xl:px-18 px-10 md:px-7 lg:px-16">
         <div className=" mx-auto flex max-w-7xl justify-between gap-6">
-          <title className="mb-4 block max-w-5xl text-left text-mediumText md:text-largeText lg:text-5xl xl:text-subtitle">
+          <title className="mb-4 block max-w-5xl text-left text-mediumText lg:text-3xl xl:text-subtitle">
             Your Benefits
           </title>
         </div>
-        <div className=" mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 md:flex-row md:justify-between">
+        <div className=" mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 md:flex-row md:justify-evenly">
           {cardData2.map((data) => (
             <CardItem
               step={data.step}

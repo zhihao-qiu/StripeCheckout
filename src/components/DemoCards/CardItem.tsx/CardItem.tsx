@@ -6,14 +6,14 @@ import { type CardItemProps } from './type'
 
 export function CardItem({ step, icon, title, description }: CardItemProps) {
   return (
-    <Card className="h-[17rem] w-[350px] md:h-[22rem] md:w-[16rem] lg:h-[26rem] lg:w-[20rem] xl:h-[30rem] xl:w-[24rem]">
+    <Card className="h-[14rem] w-[18rem] md:h-[16rem] md:w-[16rem] lg:h-[20rem] lg:w-[20rem] xl:h-[22rem] xl:w-[23rem]">
       <section className="mt-4 flex items-center justify-between px-4">
         {typeof step === 'number' ? (
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary font-bold  text-white lg:h-12 lg:w-12 xl:h-16 xl:w-16 xl:text-subtitle">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary font-bold  text-white lg:h-10 lg:w-10 xl:h-12 xl:w-12 xl:text-subtitle">
             {step}
           </div>
         ) : (
-          <AiFillCheckCircle className="h-8 w-8 rounded-full border-4 border-primary bg-white text-primary lg:h-12 lg:w-12 xl:h-16 xl:w-16">
+          <AiFillCheckCircle className="h-8 w-8 rounded-full border-4 border-primary bg-white text-primary lg:h-10 lg:w-10 xl:h-12 xl:w-12">
             <style>
               {`
             .text-primary path:first-child {
@@ -26,12 +26,12 @@ export function CardItem({ step, icon, title, description }: CardItemProps) {
         {icon}
       </section>
       <CardHeader>
-        <CardTitle className="text-base font-bold sm:text-lg  md:text-xl lg:text-largeText xl:text-subtitle">
+        <CardTitle className="text-base font-bold sm:text-base  md:text-lg lg:text-2xl xl:text-subtitle">
           {title ? title : description}
         </CardTitle>
       </CardHeader>
       {title ? (
-        <CardContent className="text-base sm:text-lg  md:text-xl lg:text-2xl xl:text-subtitle">
+        <CardContent className="text-sm sm:text-base  md:text-base lg:text-xl xl:text-3xl">
           {description}
         </CardContent>
       ) : null}

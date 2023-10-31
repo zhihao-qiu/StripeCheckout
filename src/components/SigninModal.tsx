@@ -37,8 +37,12 @@ function SigninModal({
           alt="Return Pal logo"
           width="0"
           height="0"
-          sizes="100vw"
           className="mt-4 h-[40px] w-auto sm:my-6"
+          sizes="100vw"
+          style={{
+            maxWidth: '100%',
+            height: 'auto',
+          }}
         />
 
         <Tabs defaultValue="account" className="w-[400px]">
