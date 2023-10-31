@@ -1,11 +1,11 @@
 import OrderSummary from '@/components/ConfirmPickup/OrderSummary'
 import Calendar from '@/components/SvgComponents/ConfirmPickup/Calendar'
 import CreditCard from '@/components/SvgComponents/ConfirmPickup/CreditCard'
-import Edit from '@/components/SvgComponents/ConfirmPickup/Edit'
+import EditContainer from '@/components/SvgComponents/ConfirmPickup/EditContainer'
 import Location from '@/components/SvgComponents/ConfirmPickup/Location'
 import Package from '@/components/SvgComponents/ConfirmPickup/Package'
 import PickupTrolley from '@/components/SvgComponents/ConfirmPickup/PickupTrolley'
-import ScrollDownChevron from '@/components/SvgComponents/ConfirmPickup/ScrollDownChevron'
+import ScrollContainer from '@/components/SvgComponents/ConfirmPickup/ScrollContainer'
 import { ReturnProcessBackButton } from '@/components/common/return-process'
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
@@ -52,7 +52,10 @@ const mockOrder: Order = {
 }
 
 export default function ConfirmPickup() {
+  // If the user enters a Promo Code in the Order Summary, it will be held in state here
   const [promoCode, setPromoCode] = useState('')
+
+  // Logic for the Scroll-to-Bottom button
   const [showScrollBtn, setShowScrollBtn] = useState(true)
 
   useEffect(() => {
@@ -67,7 +70,7 @@ export default function ConfirmPickup() {
     return window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const scrollDown = () => {
+  const scrollDown: () => void = () => {
     window.scrollTo({
       top: document.documentElement.scrollHeight,
       behavior: 'smooth',
@@ -75,11 +78,11 @@ export default function ConfirmPickup() {
   }
 
   return (
-    <div className="mt-6 flex w-full flex-col items-center sm:mt-10 sm:flex-row sm:items-start sm:justify-around md:tracking-wide">
-      <section className="mx-1 flex flex-col items-center text-base sm:mb-10 sm:w-2/3 sm:text-smallText">
-        <div className="flex w-3/4 flex-col">
-          <section className="sm:mb-10">
-            <h1 className="mb-2 w-full text-smallText sm:text-subtitle">
+    <div className="mt-6 flex w-full flex-col items-center sm:mt-10 md:flex-row md:items-start md:justify-around md:tracking-wide">
+      <section className="mx-1 flex w-full flex-col items-center text-base sm:mb-10 sm:w-2/3 sm:text-smallText">
+        <div className="flex w-11/12 flex-col md:w-3/4">
+          <section className="mb-4 sm:mb-10">
+            <h1 className="md-1 w-full text-mediumText sm:mb-2 sm:text-subtitle">
               Confirm Pickup
             </h1>
             <p className="text-grey md:tracking-wide">
@@ -91,13 +94,13 @@ export default function ConfirmPickup() {
             <h2 className="text-smallText font-semibold text-primary sm:mb-6 sm:text-2xl">
               Pickup Information
             </h2>
-            <div className="flex w-full justify-between gap-10">
-              <div className="flex w-[70px] grow-0 justify-center">
-                <div className="h-[56px] w-[42px] grow-0">
+            <div className="flex w-full justify-between gap-2 md:gap-10">
+              <div className="flex min-w-[35px] justify-center md:min-w-[70px]">
+                <div className="h-[28px] w-[21px] pt-3 sm:h-[56px] sm:w-[42px] sm:pt-0">
                   <Location />
                 </div>
               </div>
-              <div className="grow space-y-3">
+              <div className="w-full space-y-3">
                 <p className="font-bold">
                   {mockOrder.name}
                   <span className="text-mediumText font-normal">
@@ -112,89 +115,81 @@ export default function ConfirmPickup() {
                   </p>
                 )}
               </div>
-              <div className="mt-4 h-[28px] w-[28px] grow-0">
-                <Edit />
-              </div>
+              <EditContainer />
             </div>
 
             <Separator className="mb-4 mt-4 w-full bg-brand" />
 
-            <div className="flex w-full justify-between gap-10">
-              <div className="flex w-[70px] grow-0 justify-center">
-                <div className="h-[79px] w-[63px] grow-0">
+            <div className="flex w-full justify-between gap-2 md:gap-10">
+              <div className="flex min-w-[35px] justify-center md:min-w-[70px]">
+                <div className="h-[39px] w-[31px] sm:h-[79px] sm:w-[63px]">
                   <Calendar />
                 </div>
               </div>
-              <p className="mt-4 grow">
+              <p className="grow sm:mt-4">
                 <span className="font-bold">Pickup Date:</span>
                 <span>&nbsp;{mockOrder.pickupDate}</span>
               </p>
-              <div className="mt-4 h-[28px] w-[28px] grow-0">
-                <Edit />
-              </div>
+              <EditContainer />
             </div>
 
             <Separator className="mb-4 mt-4 w-full bg-brand" />
 
-            <div className="flex w-full justify-between gap-10">
-              <div className="flex w-[70px] grow-0 justify-center">
-                <div className="h-[68px] w-[60px] grow-0">
+            <div className="flex w-full justify-between gap-2 md:gap-10">
+              <div className="flex min-w-[35px] justify-center md:min-w-[70px]">
+                <div className="h-[34px] w-[30px] sm:h-[68px] sm:w-[60px]">
                   <PickupTrolley />
                 </div>
               </div>
-              <p className="mt-4 grow">
+              <p className="grow sm:mt-4">
                 <span className="font-bold">Pickup Method:</span>
                 <span>&nbsp;{mockOrder.pickupMethod}</span>
               </p>
-              <div className="mt-4 h-[28px] w-[28px] grow-0">
-                <Edit />
-              </div>
+              <EditContainer />
             </div>
             <Separator className="mb-4 mt-4 w-full bg-brand" />
           </section>
 
           <section>
-            <h2 className="text-smallText font-semibold text-primary sm:mb-6 sm:text-2xl">
+            <h2 className="mb-2 text-smallText font-semibold text-primary sm:mb-6 sm:text-2xl">
               Package Summary
             </h2>
-            <div className="flex w-full justify-between gap-10">
-              <div className="flex w-[70px] grow-0 justify-center">
-                <div className="h-[46px] w-[60px] grow-0">
+            <div className="flex w-full justify-between gap-2 md:gap-10">
+              <div className="flex min-w-[35px] justify-center md:min-w-[70px]">
+                <div className="h-[21px] w-[27px] sm:h-[46px] sm:w-[60px]">
                   <Package />
                 </div>
               </div>
-              <div className="grow space-y-3">
+              <div className="grow">
                 <p>
                   <span className="font-bold">Total Packages:&nbsp;</span>
                   <span>
                     {mockData.extraBoxes ? mockData.extraBoxes + 1 : 1}
                   </span>
                 </p>
-                <Link href="/" className="w-8/12 text-primary">
+                <Link href="/" className="w-2/3 text-primary">
                   <div className="flex items-center justify-start">
-                    <div className="text-subtitle">+</div>
+                    <div className="text-normal sm:text-subtitle">+</div>
                     <div className="mt-1">&nbsp;Add a package</div>
                   </div>
                 </Link>
               </div>
-              <div className="mt-4 h-[28px] w-[28px] grow-0">
-                <Edit />
-              </div>
+              <EditContainer />
             </div>
             <Separator className="mb-4 mt-4 w-full bg-brand" />
           </section>
 
           <section>
-            <h2 className="text-smallText font-semibold text-primary sm:mb-6 sm:text-2xl">
+            <h2 className="text-smallText font-semibold text-primary sm:mb-2 sm:text-2xl">
               Payment Method
             </h2>
-            <div className="flex w-full justify-between gap-10">
-              <div className="flex w-[70px] grow-0 justify-center">
-                <div className="h-[70px] w-[70px] grow-0">
+            <div className="flex w-full justify-between gap-2 md:gap-10">
+              <div className="flex min-w-[35px] justify-center md:min-w-[70px]">
+                <div className="h-[35px] w-[35px] sm:h-[70px] sm:w-[70px]">
                   <CreditCard />
                 </div>
               </div>
-              <div className="grow space-y-3">
+              <div className="mt-1 grow sm:mt-3">
                 <p>
                   <span className="font-bold">
                     {mockOrder.cardType} ending in:&nbsp;
@@ -202,12 +197,10 @@ export default function ConfirmPickup() {
                   <span>{mockOrder.cardNumber} </span>
                 </p>
               </div>
-              <div className="mt-4 h-[28px] w-[28px] grow-0">
-                <Edit />
-              </div>
+              <EditContainer />
             </div>
           </section>
-          <div className="my-10 flex">
+          <div className="my-2 flex sm:my-10">
             <ReturnProcessBackButton />
           </div>
         </div>
@@ -218,18 +211,7 @@ export default function ConfirmPickup() {
           orderData={mockData}
         />
       )}
-      {/* scroll to bottom arrow and text */}
-      {showScrollBtn && (
-        <div
-          className="fixed left-[50%] top-[91%] z-10 flex translate-x-[-50%] translate-y-[-50%] flex-col items-center hover:scale-105 hover:cursor-pointer"
-          onClick={scrollDown}
-        >
-          <div className="h-10 w-12 text-primary hover:text-gradientL">
-            <ScrollDownChevron />
-          </div>
-          <div className="text-xs">scroll</div>
-        </div>
-      )}
+      {showScrollBtn && <ScrollContainer scrollDown={scrollDown} />}
     </div>
   )
 }

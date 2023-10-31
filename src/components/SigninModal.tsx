@@ -42,12 +42,22 @@ function SigninModal({
         />
 
         <Tabs defaultValue="account" className="w-[400px]">
-          <TabsList className="mb-2 flex justify-center text-lg font-semibold text-grey sm:text-3xl">
-            <TabsTrigger value="account">Sign In</TabsTrigger>
-            <span className="text-xl font-normal text-primary sm:text-4xl">
-              {' | '}
+          <TabsList className="mb-2 mt-2 flex justify-center font-semibold text-grey sm:mt-0">
+            <TabsTrigger
+              value="account"
+              className="flex w-full justify-end pr-2 text-2xl sm:text-3xl"
+            >
+              <span>Sign In</span>
+            </TabsTrigger>
+            <span className="pb-1 text-3xl font-normal text-primary sm:pb-2 sm:text-4xl">
+              {'|'}
             </span>
-            <TabsTrigger value="password">Guest</TabsTrigger>
+            <TabsTrigger
+              value="password"
+              className="flex w-full justify-start pl-2 text-2xl sm:text-3xl"
+            >
+              <span>Guest</span>
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="account">
             <SignInForm />

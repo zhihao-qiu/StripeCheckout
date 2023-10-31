@@ -41,9 +41,9 @@ export default function OrderSummary({
   }
 
   return (
-    <section className="mx-1 tracking-normal sm:w-1/3">
+    <section className="mx-1 tracking-normal md:w-1/3">
       <div className="flex h-fit max-w-[300px] flex-col items-center rounded-xl border-2 border-brand bg-white shadow-2xl">
-        <p className="mt-6 text-smallText font-semibold text-primary sm:text-2xl">
+        <p className="mt-6 text-smallText font-semibold text-primary lg:text-2xl">
           Order Summary
         </p>
         <Separator className="mb-4 mt-4 w-2/3 bg-brand" />
@@ -114,7 +114,7 @@ export default function OrderSummary({
         </div>
       </div>
       <Button
-        className="mt-6 h-fit w-full max-w-[300px] sm:text-xl"
+        className="my-6 h-fit w-full max-w-[300px] sm:text-xl"
         onClick={() => returnProcess.forward()}
       >
         Confirm Pickup
