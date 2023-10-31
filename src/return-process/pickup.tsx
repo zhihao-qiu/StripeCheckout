@@ -90,7 +90,7 @@ export default function Pickup() {
                               <div className="flex items-end justify-center align-bottom">
                                 <HandingPackage className="h-24 w-24 fill-primary" />
                               </div>
-                              Leave on Doorstep
+                              Direct Handoff
                             </CardTitle>
 
                             <CardDescription className="flex items-center">

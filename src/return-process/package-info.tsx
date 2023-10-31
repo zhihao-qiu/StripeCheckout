@@ -19,7 +19,7 @@ import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useState, type ChangeEvent } from 'react'
+import { useState, type ChangeEvent, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import {
@@ -44,6 +44,7 @@ import {
   ReturnProcessSection,
 } from '@/components/common/return-process'
 import { SectionDescription, SectionHeader } from '@/components/common/section'
+import { Separator } from '@/components/ui/separator'
 
 const ACCEPTED_FILE_TYPES = ['JPG', 'PNG', 'PDF']
 
@@ -111,6 +112,12 @@ export default function PackageInfo() {
     },
   })
 
+  useEffect(() => {
+    if (arrayOfLabels.length === 0) {
+      form.setValue('labelFileUploads', [], { shouldValidate: true })
+    }
+  }, [arrayOfLabels, form])
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log('Submitted:', values.labelFileUploads)
 
@@ -119,10 +126,7 @@ export default function PackageInfo() {
   }
 
   console.log('currentData:', returnProcess.currentData.labelFileUploads)
-  console.log('Errors:', form.formState.errors)
   console.log('labelFileUploads:', form.getValues('labelFileUploads'))
-  console.log('arrayOfLabels:', arrayOfLabels)
-  console.log('isValid:', form.formState.isValid)
 
   const labelDialogClasses =
     'flex w-[30%] min-w-[30%] max-w-2xl flex-col justify-between rounded-lg border-4 border-brand bg-white font-bold text-brand lg:text-2xl'
@@ -292,10 +296,35 @@ export default function PackageInfo() {
       setLabelDescription(undefined)
       setFile(undefined)
     }
-    // upload file to server after implementation
+    // TODO: upload file to server after implementation
+  }
+
+  const addPhysicalLabel = () => {
+    // TODO: Change this later - this is only here to pass the validation step.
+    form.setValue(
+      'labelFileUploads',
+      [
+        {
+          attachment: 'sad',
+          description: 'df',
+          labelType: 'Amazon',
+        },
+      ],
+      { shouldValidate: true }
+    )
+    setArrayOfLabels([
+      ...arrayOfLabels,
+      {
+        attachment: file?.name ?? 'N/A',
+        labelType: 'Physical',
+        description: labelDescription,
+      },
+    ])
+    setLabelDescription(undefined)
   }
 
   const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
     setLabelDescription(event.target.value)
   }
 
@@ -327,7 +356,7 @@ export default function PackageInfo() {
                   <DialogContent className="bg-paleBlue">
                     <DialogHeader>
                       <DialogTitle className="text-center font-bold text-brand">
-                        How to add a digital / Amazon QR package label
+                        How to add a Digital / Amazon QR package label
                       </DialogTitle>
                     </DialogHeader>
                     <div className="px-5 text-brand">
@@ -340,6 +369,7 @@ export default function PackageInfo() {
                           alt="Step 1 example Image"
                         />
                       </div>
+                      <Separator className="bg-brand" />
                       <div className="my-2">
                         Step 2: Drag your file over the area or click to browse
                         your computer&apos;s files
@@ -350,6 +380,7 @@ export default function PackageInfo() {
                           alt="Step 2 example image"
                         />
                       </div>
+                      <Separator className="bg-brand" />
                       <div className="my-2">
                         Step 3: Fill in the description
                         <Image
@@ -359,7 +390,7 @@ export default function PackageInfo() {
                           alt="Step 3 example image"
                         />
                       </div>
-
+                      <Separator className="bg-brand" />
                       <div className="my-2">
                         Step 4: Click &quot;Add Package&quot; to add it to the
                         list.
@@ -470,10 +501,29 @@ export default function PackageInfo() {
                       <div className=" text-brand">
                         Please leave your physical label with your package.
                       </div>
+                      <div className="font-bold text-brand">
+                        <Label
+                          htmlFor="description"
+                          className="text-right font-bold"
+                        >
+                          Description
+                        </Label>
+                        <Input
+                          id="description"
+                          placeholder='Label the item(s) inside: e.g. "laptop covers"'
+                          onChange={handleDescriptionChange}
+                          className="col-span-3"
+                        />
+                      </div>
                     </div>
                     <DialogFooter>
                       <DialogClose asChild>
-                        <Button className="w-full px-5">I understand</Button>
+                        <Button
+                          className="w-full px-5"
+                          onClick={() => void addPhysicalLabel()}
+                        >
+                          Add Package
+                        </Button>
                       </DialogClose>
                     </DialogFooter>
                   </DialogContent>
