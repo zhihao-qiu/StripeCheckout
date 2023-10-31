@@ -1,4 +1,4 @@
-import React from 'react'
+import { DialogClose } from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -13,6 +13,7 @@ import * as z from 'zod'
 import { Button } from '@components/ui/button'
 import Link from 'next/link'
 import NextArrow from '@components/SvgComponents/NextArrow'
+import SignUpModule from '@components/SignUpModal'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email' }),
@@ -88,9 +89,7 @@ function SignInForm() {
         </Button>
         <p className="my-8 font-semibold text-grey">
           Don&apos;t have an account yet?
-          <Link href="/sign-in" className="font-semibold text-primary">
-            <span>&nbsp;Sign Up</span>
-          </Link>
+          <SignUpModule />
         </p>
       </form>
     </Form>

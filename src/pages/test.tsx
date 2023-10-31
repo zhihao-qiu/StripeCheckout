@@ -1,10 +1,10 @@
-import Terms from '@/components/Terms'
 import { getLayout } from '@/layouts/DefaultLayout'
+import SignUpModal from '@components/SignUpModal'
 
 export default function Test() {
   return (
     <>
-      <Terms />
+      <SignUpModal />
     </>
   )
 }
