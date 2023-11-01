@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 
+// Default headerType is desktop
 function SigninModal({
   headerType = 'desktop',
 }: {

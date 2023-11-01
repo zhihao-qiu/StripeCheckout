@@ -23,10 +23,7 @@ function Faq() {
         </AccordionTrigger>
         <AccordionContent className="text-left">
           <iframe
-            width="520"
-            height="300"
-            className="pt-3"
-            // src="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
+            className="mx-auto h-[180px] w-[320px] md:h-[200px] md:w-[380px] lg:w-[400px] xl:h-[260px]"
             src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=2"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -46,7 +43,7 @@ function Faq() {
           157.143 960 122.857C1120 88.5714 1280 57.1429 1440 57.1429C1600
           57.1429 1760 88.5714 1840 109.286L1920 122.857V363H1840C1760 363 1600
           363 1440 363C1280 363 1120 363 960 363C800 363 640 363 480 363C320 363
-          160 363 80 363H0V0Z
+          160 363 80 363H0V0Z Placeholder for content
         </AccordionContent>
       </AccordionItem>
       <AccordionItem
