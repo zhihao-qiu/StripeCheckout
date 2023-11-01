@@ -18,6 +18,7 @@ import {
   ReturnProcessBackButton,
   ReturnProcessNextButton,
 } from '@components/common/return-process'
+import { motion } from 'framer-motion'
 
 export type PlanDataType = {
   name: string
@@ -77,6 +78,22 @@ const formSchema = z.object({
   ]),
 })
 
+// Framer-motion
+const container = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.1 } },
+}
+
+const item = {
+  hidden: { opacity: 0, translateX: 0, translateY: 0 },
+  show: {
+    opacity: 1,
+    translateX: 0,
+    translateY: 0,
+    transition: { ease: 'easeIn', duration: 0.5 },
+  },
+}
+
 export default function ChoosePlan() {
   const returnProcess = useReturnProcess()
 
@@ -98,9 +115,9 @@ export default function ChoosePlan() {
       <form
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8"
+        className="mt-4 space-y-8 sm:mt-0"
       >
-        <div className="flex min-h-screen w-screen flex-col items-center justify-start bg-paleBlue p-10">
+        <div className="flex min-h-screen w-screen flex-col items-center justify-start bg-paleBlue p-0 sm:p-10">
           <FormField
             control={form.control}
             name="plan"
@@ -112,20 +129,26 @@ export default function ChoosePlan() {
                     selectionType="keep-selected"
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    className="flex w-full flex-wrap justify-center gap-8"
                   >
-                    {/* <RadioGroup className="flex w-full flex-wrap justify-center gap-8"> */}
-                    {planData.map((plan) => {
-                      return (
-                        <ExtendedToggleGroupItem
-                          key={plan.name}
-                          value={plan.name.toLowerCase()}
-                          asChild
-                        >
-                          <Plan plan={plan} />
-                        </ExtendedToggleGroupItem>
-                      )
-                    })}
+                    <motion.div
+                      className="flex w-full flex-wrap justify-center gap-3 sm:gap-8"
+                      variants={container}
+                      initial="hidden"
+                      animate="show"
+                    >
+                      {planData.map((plan) => {
+                        return (
+                          <motion.div key={plan.name} variants={item}>
+                            <ExtendedToggleGroupItem
+                              value={plan.name.toLowerCase()}
+                              asChild
+                            >
+                              <Plan plan={plan} />
+                            </ExtendedToggleGroupItem>
+                          </motion.div>
+                        )
+                      })}
+                    </motion.div>
                   </ExtendedToggleGroup>
                 </FormControl>
                 <FormMessage />
@@ -134,7 +157,6 @@ export default function ChoosePlan() {
           />
           <div className="mt-8 flex w-10/12 items-center justify-between">
             <ReturnProcessBackButton />
-
             <ReturnProcessNextButton />
           </div>
         </div>
