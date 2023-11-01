@@ -62,7 +62,7 @@ const Plan = React.forwardRef<HTMLDivElement, PlanProps>(
         <Separator className="w-4/5 bg-brand" />
 
         <CardContent className="mt-2 flex h-[200px] w-4/5 flex-col justify-items-start gap-y-2 p-0 text-xs font-medium sm:mt-8 sm:text-sm">
-          <p className="flex w-full gap-x-1 sm:gap-x-2">
+          <p className="flex w-full gap-x-2">
             <span>
               <Check className="w-3 text-primary sm:w-5" />
             </span>
