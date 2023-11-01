@@ -23,7 +23,7 @@ const PickDateCard = React.forwardRef<HTMLDivElement, PickCardType>(
         ref={ref}
         {...props}
       >
-        <CardContent className="flex flex-col items-center space-y-4 pt-6">
+        <CardContent className="flex flex-col items-center space-y-4 p-2 py-4">
           <p className="text-2xl font-semibold">
             {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */}
             {getDayName(date.getDay())?.substring(0, 3)}
