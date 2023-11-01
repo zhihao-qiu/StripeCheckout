@@ -119,7 +119,7 @@ export default function PickDate() {
                       <FormControl>
                         <ToggleGroup.Root
                           type="single"
-                          className="grid w-full grid-cols-2 place-content-center place-items-center content-center items-center justify-center gap-x-7 gap-y-5 xs:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7"
+                          className="grid w-full grid-cols-1 place-content-center place-items-center content-center items-center justify-center gap-x-7 gap-y-5 xxs:grid-cols-2 xs:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7"
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                         >
