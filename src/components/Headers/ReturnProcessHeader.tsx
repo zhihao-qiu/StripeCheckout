@@ -67,17 +67,21 @@ function ProgressBarItem({ name, start = false, state }: ProgressBarProps2) {
 export default function ReturnProcessHeader() {
   const returnProcess = useReturnProcess()
   return (
-    <HeaderRoot className="border-brand bg-brand px-0 sm:px-9">
+    <HeaderRoot className="border-brand bg-brand">
       <HeaderSub>
         <Link href="/">
           <HeaderLogoRoot>
             <ReturnPalTitle className="hidden h-10 w-40 fill-white lg:flex" />
-            <Logo className="hidden h-7 w-7 shrink-0 fill-primary sm:flex" />
+            <Logo className="h-7 w-7 shrink-0 fill-primary sm:flex" />
           </HeaderLogoRoot>
         </Link>
 
         <HeaderContent className="items-center justify-center sm:flex">
-          <div className="flex w-full">
+          <div className="flex w-full justify-center text-2xl text-white sm:hidden">
+            Steps {returnProcess.currentStepIndex + 1} /{' '}
+            {returnProcess.steps.length}
+          </div>
+          <div className="hidden w-full sm:flex">
             {returnProcess.steps.map((step, index) => {
               const state = returnProcess.isFinished
                 ? 'completed' // If process is finished, mark every option as completed
