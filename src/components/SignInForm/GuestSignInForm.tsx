@@ -1,4 +1,3 @@
-import { DialogClose } from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -32,17 +31,17 @@ function GuestSignInForm() {
 
   return (
     <Form {...form}>
-      <form
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col items-center justify-start space-y-8"
-      >
-        <div className="mt-10 pb-20 sm:mt-14 sm:pb-20">
+      <div className="flex w-full flex-col items-center">
+        <form
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col items-center justify-start"
+        >
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mt-4 h-52 sm:mt-6 sm:h-60">
                 <FormControl>
                   <Input
                     className="h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[275px]"
@@ -55,19 +54,19 @@ function GuestSignInForm() {
               </FormItem>
             )}
           />
-        </div>
-        <Button
-          type="submit"
-          className="h-10 w-[150px] rounded-3xl text-lg sm:h-12 sm:w-[150px]"
-        >
-          Next&nbsp;&nbsp;
-          <NextArrow />
-        </Button>
+          <Button
+            type="submit"
+            className="h-10 w-[150px] rounded-3xl text-lg sm:h-12 sm:w-[150px]"
+          >
+            Next&nbsp;&nbsp;
+            <NextArrow />
+          </Button>
+        </form>
         <p className="my-8 font-semibold text-grey">
           Don&apos;t have an account yet?
           <SignUpModule />
         </p>
-      </form>
+      </div>
     </Form>
   )
 }

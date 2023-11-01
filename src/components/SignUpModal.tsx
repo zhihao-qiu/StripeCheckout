@@ -13,6 +13,7 @@ import { Button } from '@components/ui/button'
 import Link from 'next/link'
 import NextArrow from '@components/SvgComponents/NextArrow'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import Image from 'next/image'
 
 const formSchema = z
   .object({
@@ -22,7 +23,7 @@ const formSchema = z
         message: 'First name is required',
       })
       .max(60, {
-        message: 'First name must be less than 60 characters',
+        message: 'Max 60 characters',
       }),
     lastName: z
       .string()
@@ -30,10 +31,10 @@ const formSchema = z
         message: 'Last name is required',
       })
       .max(60, {
-        message: 'Last name must be less than 60 characters',
+        message: 'Max 60 characters',
       }),
     email: z.string().email({ message: 'Please enter a valid email' }),
-    password: z.string().min(8, 'Password must be at least 8 characters'),
+    password: z.string().min(8, 'Must be at least 8 characters'),
     confirmPassword: z.string(),
   })
   .refine(
@@ -69,26 +70,33 @@ function SignUpModule() {
           <span>&nbsp;Sign Up</span>
         </Link>
       </DialogTrigger>
-      <DialogContent className="m-0 flex h-3/4 min-h-[600px] flex-col flex-nowrap items-center justify-start gap-0 bg-paleBlue p-0">
-        <h1 className="mb-4 mt-8 font-semibold tracking-wide text-brand sm:text-3xl">
-          Sign Up to ReturnPal
+      <DialogContent className="m-0 flex h-3/4 min-h-[95%] flex-col flex-nowrap items-center justify-start gap-0 bg-paleBlue p-0">
+        <Image
+          src="/images/returnpal-short-logo.png"
+          alt="Return Pal logo"
+          width={333}
+          height={134}
+          className="mb-4 mt-6 h-auto w-[50%] sm:mb-2"
+        />
+        <h1 className="mt-2 w-[200px] text-base tracking-wide text-grey sm:w-[275px] sm:text-lg">
+          Sign Up <span className="hidden sm:inline-block">and let&apos;s</span>
+          <span className="inline-block sm:hidden">to</span> get started...
         </h1>
-
         <Form {...form}>
           <form
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onSubmit={form.handleSubmit(onSubmit)}
-            className="mt-2 flex flex-col items-center justify-start sm:mt-0"
+            className="flex flex-col items-center justify-start"
           >
             <FormField
               control={form.control}
               name="firstName"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
                   <FormControl>
                     <Input
                       minLength={1}
-                      className="my-4 h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-12 sm:w-[275px]"
+                      className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
                       placeholder="First Name"
                       {...field}
                     />
@@ -101,11 +109,11 @@ function SignUpModule() {
               control={form.control}
               name="lastName"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
                   <FormControl>
                     <Input
                       minLength={1}
-                      className="my-4 h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-12 sm:w-[275px]"
+                      className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
                       placeholder="Last Name"
                       {...field}
                     />
@@ -118,10 +126,10 @@ function SignUpModule() {
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
                   <FormControl>
                     <Input
-                      className="my-4 h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-12 sm:w-[275px]"
+                      className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
                       type="email"
                       placeholder="Email"
                       {...field}
@@ -135,10 +143,10 @@ function SignUpModule() {
               control={form.control}
               name="password"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
                   <FormControl>
                     <Input
-                      className="my-4 h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-12 sm:w-[275px]"
+                      className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
                       type="password"
                       placeholder="Password"
                       {...field}
@@ -152,10 +160,10 @@ function SignUpModule() {
               control={form.control}
               name="confirmPassword"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
                   <FormControl>
                     <Input
-                      className="my-4 h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-12 sm:w-[275px]"
+                      className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
                       type="password"
                       placeholder="Confirm password"
                       {...field}
@@ -167,7 +175,7 @@ function SignUpModule() {
             />
             <Button
               type="submit"
-              className="mt-2 h-10 w-[150px] rounded-3xl text-lg sm:h-12 sm:w-[150px]"
+              className="mt-4 h-10 w-[150px] scale-75 rounded-3xl text-lg sm:mt-6 sm:h-12 sm:w-[150px] sm:scale-100"
             >
               Sign Up&nbsp;&nbsp;
               <NextArrow />

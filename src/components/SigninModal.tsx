@@ -31,18 +31,13 @@ function SigninModal({
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="m-0 flex h-3/4 flex-col flex-nowrap items-center justify-start gap-0 bg-paleBlue p-0">
+      <DialogContent className="m-0 flex h-5/6 flex-col flex-nowrap items-center justify-start gap-0 bg-paleBlue p-0">
         <Image
           src="/images/returnpal-short-logo.png"
           alt="Return Pal logo"
-          width="0"
-          height="0"
-          className="mt-4 h-[40px] w-auto sm:my-6"
-          sizes="100vw"
-          style={{
-            maxWidth: '100%',
-            height: 'auto',
-          }}
+          width={333}
+          height={134}
+          className="mt-4 h-auto w-[50%] sm:my-6"
         />
 
         <Tabs defaultValue="account" className="w-[400px]">
