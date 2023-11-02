@@ -1,10 +1,13 @@
 import { getLayout } from '@/layouts/DefaultLayout'
-import SignUpModal from '@components/SignUpModal'
+import Terms from '@components/Terms'
+import { useState } from 'react'
 
 export default function Test() {
+  const [acceptance, setAcceptance] = useState(false)
+
   return (
     <>
-      <SignUpModal />
+      <Terms setAcceptance={setAcceptance} />
     </>
   )
 }
