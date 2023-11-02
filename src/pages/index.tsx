@@ -14,6 +14,7 @@ import {
   SectionHeaderHighlight,
 } from '@/components/common/section'
 import Faq from '@components/Faq'
+import Reveal from '@components/common/reveal'
 
 function Home() {
   return (
@@ -22,29 +23,44 @@ function Home() {
         <div className="w-full space-y-8 px-4 sm:px-3 xl:space-y-12">
           <section className="flex gap-4">
             <Section className="flex-1">
-              <SectionHeader className="font-medium xl:text-title">
-                Return Your Package The{' '}
-                <SectionHeaderHighlight>Easy Way</SectionHeaderHighlight>
-              </SectionHeader>
+              <Reveal>
+                <SectionHeader className="font-medium xl:text-title">
+                  Return Your Package The{' '}
+                  <SectionHeaderHighlight>Easy Way</SectionHeaderHighlight>
+                </SectionHeader>
+              </Reveal>
               <SectionDescription className="px-10 text-start text-sm sm:text-base md:px-0 lg:text-lg">
-                We handle returns of purchases from all online retailers. No
-                need for printing labels, packaging, or visits to the post
-                office.
+                <Reveal>
+                  <p>
+                    We handle returns of purchases from all online retailers. No
+                    need for printing labels, packaging, or visits to the post
+                    office.
+                  </p>
+                </Reveal>
               </SectionDescription>
               <Link href="/return" className=" self-start justify-self-center">
-                <Button className="h-7 text-sm lg:h-9 lg:text-base xl:h-12 xl:text-lg">
-                  Schedule a Pickup Now
-                </Button>
+                <Reveal>
+                  <Button className="h-7 text-sm lg:h-9 lg:text-base xl:h-12 xl:text-lg">
+                    Schedule a Pickup Now
+                  </Button>
+                </Reveal>
               </Link>
             </Section>
-            <div className="relative hidden flex-1 md:block">
-              <Image
-                className="h-full w-full object-contain"
-                src="/images/pexels-norma-mortenson.png"
-                alt="Return Pal"
-                fill
-                sizes="100vw"
-              />
+            <div className="hidden flex-1 md:block">
+              <Reveal width="100%">
+                <div className="flex items-center justify-center">
+                  <div className="md:h-[250px] lg:h-[334px]">
+                    <Image
+                      src="/images/pexels-norma-mortenson.png"
+                      alt="Return Pal"
+                      width="0"
+                      height="0"
+                      sizes="100vw"
+                      style={{ width: 'auto', height: '100%' }}
+                    />
+                  </div>
+                </div>
+              </Reveal>
             </div>
           </section>
           <section className="m-[calc(-50vw+50%)] transition-all duration-200">
@@ -54,21 +70,27 @@ function Home() {
             </div>
           </section>
           <section className="flex flex-col items-center gap-8">
-            <h3 className="font-semibold md:text-2xl lg:text-3xl xl:text-5xl">
-              We Accept <span className="text-primary">Any</span> Retailer{' '}
-              <span className="text-primary">Any</span> Time
-            </h3>
-            <Image
-              className="max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl xl:max-w-2xl"
-              src="/images/women_checking_order_process.png"
-              alt="checking order process"
-              width={890}
-              height={500}
-            />
-            <article className="max-w-lg text-center text-base text-brand  sm:text-lg md:text-2xl lg:max-w-7xl lg:text-3xl  xl:text-5xl">
-              We accept all online retailers with just a click of a button.
-              Return all your packages without the hassle.
-            </article>
+            <Reveal>
+              <h3 className="font-semibold md:text-2xl lg:text-3xl xl:text-5xl">
+                We Accept <span className="text-primary">Any</span> Retailer{' '}
+                <span className="text-primary">Any</span> Time
+              </h3>
+            </Reveal>
+            <Reveal>
+              <Image
+                className="max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl xl:max-w-2xl"
+                src="/images/women_checking_order_process.png"
+                alt="checking order process"
+                width={890}
+                height={500}
+              />
+            </Reveal>
+            <Reveal>
+              <article className="max-w-lg text-center text-base text-brand  sm:text-lg md:text-2xl lg:max-w-7xl lg:text-3xl  xl:text-5xl">
+                We accept all online retailers with just a click of a button.
+                Return all your packages without the hassle.
+              </article>
+            </Reveal>
           </section>
         </div>
       </div>
@@ -76,24 +98,30 @@ function Home() {
         <PartnerBanner />
         <PartnerBanner />
       </div>
+
       <div className="container mx-auto flex max-w-5xl pb-16 pt-12 md:pt-20 xl:max-w-7xl">
         <div className="w-full space-y-8 px-4 sm:px-3 xl:space-y-12">
           <section className="flex flex-col items-center gap-8">
-            <h3 className="font-semibold md:text-2xl lg:text-3xl xl:text-5xl">
-              Return made <span className="text-primary">Easy</span>
-            </h3>
-            <Image
-              className="max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl xl:max-w-2xl"
-              src="/images/np_smiling_delivery_man.png"
-              alt="checking order process"
-              width={890}
-              height={500}
-            />
-
-            <article className="max-w-lg text-center text-base  text-brand sm:text-lg md:text-2xl lg:max-w-7xl lg:text-3xl  xl:text-5xl">
-              Your scheduled pickup is retrieved by us right from your door and
-              on its way to an assigned courier.
-            </article>
+            <Reveal>
+              <h3 className="font-semibold md:text-2xl lg:text-3xl xl:text-5xl">
+                Return made <span className="text-primary">Easy</span>
+              </h3>
+            </Reveal>
+            <Reveal>
+              <Image
+                className="max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl xl:max-w-2xl"
+                src="/images/np_smiling_delivery_man.png"
+                alt="checking order process"
+                width={890}
+                height={500}
+              />
+            </Reveal>
+            <Reveal>
+              <article className="max-w-lg text-center text-base  text-brand sm:text-lg md:text-2xl lg:max-w-7xl lg:text-3xl  xl:text-5xl">
+                Your scheduled pickup is retrieved by us right from your door
+                and on its way to an assigned courier.
+              </article>
+            </Reveal>
           </section>
         </div>
       </div>
@@ -102,16 +130,19 @@ function Home() {
         <CourierBanner />
       </div>
       <section className="flex h-[55rem] w-full flex-col items-center justify-around bg-brand">
-        <h3 className="text-center text-largeText text-white md:text-subtitle xl:text-7xl">
-          FAQs
-        </h3>
-
+        <Reveal>
+          <h3 className="text-center text-largeText text-white md:text-subtitle xl:text-7xl">
+            FAQs
+          </h3>
+        </Reveal>
         <Faq />
-        <Link href="/contact">
-          <Button className="h-16 w-80 self-center lg:text-mediumText xl:text-subtitle">
-            Contact Us
-          </Button>
-        </Link>
+        <Reveal>
+          <Link href="/contact">
+            <Button className="h-16 w-80 self-center lg:text-mediumText xl:text-subtitle">
+              Contact Us
+            </Button>
+          </Link>
+        </Reveal>
       </section>
     </>
   )
