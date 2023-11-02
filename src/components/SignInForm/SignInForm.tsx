@@ -1,4 +1,3 @@
-import { DialogClose } from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -14,6 +13,8 @@ import { Button } from '@components/ui/button'
 import Link from 'next/link'
 import NextArrow from '@components/SvgComponents/NextArrow'
 import SignUpModule from '@components/SignUpModal'
+import { apolloClient } from '@lib/graphql'
+import { gql } from '@apollo/client'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email' }),
@@ -28,6 +29,21 @@ function SignInForm() {
       password: '',
     },
   })
+
+  const writeUserInfoToFragment = (email: string) => {
+    apolloClient.writeFragment({
+      id: 'User:1',
+      fragment: gql`
+        fragment MyUser on User {
+          id
+          email
+        }
+      `,
+      data: {
+        email: email,
+      },
+    })
+  }
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)

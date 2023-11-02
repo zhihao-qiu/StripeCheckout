@@ -6,6 +6,7 @@ import { useToast } from '@components/ui/use-toast'
 // TODO - get graphql type from auto generated types from graphql codegen
 type UserResponseType = {
   _typename?: 'User'
+  id: string
   firstName: string
   lastName: string
   email: string
