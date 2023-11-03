@@ -15,22 +15,7 @@ import NextArrow from '@components/SvgComponents/NextArrow'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-
-// Framer-motion
-const container = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.1 } },
-}
-
-const item = {
-  hidden: { opacity: 0, translateX: 0, translateY: 0 },
-  show: {
-    opacity: 1,
-    translateX: 0,
-    translateY: 0,
-    transition: { ease: 'easeIn', duration: 0.5 },
-  },
-}
+import { container, item } from '@components/SigninModal'
 
 const formSchema = z
   .object({
@@ -87,10 +72,8 @@ function SignUpModule() {
           <span>&nbsp;Sign Up</span>
         </Link>
       </DialogTrigger>
-      {/* <DialogContent className="m-0 flex h-3/4 min-h-[95%] flex-col flex-nowrap items-center justify-start gap-0 bg-paleBlue p-0"> */}
       <DialogContent className="m-0 h-3/4 min-h-[95%] w-full p-0">
         <motion.div
-          // className="flex w-full flex-wrap justify-center gap-3 sm:gap-8"
           className="m-0 flex flex-col flex-nowrap items-center justify-start gap-0 bg-paleBlue p-0"
           variants={container}
           initial="hidden"
@@ -105,7 +88,6 @@ function SignUpModule() {
               alt="Return Pal logo"
               width={333}
               height={134}
-              // className="mb-4 mt-6 h-auto w-[50%] sm:mb-2" // moved to motion.div className
             />
           </motion.div>
           <motion.div variants={item}>
