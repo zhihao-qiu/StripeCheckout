@@ -53,6 +53,7 @@ function Home() {
                     <Image
                       src="/images/pexels-norma-mortenson.png"
                       alt="Return Pal"
+                      priority={true}
                       width="0"
                       height="0"
                       sizes="100vw"

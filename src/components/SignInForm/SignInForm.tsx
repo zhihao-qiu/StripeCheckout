@@ -15,6 +15,7 @@ import NextArrow from '@components/SvgComponents/NextArrow'
 import SignUpModule from '@components/SignUpModal'
 import { apolloClient } from '@lib/graphql'
 import { gql } from '@apollo/client'
+import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email' }),
@@ -22,6 +23,8 @@ const formSchema = z.object({
 })
 
 function SignInForm() {
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,13 +61,14 @@ function SignInForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
     writeUserInfoToFragment(values.email)
+    router.push('/dashboard')
   }
 
   return (
     <Form {...form}>
       <div className="flex w-full flex-col items-center">
         <form
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          //eslint-disable-next-line @typescript-eslint/no-misused-promises
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col items-center justify-start"
         >
