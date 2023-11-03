@@ -14,6 +14,23 @@ import Link from 'next/link'
 import NextArrow from '@components/SvgComponents/NextArrow'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
+
+// Framer-motion
+const container = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.1 } },
+}
+
+const item = {
+  hidden: { opacity: 0, translateX: 0, translateY: 0 },
+  show: {
+    opacity: 1,
+    translateX: 0,
+    translateY: 0,
+    transition: { ease: 'easeIn', duration: 0.5 },
+  },
+}
 
 const formSchema = z
   .object({
@@ -70,118 +87,148 @@ function SignUpModule() {
           <span>&nbsp;Sign Up</span>
         </Link>
       </DialogTrigger>
-      <DialogContent className="m-0 flex h-3/4 min-h-[95%] flex-col flex-nowrap items-center justify-start gap-0 bg-paleBlue p-0">
-        <Image
-          src="/images/returnpal-short-logo.png"
-          alt="Return Pal logo"
-          width={333}
-          height={134}
-          className="mb-4 mt-6 h-auto w-[50%] sm:mb-2"
-        />
-        <h1 className="mt-2 w-[200px] text-base tracking-wide text-grey sm:w-[275px] sm:text-lg">
-          Sign Up <span className="hidden sm:inline-block">and let&apos;s</span>
-          <span className="inline-block sm:hidden">to</span> get started...
-        </h1>
-        <Form {...form}>
-          <form
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col items-center justify-start"
+      {/* <DialogContent className="m-0 flex h-3/4 min-h-[95%] flex-col flex-nowrap items-center justify-start gap-0 bg-paleBlue p-0"> */}
+      <DialogContent className="m-0 h-3/4 min-h-[95%] w-full p-0">
+        <motion.div
+          // className="flex w-full flex-wrap justify-center gap-3 sm:gap-8"
+          className="m-0 flex flex-col flex-nowrap items-center justify-start gap-0 bg-paleBlue p-0"
+          variants={container}
+          initial="hidden"
+          animate="show"
+        >
+          <motion.div
+            variants={item}
+            className="mb-4 mt-6 h-auto w-[50%] sm:mb-2"
           >
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
-                  <FormControl>
-                    <Input
-                      minLength={1}
-                      className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
-                      placeholder="First Name"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+            <Image
+              src="/images/returnpal-short-logo.png"
+              alt="Return Pal logo"
+              width={333}
+              height={134}
+              // className="mb-4 mt-6 h-auto w-[50%] sm:mb-2" // moved to motion.div className
             />
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
-                  <FormControl>
-                    <Input
-                      minLength={1}
-                      className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
-                      placeholder="Last Name"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
-                  <FormControl>
-                    <Input
-                      className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
-                      type="email"
-                      placeholder="Email"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
-                  <FormControl>
-                    <Input
-                      className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
-                      type="password"
-                      placeholder="Password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
-                  <FormControl>
-                    <Input
-                      className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
-                      type="password"
-                      placeholder="Confirm password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button
-              type="submit"
-              className="mt-4 h-10 w-[150px] scale-75 rounded-3xl text-lg sm:mt-6 sm:h-12 sm:w-[150px] sm:scale-100"
+          </motion.div>
+          <motion.div variants={item}>
+            <h1 className="mt-2 w-[200px] text-base tracking-wide text-grey sm:w-[275px] sm:text-lg">
+              Sign Up{' '}
+              <span className="hidden sm:inline-block">and let&apos;s</span>
+              <span className="inline-block sm:hidden">to</span> get started...
+            </h1>
+          </motion.div>
+
+          <Form {...form}>
+            <form
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col items-center justify-start"
             >
-              Sign Up&nbsp;&nbsp;
-              <NextArrow />
-            </Button>
-          </form>
-        </Form>
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
+                    <FormControl>
+                      <motion.div variants={item}>
+                        <Input
+                          minLength={1}
+                          className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
+                          placeholder="First Name"
+                          {...field}
+                        />
+                      </motion.div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
+                    <FormControl>
+                      <motion.div variants={item}>
+                        <Input
+                          minLength={1}
+                          className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
+                          placeholder="Last Name"
+                          {...field}
+                        />
+                      </motion.div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
+                    <FormControl>
+                      <motion.div variants={item}>
+                        <Input
+                          className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
+                          type="email"
+                          placeholder="Email"
+                          {...field}
+                        />
+                      </motion.div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
+                    <FormControl>
+                      <motion.div variants={item}>
+                        <Input
+                          className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
+                          type="password"
+                          placeholder="Password"
+                          {...field}
+                        />
+                      </motion.div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem className="mt-4 h-14 sm:mt-6 sm:h-14">
+                    <FormControl>
+                      <motion.div variants={item}>
+                        <Input
+                          className="h-10 w-[200px] rounded-xl border-4 border-primary text-sm placeholder:text-grey sm:h-12 sm:w-[275px] sm:text-lg"
+                          type="password"
+                          placeholder="Confirm password"
+                          {...field}
+                        />
+                      </motion.div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <motion.div variants={item}>
+                <Button
+                  type="submit"
+                  className="mt-4 h-10 w-[150px] scale-75 rounded-3xl text-lg sm:mt-6 sm:h-12 sm:w-[150px] sm:scale-100"
+                >
+                  Sign Up&nbsp;&nbsp;
+                  <NextArrow />
+                </Button>
+              </motion.div>
+            </form>
+          </Form>
+        </motion.div>
       </DialogContent>
     </Dialog>
   )
