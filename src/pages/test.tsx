@@ -8,7 +8,6 @@ export default function Test() {
   return (
     <>
       <Terms setAcceptance={setAcceptance} />
-      acceptance = {acceptance ? 'true' : 'false'}
     </>
   )
 }
