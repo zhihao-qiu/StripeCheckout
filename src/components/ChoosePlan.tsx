@@ -19,6 +19,7 @@ import {
   ReturnProcessNextButton,
 } from '@components/common/return-process'
 import { motion } from 'framer-motion'
+import { container, item } from '@styles/framer'
 
 export type PlanDataType = {
   name: string
@@ -77,22 +78,6 @@ const formSchema = z.object({
     z.literal('platinum'),
   ]),
 })
-
-// Framer-motion
-const container = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.1 } },
-}
-
-const item = {
-  hidden: { opacity: 0, translateX: 0, translateY: 0 },
-  show: {
-    opacity: 1,
-    translateX: 0,
-    translateY: 0,
-    transition: { ease: 'easeIn', duration: 0.5 },
-  },
-}
 
 export default function ChoosePlan() {
   const returnProcess = useReturnProcess()
