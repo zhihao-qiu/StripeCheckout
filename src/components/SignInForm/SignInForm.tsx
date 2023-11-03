@@ -50,10 +50,21 @@ function SignInForm() {
       data: {
         __typename: 'Auth',
         id: 'Auth:1',
-        email,
-        firstName,
-        lastName,
-        role: 'user',
+        user: {
+          id: 1,
+          email,
+          firstName,
+          lastName,
+          role: 'user',
+        },
+        primaryAddress: {
+          id: 1,
+          streetNumber: 123,
+          streetName: 'Main St',
+          city: 'Toronto',
+          province: 'ON',
+          postal: 'M1M1M1',
+        },
       },
     })
   }

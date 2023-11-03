@@ -130,16 +130,16 @@ function Home() {
         <CourierBanner />
         <CourierBanner />
       </div>
-      <section className="flex h-[55rem] w-full flex-col items-center justify-around bg-brand">
+      <section className="flex h-[68rem] w-full flex-col items-center justify-around bg-brand lg:h-[7rem]">
         <Reveal>
-          <h3 className="text-center text-largeText text-white md:text-subtitle xl:text-7xl">
+          <h3 className="text-center text-largeText text-white md:text-subtitle">
             FAQs
           </h3>
         </Reveal>
         <Faq />
         <Reveal>
           <Link href="/contact">
-            <Button className="h-16 w-80 self-center lg:text-mediumText xl:text-subtitle">
+            <Button className="md:h16 h-12 w-48 self-center text-sm md:w-80 lg:text-mediumText">
               Contact Us
             </Button>
           </Link>
