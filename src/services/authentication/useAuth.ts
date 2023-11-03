@@ -2,6 +2,9 @@ import { useMutation } from '@apollo/client'
 
 import { LOGIN, REGISTER } from '@/services/authentication/queries'
 import { useToast } from '@components/ui/use-toast'
+import { apolloClient } from '@lib/graphql'
+import { gql } from '@apollo/client'
+import { useRouter } from 'next/navigation'
 
 // TODO - get graphql type from auto generated types from graphql codegen
 type UserResponseType = {
@@ -47,6 +50,8 @@ export type RegisterMutation = {
 }
 
 const useAuth = () => {
+  const router = useRouter()
+
   const { toast } = useToast()
   const [loginRequest, { client: afterLoginClient }] =
     useMutation<LoginMutation>(LOGIN)
@@ -109,9 +114,53 @@ const useAuth = () => {
     }
   }
 
+  const writeUserInfoToFragment = (email: string) => {
+    const lastName = 'testLastName'
+    const firstName = 'testFirstName'
+
+    apolloClient.writeFragment({
+      id: 'Auth:1',
+      fragment: gql`
+        fragment UserInfo on Auth {
+          id
+          email
+          firstName
+          lastName
+          role
+        }
+      `,
+      data: {
+        __typename: 'Auth',
+        id: 'Auth:1',
+        user: {
+          id: 1,
+          email,
+          firstName,
+          lastName,
+          role: 'user',
+        },
+        primaryAddress: {
+          id: 1,
+          streetNumber: 123,
+          streetName: 'Main St',
+          city: 'Toronto',
+          province: 'ON',
+          postal: 'M1M1M1',
+        },
+      },
+    })
+    toast({
+      title: 'Login successful',
+      description: `Welcome back ${email}`,
+      duration: 2000,
+    })
+    router.push('/dashboard')
+  }
+
   return {
     login,
     register,
+    writeUserInfoToFragment,
   }
 }
 

@@ -130,7 +130,7 @@ function Home() {
         <CourierBanner />
         <CourierBanner />
       </div>
-      <section className="flex h-[68rem] w-full flex-col items-center justify-around bg-brand lg:h-[7rem]">
+      <section className="flex h-[68rem] w-full flex-col items-center justify-around bg-brand lg:h-[72rem]">
         <Reveal>
           <h3 className="text-center text-largeText text-white md:text-subtitle">
             FAQs

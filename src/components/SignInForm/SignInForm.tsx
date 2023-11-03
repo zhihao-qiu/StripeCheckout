@@ -13,9 +13,7 @@ import { Button } from '@components/ui/button'
 import Link from 'next/link'
 import NextArrow from '@components/SvgComponents/NextArrow'
 import SignUpModule from '@components/SignUpModal'
-import { apolloClient } from '@lib/graphql'
-import { gql } from '@apollo/client'
-import { useRouter } from 'next/navigation'
+import useAuth from '@/services/authentication/useAuth'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email' }),
@@ -23,8 +21,6 @@ const formSchema = z.object({
 })
 
 function SignInForm() {
-  const router = useRouter()
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,47 +28,11 @@ function SignInForm() {
       password: '',
     },
   })
-  const writeUserInfoToFragment = (email: string) => {
-    const lastName = 'testLastName'
-    const firstName = 'testFirstName'
-
-    apolloClient.writeFragment({
-      id: 'Auth:1',
-      fragment: gql`
-        fragment UserInfo on Auth {
-          id
-          email
-          firstName
-          lastName
-          role
-        }
-      `,
-      data: {
-        __typename: 'Auth',
-        id: 'Auth:1',
-        user: {
-          id: 1,
-          email,
-          firstName,
-          lastName,
-          role: 'user',
-        },
-        primaryAddress: {
-          id: 1,
-          streetNumber: 123,
-          streetName: 'Main St',
-          city: 'Toronto',
-          province: 'ON',
-          postal: 'M1M1M1',
-        },
-      },
-    })
-  }
+  const { writeUserInfoToFragment } = useAuth()
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
     writeUserInfoToFragment(values.email)
-    router.push('/dashboard')
   }
 
   return (
