@@ -52,6 +52,15 @@ export default function Pickup() {
     returnProcess.forward()
   }
 
+  const cardClassnames =
+    'data-[state=on]:border-6 sm:data-[state=on]:scale-120 flex h-96 md:w-2/6  select-none flex-col items-center space-y-2 border-brand bg-white text-brand data-[state=on]:scale-110 data-[state=on]:border-primary data-[state=off]:bg-slate-300 data-[state=off]:opacity-50 data-[state=on]:shadow-2xl xs:data-[state=on]:border-8'
+
+  const cardTitleClassnames =
+    'flex flex-col text-base xxs:text-xl md:text-2xl  text-center font-semibold md:font-bold sm:h-36'
+
+  const cardDescriptionClassNames =
+    'flex w-4/5 items-center text-xs xxs:text-sm text-brand xs:w-full xs:text-base sm:font-semibold'
+
   return (
     <>
       <Head>
@@ -65,7 +74,7 @@ export default function Pickup() {
           <ReturnProcessRoot>
             <ReturnProcessSection>
               <SectionHeader>Pickup Details</SectionHeader>
-              <SectionDescription>
+              <SectionDescription className="text-start sm:text-center">
                 Which pickup method do you prefer?
               </SectionDescription>
             </ReturnProcessSection>
@@ -74,26 +83,28 @@ export default function Pickup() {
               control={form.control}
               name="pickupType"
               render={({ field }) => (
-                <FormItem className="space-y-3">
+                <FormItem className="flex justify-center space-y-3">
                   <FormControl>
                     <ExtendedToggleGroup
                       type="single"
                       selectionType="keep-selected"
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className="flex w-full justify-center gap-x-10"
+                      className=" flex max-w-screen-lg justify-center gap-x-5 sm:gap-x-10 md:gap-x-20"
                     >
                       <ExtendedToggleGroupItem value="direct" asChild>
-                        <Card className="flex h-96 w-96 select-none flex-col items-center border-brand bg-white text-brand data-[state=on]:scale-110 data-[state=on]:border-8 data-[state=on]:border-primary data-[state=off]:bg-slate-300 data-[state=off]:opacity-50 data-[state=on]:shadow-2xl">
-                          <CardHeader className="flex items-center">
-                            <CardTitle className="text-2xl font-bold">
+                        <Card className={cardClassnames}>
+                          <CardHeader className="flex items-center pl-5">
+                            <CardTitle className={cardTitleClassnames}>
                               <div className="flex items-end justify-center align-bottom">
-                                <HandingPackage className="h-24 w-24 fill-primary" />
+                                <HandingPackage className="h-12 w-12 fill-primary xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
                               </div>
                               Direct Handoff
                             </CardTitle>
 
-                            <CardDescription className="flex items-center">
+                            <CardDescription
+                              className={cardDescriptionClassNames}
+                            >
                               Hand the package directly to our specialist at
                               your door
                             </CardDescription>
@@ -101,16 +112,18 @@ export default function Pickup() {
                         </Card>
                       </ExtendedToggleGroupItem>
                       <ExtendedToggleGroupItem value="doorstep" asChild>
-                        <Card className="flex h-96 w-96 select-none flex-col items-center border-brand bg-white text-brand data-[state=on]:scale-110 data-[state=on]:border-8 data-[state=on]:border-primary data-[state=off]:bg-slate-300 data-[state=off]:opacity-50 data-[state=on]:shadow-2xl">
-                          <CardHeader className="">
-                            <CardTitle className="flex flex-col text-center text-2xl font-bold">
+                        <Card className={cardClassnames}>
+                          <CardHeader className="flex items-center pl-5">
+                            <CardTitle className={cardTitleClassnames}>
                               <div className="flex items-end justify-center align-bottom">
-                                <Door className="h-24 w-24" />
-                                <Box className="h-10 w-10" />
+                                <Door className="h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
+                                <Box className="h-5 w-5 xxs:h-7 xxs:w-7 xs:h-10 xs:w-10" />
                               </div>
                               Leave on Doorstep
                             </CardTitle>
-                            <CardDescription className="flex items-center">
+                            <CardDescription
+                              className={cardDescriptionClassNames}
+                            >
                               Place items outside your door ahead of your pick
                               up window
                             </CardDescription>

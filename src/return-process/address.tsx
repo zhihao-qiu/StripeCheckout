@@ -67,13 +67,18 @@ export default function Address() {
 
   const mockAddresses: { name: string; address: string; default: boolean }[] = [
     {
-      name: 'Bob Gunderson',
+      name: 'Bartholomew Gunderson',
       address: '6500 Boulevard de Rome, Brossard, QC, J4Y 0B6, Canada',
       default: true,
     },
     {
-      name: 'Marky Mark',
-      address: '123 King St',
+      name: 'Chandler Bing',
+      address: '20-90 Bedford St, New York, NY 10014, USA',
+      default: false,
+    },
+    {
+      name: 'Henry Norman Bethune',
+      address: '235 John Street North, Gravenhurst, Ontario P1P 1G4, Canada',
       default: false,
     },
   ]
@@ -88,11 +93,12 @@ export default function Address() {
       if (!valid) {
         return
       }
+      //TODO: send information to backend once address is validated
       console.log(valid)
       console.log('adding new address to profile!')
       let addressString
       if (addressObj.apartmentUnitNumber) {
-        addressString = `${addressObj.apartmentUnitNumber}-${addressObj.streetNumber} ${addressObj.streetName}, ${addressObj.city}, ${addressObj.province}, ${addressObj.postal}`
+        addressString = `${addressObj.apartmentUnitNumber}-${addressObj.streetNumber} ${addressObj.streetName}, ${addressObj.city}, ${addressObj.province} ${addressObj.postal}`
       } else {
         addressString = `${addressObj.streetNumber} ${addressObj.streetName}, ${addressObj.city}, ${addressObj.province}, ${addressObj.postal}`
       }
@@ -131,76 +137,10 @@ export default function Address() {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault()
-    console.log(senderName)
-    console.log(addressFromForm)
     if (senderName && addressFromForm) {
       addressValidator(senderName, addressFromForm)
     }
   }
-  // const handleAddressSelection = () => {
-  //   const form = document.getElementById('selectAddressForm')
-  //   if (form) {
-  //     const radioInputs = form.querySelectorAll('input[type="radio"]')
-  //     let selectedValue: string | undefined
-
-  //     radioInputs.forEach((element: Element) => {
-  //       if (element instanceof HTMLInputElement) {
-  //         const input = element
-  //         if (input.checked) {
-  //           selectedValue = input.value
-  //         }
-  //       }
-  //     })
-  //     console.log(selectedValue)
-
-  //     if (selectedValue) {
-  //       void Router.push('/pickup')
-  //     } else {
-  //       toast({
-  //         variant: 'destructive',
-  //         description: 'Please select an address before proceeding.',
-  //       })
-  //     }
-  //   }
-  // }
-  // const addressArrayMapper = (
-  //   addressArray: { name: string; address: string; default: boolean }[]
-  // ) => {
-  //   return addressArray.map((address) => {
-  //     return (
-  //       <div
-  //         key={addressArray.indexOf(address)}
-  //         className="fontSize-large my-7 flex h-10 w-full items-center "
-  //       >
-  //         <Input
-  //           type="radio"
-  //           id={address.address}
-  //           name="address"
-  //           className="mx-2 h-6 w-[10%]"
-  //         />{' '}
-  //         <Label
-  //           htmlFor={address.address}
-  //           className="break-word mx-2  w-[20%] font-bold sm:w-[10%] "
-  //         >
-  //           {address.name}{' '}
-  //         </Label>{' '}
-  //         <Label
-  //           htmlFor={address.address}
-  //           className="break-word my-2 w-[35%] max-w-max py-2 sm:w-[50%] "
-  //         >
-  //           {' '}
-  //           {address.address}{' '}
-  //         </Label>{' '}
-  //         <Label
-  //           htmlFor={address.address}
-  //           className="mx-2 w-[10%] font-bold text-primary"
-  //         >
-  //           {address.default && 'Default address'}
-  //         </Label>
-  //       </div>
-  //     )
-  //   })
-  // }
 
   return (
     <>
@@ -214,21 +154,19 @@ export default function Address() {
         >
           <ReturnProcessRoot>
             <ReturnProcessSection>
-              <SectionHeader>Pickup Details</SectionHeader>
-              <SectionDescription>
+              <SectionHeader className="max-xxs:text-3xl">
+                Pickup Details
+              </SectionHeader>
+              <SectionDescription className="max-xxs:text-left max-xxs:text-sm">
                 Select or add your pickup address
               </SectionDescription>
             </ReturnProcessSection>
             <div>
-              {/* <div className="text-largeText text-brand">Pickup Details</div> */}
               <div>
-                {/* <div className="text-brand">
-                  Select or add your pickup address
-                </div> */}
-                <div className="mt-5 text-smallText font-bold text-brand">
+                <div className="text-smallText font-bold text-brand max-sm:text-base sm:mt-5">
                   Your Addresses:
                 </div>
-                <Separator className="h-[0.15rem] w-3/4 rounded-full bg-brand" />
+                <Separator className="h-[0.15rem] rounded-full bg-brand sm:w-3/4" />
                 <FormField
                   control={form.control}
                   name="address"
@@ -238,13 +176,13 @@ export default function Address() {
                         <RadioGroup
                           onValueChange={field.onChange}
                           defaultValue={field.value}
-                          className="flex flex-col space-y-1"
+                          className="flex flex-col space-y-3"
                         >
                           {addresses.map((address) => {
                             return (
                               <FormItem
                                 key={address.address}
-                                className="my-5 flex h-10 w-full items-center"
+                                className="h-15 flex w-full items-center sm:h-10"
                               >
                                 <RadioGroupItem
                                   id={address.address}
@@ -252,19 +190,19 @@ export default function Address() {
                                 />
                                 <Label
                                   htmlFor={address.address}
-                                  className="break-word md:mx-0w-[20%]  mx-2 ml-2 font-bold sm:w-[10%] "
+                                  className="sm:keep-all mx-6 ml-2 w-[20%] max-sm:text-xs sm:w-[18%] sm:font-bold md:pl-2 lg:mx-2 lg:w-[15%]"
                                 >
                                   {address.name}
                                 </Label>
                                 <Label
                                   htmlFor={address.address}
-                                  className="break-word mx-2 my-2 w-[35%] max-w-max py-2 sm:w-[50%] md:mx-0 "
+                                  className="break-word mx-2 my-4 w-[40%] max-w-max max-sm:text-xs sm:w-[50%] md:mx-0"
                                 >
                                   {address.address}
                                 </Label>
                                 <Label
                                   htmlFor={address.address}
-                                  className="mx-2 w-[10%] font-bold text-primary"
+                                  className="mx-2 font-bold text-primary max-sm:text-xs"
                                 >
                                   {address.default && 'Default address'}
                                 </Label>
@@ -278,18 +216,18 @@ export default function Address() {
                   )}
                 />
                 <Button
-                  className="bg-transparent font-bold text-primary hover:bg-transparent"
+                  className="mt-4 bg-transparent font-bold text-primary hover:bg-transparent"
                   onClick={(e) => toggleAddressForm(e)}
                 >
                   + Add a new address{' '}
                 </Button>
                 {addressFormVisibility && (
-                  <form className="flex-column flex w-3/4 justify-around">
+                  <form className="sm:flex-column justify-around sm:flex">
                     <div className="flex-column flex">
                       <div className="flex flex-row items-center ">
-                        <div className="mr-5 items-center">
-                          <div className="my-2 flex items-center">
-                            <Label className="w-1/3">Name:</Label>
+                        <div className="mr-5 items-center space-y-2">
+                          <div className="flex items-center">
+                            <Label className="mx-2 w-1/3">Name:</Label>
                             <Input
                               type="text"
                               name="name"
@@ -297,8 +235,8 @@ export default function Address() {
                               onChange={(e) => setSenderName(e.target.value)}
                             />
                           </div>
-                          <div className="my-2 flex items-center">
-                            <Label className="w-1/3">Apt # </Label>
+                          <div className="flex items-center">
+                            <Label className="mx-2 w-1/3">Apt #: </Label>
                             <Input
                               type="text"
                               name="address"
@@ -310,7 +248,7 @@ export default function Address() {
                                 })
                               }
                             />
-                            <Label className="w-1/3">Street # </Label>
+                            <Label className="mx-2 w-1/3">Street #: </Label>
                             <Input
                               type="text"
                               name="address"
@@ -323,9 +261,8 @@ export default function Address() {
                               }
                             />
                           </div>
-                          <div className="my-2 flex items-center"></div>
-                          <div className="my-2 flex items-center">
-                            <Label className="w-1/3">Street Name: </Label>
+                          <div className="flex items-center">
+                            <Label className="mx-2 w-1/3">Street Name: </Label>
                             <Input
                               type="text"
                               name="address"
@@ -338,8 +275,8 @@ export default function Address() {
                               }
                             />
                           </div>
-                          <div className="my-2 flex items-center">
-                            <Label className="w-1/3">City: </Label>
+                          <div className="flex items-center">
+                            <Label className="mx-2 w-1/3">City: </Label>
                             <Input
                               type="text"
                               name="address"
@@ -352,8 +289,8 @@ export default function Address() {
                               }
                             />
                           </div>
-                          <div className="my-2 flex items-center">
-                            <Label className="w-1/3">
+                          <div className="flex items-center">
+                            <Label className="mx-2 w-1/3">
                               Province: (e.g. ON){' '}
                             </Label>
                             <Input
@@ -368,8 +305,8 @@ export default function Address() {
                               }
                             />
                           </div>
-                          <div className="my-2 flex items-center">
-                            <Label className="w-1/3">Postal Code </Label>
+                          <div className="flex items-center">
+                            <Label className="mx-2 w-1/3">Postal Code: </Label>
                             <Input
                               type="text"
                               name="address"
@@ -385,13 +322,13 @@ export default function Address() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center justify-around">
+                    <div className="flex items-center justify-around sm:w-1/4">
                       <Button
-                        className="border-2 text-white"
+                        className="break-word border-2 px-2 text-white sm:px-4"
                         type="submit"
                         onClick={(e) => handleAddress(e)}
                       >
-                        Add new address
+                        Add address
                       </Button>
                     </div>
                   </form>
