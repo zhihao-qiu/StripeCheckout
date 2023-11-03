@@ -18,7 +18,7 @@ import { gql } from '@apollo/client'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email' }),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
+  password: z.string().min(8, 'Must be at least 8 characters'),
 })
 
 function SignInForm() {
@@ -51,63 +51,65 @@ function SignInForm() {
 
   return (
     <Form {...form}>
-      <form
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-2 flex flex-col items-center justify-start"
-      >
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  className="my-4 h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[275px]"
-                  type="email"
-                  placeholder="Email"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  className="my-4 h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[275px]"
-                  type="password"
-                  placeholder="Password"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Link
-          href="/sign-in"
-          className="mb-5 mt-1 font-semibold text-grey underline"
+      <div className="flex w-full flex-col items-center">
+        <form
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col items-center justify-start"
         >
-          Forgot your password?
-        </Link>
-        <Button
-          type="submit"
-          className="h-10 w-[150px] rounded-3xl text-lg sm:h-12 sm:w-[150px]"
-        >
-          Sign In&nbsp;&nbsp;
-          <NextArrow />
-        </Button>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem className="mt-4 h-16 sm:mt-6 sm:h-20">
+                <FormControl>
+                  <Input
+                    className="h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[275px]"
+                    type="email"
+                    placeholder="Email"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem className="mt-4 h-16 sm:mt-6 sm:h-20">
+                <FormControl>
+                  <Input
+                    className="h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[275px]"
+                    type="password"
+                    placeholder="Password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Link
+            href="/sign-in"
+            className="mb-5 mt-5 font-semibold text-grey underline sm:mt-3"
+          >
+            Forgot your password?
+          </Link>
+          <Button
+            type="submit"
+            className="h-10 w-[150px] rounded-3xl text-lg sm:h-12 sm:w-[150px]"
+          >
+            Sign In&nbsp;&nbsp;
+            <NextArrow />
+          </Button>
+        </form>
         <p className="my-8 font-semibold text-grey">
           Don&apos;t have an account yet?
           <SignUpModule />
         </p>
-      </form>
+      </div>
     </Form>
   )
 }

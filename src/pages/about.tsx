@@ -25,22 +25,30 @@ import {
   SectionHeader,
   SectionHeaderHighlight,
 } from '@/components/common/section'
+import Reveal from '@components/common/reveal'
 
 export default function AboutUs() {
   return (
     <div className="container mx-auto flex max-w-5xl pb-16 pt-20">
       <div className="w-full space-y-16">
         <Section>
-          <SectionHeader className="text-center">
-            How <SectionHeaderHighlight>ReturnPal</SectionHeaderHighlight> Began
-          </SectionHeader>
+          <Reveal>
+            <SectionHeader className="text-center">
+              How <SectionHeaderHighlight>ReturnPal</SectionHeaderHighlight>{' '}
+              Began
+            </SectionHeader>
+          </Reveal>
           <SectionDescription className="md:w-4/6">
-            ReturnPal was born out of a simple realization: the traditional
-            process of returning online purchases is far too complicated. Two
-            brothers after waiting in line at the post office, decided there had
-            to be a better way. Thus, ReturnPal was created to streamline
-            returns for both consumers and businesses, while also making a
-            positive impact on the community.
+            <Reveal>
+              <p>
+                ReturnPal was born out of a simple realization: the traditional
+                process of returning online purchases is far too complicated.
+                Two brothers after waiting in line at the post office, decided
+                there had to be a better way. Thus, ReturnPal was created to
+                streamline returns for both consumers and businesses, while also
+                making a positive impact on the community.
+              </p>
+            </Reveal>
           </SectionDescription>
         </Section>
 
@@ -50,42 +58,58 @@ export default function AboutUs() {
 
             <SectionBackgroundAbsolute>
               <Section className="container mx-auto max-w-5xl space-y-6 text-white">
-                <SectionHeader className="text-center">
-                  Our <SectionHeaderHighlight>Founders</SectionHeaderHighlight>
-                </SectionHeader>
+                <Reveal>
+                  <SectionHeader className="text-center">
+                    Our{' '}
+                    <SectionHeaderHighlight>Founders</SectionHeaderHighlight>
+                  </SectionHeader>
+                </Reveal>
+
                 <div className="grid w-full place-items-center gap-7 md:flex md:grid-cols-2 md:justify-between md:px-9">
                   <HomeSectionImageRoot>
-                    <HomeSectionImage
-                      className="h-52 w-52 md:h-72 md:w-72"
-                      src={hasanFounderImage}
-                      priority
-                      alt="CEO of Returnpal of ReturnPal Hasan-Ali Abidi"
-                    />
-                    <HomeSectionImageTitle className="text-center">
-                      <HomeSectionImageTitleHeader>
-                        Hasan-Ali Abidi
-                      </HomeSectionImageTitleHeader>
-                      <HomeSectionImageTitleDescription>
-                        CEO of Returnpal
-                      </HomeSectionImageTitleDescription>
-                    </HomeSectionImageTitle>
+                    <Reveal>
+                      <div>
+                        <HomeSectionImage
+                          className="h-52 w-52 md:h-72 md:w-72"
+                          src={hasanFounderImage}
+                          priority
+                          alt="CEO of Returnpal of ReturnPal Hasan-Ali Abidi"
+                        />
+                      </div>
+                    </Reveal>
+                    <Reveal width="100%">
+                      <HomeSectionImageTitle className="text-center">
+                        <HomeSectionImageTitleHeader>
+                          Hasan-Ali Abidi
+                        </HomeSectionImageTitleHeader>
+                        <HomeSectionImageTitleDescription>
+                          CEO of Returnpal
+                        </HomeSectionImageTitleDescription>
+                      </HomeSectionImageTitle>
+                    </Reveal>
                   </HomeSectionImageRoot>
 
                   <HomeSectionImageRoot>
-                    <HomeSectionImage
-                      className="h-52 w-52 md:h-72 md:w-72"
-                      src={alamdarFounderImage}
-                      priority
-                      alt="Co-Founder of ReturnPal Alamdar-Ali Abidi"
-                    />
-                    <HomeSectionImageTitle className="text-center">
-                      <HomeSectionImageTitleHeader>
-                        Alamdar-Ali Abidi
-                      </HomeSectionImageTitleHeader>
-                      <HomeSectionImageTitleDescription>
-                        Co-Founder of ReturnPal
-                      </HomeSectionImageTitleDescription>
-                    </HomeSectionImageTitle>
+                    <Reveal>
+                      <div>
+                        <HomeSectionImage
+                          className="h-52 w-52 md:h-72 md:w-72"
+                          src={alamdarFounderImage}
+                          priority
+                          alt="Co-Founder of ReturnPal Alamdar-Ali Abidi"
+                        />
+                      </div>
+                    </Reveal>
+                    <Reveal width="100%">
+                      <HomeSectionImageTitle className="text-center">
+                        <HomeSectionImageTitleHeader>
+                          Alamdar-Ali Abidi
+                        </HomeSectionImageTitleHeader>
+                        <HomeSectionImageTitleDescription>
+                          Co-Founder of ReturnPal
+                        </HomeSectionImageTitleDescription>
+                      </HomeSectionImageTitle>
+                    </Reveal>
                   </HomeSectionImageRoot>
                 </div>
               </Section>
@@ -94,15 +118,22 @@ export default function AboutUs() {
         </SectionBackground>
 
         <Section>
-          <SectionHeader>
-            Our <SectionHeaderHighlight>Mission</SectionHeaderHighlight>
-          </SectionHeader>
+          <Reveal>
+            <SectionHeader>
+              Our <SectionHeaderHighlight>Mission</SectionHeaderHighlight>
+            </SectionHeader>
+          </Reveal>
+
           <SectionDescription className="md:w-4/6">
-            Our goal is to revolutionize the returns process for online shoppers
-            by offering a hassle-free and convenient solution. We aim to
-            alleviate the stress of the return process by managing the entire
-            repackaging and delivery process on your behalf, allowing you to sit
-            back and relax.
+            <Reveal>
+              <p>
+                Our goal is to revolutionize the returns process for online
+                shoppers by offering a hassle-free and convenient solution. We
+                aim to alleviate the stress of the return process by managing
+                the entire repackaging and delivery process on your behalf,
+                allowing you to sit back and relax.
+              </p>
+            </Reveal>
           </SectionDescription>
         </Section>
 
@@ -112,46 +143,67 @@ export default function AboutUs() {
 
             <SectionBackgroundAbsolute>
               <Section className="container mx-auto max-w-5xl space-y-6 text-white">
-                <SectionHeader>
-                  Why Choose <SectionHeaderHighlight>Us</SectionHeaderHighlight>
-                  ?
-                </SectionHeader>
-                <SectionDescription className="text-white">
-                  <SectionHeaderHighlight>You</SectionHeaderHighlight> can help
-                  us create{' '}
-                  <SectionHeaderHighlight>Social Impact</SectionHeaderHighlight>{' '}
-                  together
-                </SectionDescription>
+                <Reveal>
+                  <SectionHeader>
+                    Why Choose{' '}
+                    <SectionHeaderHighlight>Us</SectionHeaderHighlight>?
+                  </SectionHeader>
+                </Reveal>
+                <Reveal>
+                  <SectionDescription className="text-white">
+                    <SectionHeaderHighlight>You</SectionHeaderHighlight> can
+                    help us create{' '}
+                    <SectionHeaderHighlight>
+                      Social Impact
+                    </SectionHeaderHighlight>{' '}
+                    together
+                  </SectionDescription>
+                </Reveal>
 
                 <SectionDescription className="text-white md:w-4/6">
-                  We value sustainability and community empowerment. Through our
-                  Corporate Social Responsibility (CSR) initiatives, we
-                  collaborate with businesses to repurpose and donate goods,
-                  directly benefiting underserved communities. If your
-                  organization is looking to fulfill its CSR goals, we invite
-                  you to reach out to us. Let&rsquo;s join hands and create a
-                  positive change together.
+                  <Reveal>
+                    <p>
+                      We value sustainability and community empowerment. Through
+                      our Corporate Social Responsibility (CSR) initiatives, we
+                      collaborate with businesses to repurpose and donate goods,
+                      directly benefiting underserved communities. If your
+                      organization is looking to fulfill its CSR goals, we
+                      invite you to reach out to us. Let&rsquo;s join hands and
+                      create a positive change together.
+                    </p>
+                  </Reveal>
                 </SectionDescription>
-                <div className="hidden w-full items-end justify-evenly sm:flex">
-                  <Earth />
-                  <People />
-                  <Hands />
-                </div>
+                <Reveal>
+                  <div className="hidden w-full items-end justify-evenly sm:flex">
+                    <Earth />
+                    <People />
+                    <Hands />
+                  </div>
+                </Reveal>
               </Section>
             </SectionBackgroundAbsolute>
           </SectionBackgroundContent>
         </SectionBackground>
 
         <Section>
-          <SectionHeader>
-            Our <SectionHeaderHighlight>Operation</SectionHeaderHighlight>
-          </SectionHeader>
+          <Reveal>
+            <SectionHeader>
+              Our <SectionHeaderHighlight>Operation</SectionHeaderHighlight>
+            </SectionHeader>
+          </Reveal>
+
           <SectionDescription className="md:w-4/6">
-            We are all over the greater Toronto area, operating a local facility
-            designed to ensure that the repackaging of items can accommodate
-            same-day return needs.
+            <Reveal>
+              <p>
+                We are all over the greater Toronto area, operating a local
+                facility designed to ensure that the repackaging of items can
+                accommodate same-day return needs.
+              </p>
+            </Reveal>
           </SectionDescription>
-          <Toronto className="h-56 w-56" />
+          <Reveal>
+            <Toronto className="h-56 w-56" />
+          </Reveal>
         </Section>
       </div>
     </div>

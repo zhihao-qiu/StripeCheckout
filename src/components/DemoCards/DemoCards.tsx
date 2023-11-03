@@ -7,6 +7,7 @@ import NounBarcodeSvg from '@/components/SvgComponents/NounBarcodeSvg'
 import TimerSvg from '@/components/SvgComponents/TimerSvg'
 import NounPinSvg from '@/components/SvgComponents/NounPinSvg'
 import { AiFillCheckCircle } from 'react-icons/ai'
+import Reveal from '@components/common/reveal'
 
 const cardData = [
   {
@@ -62,36 +63,44 @@ function DemoCards() {
     <div className="absolute top-52 w-full space-y-12 py-2.5 text-center leading-4 text-white md:top-20 lg:top-24">
       <section className="xl:px-18 px-10 md:px-7 lg:px-16">
         <div className="mx-auto mt-20 flex max-w-7xl justify-between gap-6 md:mt-10 lg:mt-8">
-          <title className="mb-4 block max-w-5xl text-left text-mediumText lg:text-3xl xl:text-subtitle">
-            How It Works
-          </title>
+          <Reveal>
+            <title className="mb-4 block max-w-5xl text-left text-mediumText lg:text-3xl xl:text-subtitle">
+              How It Works
+            </title>
+          </Reveal>
         </div>
         <div className=" mx-auto flex max-w-7xl flex-col items-center gap-5 md:flex-row md:justify-evenly">
           {cardData.map((data) => (
-            <CardItem
-              step={data.step}
-              key={data.step}
-              icon={data.icon()}
-              description={data.description}
-              title={data.title}
-            />
+            <Reveal key={data.step}>
+              <CardItem
+                step={data.step}
+                // key={data.step}
+                icon={data.icon()}
+                description={data.description}
+                title={data.title}
+              />
+            </Reveal>
           ))}
         </div>
       </section>
       <section className="xl:px-18 px-10 md:px-7 lg:px-16">
         <div className=" mx-auto flex max-w-7xl justify-between gap-6">
-          <title className="mb-4 block max-w-5xl text-left text-mediumText lg:text-3xl xl:text-subtitle">
-            Your Benefits
-          </title>
+          <Reveal>
+            <title className="mb-4 block max-w-5xl text-left text-mediumText lg:text-3xl xl:text-subtitle">
+              Your Benefits
+            </title>
+          </Reveal>
         </div>
         <div className=" mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 md:flex-row md:justify-evenly">
           {cardData2.map((data) => (
-            <CardItem
-              step={data.step}
-              key={data.id}
-              icon={data.icon()}
-              description={data.description}
-            />
+            <Reveal key={data.id}>
+              <CardItem
+                step={data.step}
+                // key={data.id}
+                icon={data.icon()}
+                description={data.description}
+              />
+            </Reveal>
           ))}
         </div>
       </section>
