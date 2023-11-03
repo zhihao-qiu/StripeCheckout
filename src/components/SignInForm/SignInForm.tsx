@@ -29,24 +29,35 @@ function SignInForm() {
       password: '',
     },
   })
-
   const writeUserInfoToFragment = (email: string) => {
+    const lastName = 'testLastName'
+    const firstName = 'testFirstName'
+
     apolloClient.writeFragment({
-      id: 'User:1',
+      id: 'Auth:1',
       fragment: gql`
-        fragment MyUser on User {
+        fragment UserInfo on Auth {
           id
           email
+          firstName
+          lastName
+          role
         }
       `,
       data: {
-        email: email,
+        __typename: 'Auth',
+        id: 'Auth:1',
+        email,
+        firstName,
+        lastName,
+        role: 'user',
       },
     })
   }
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
+    writeUserInfoToFragment(values.email)
   }
 
   return (
