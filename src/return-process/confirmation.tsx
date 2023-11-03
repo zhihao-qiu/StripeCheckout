@@ -56,7 +56,7 @@ export default function Confirmation() {
           </div>
         </Reveal>
         <Reveal>
-          <SectionDescription className="md:text-xl md:font-normal">
+          <SectionDescription className="text-left md:text-xl md:font-normal">
             {mockOrder.name}, your pickup order{' '}
             <SectionHeaderHighlight>
               #{mockOrder.orderRef}
@@ -72,7 +72,7 @@ export default function Confirmation() {
         </Reveal>
       </ReturnProcessSection>
 
-      <div className="mb-8 mt-0 flex w-11/12 flex-col justify-between text-base text-brand sm:w-5/6 sm:gap-x-4 sm:text-smallText md:flex-row lg:mt-0">
+      <div className="mb-8 mt-0 flex w-full flex-col justify-between text-base text-brand sm:w-5/6 sm:gap-x-4 sm:text-smallText md:flex-row lg:mt-0">
         <Reveal>
           <section className="h-fit rounded-3xl border-2 border-primary bg-white p-4 sm:p-8">
             <Reveal>
