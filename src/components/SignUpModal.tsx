@@ -15,7 +15,7 @@ import NextArrow from '@components/SvgComponents/NextArrow'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { container, item } from '@components/SigninModal'
+import { container, item } from '@styles/framer'
 
 const formSchema = z
   .object({

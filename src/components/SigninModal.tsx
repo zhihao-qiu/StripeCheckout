@@ -7,22 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { motion } from 'framer-motion'
-
-// Framer-motion
-export const container = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.1 } },
-}
-
-export const item = {
-  hidden: { opacity: 0, translateX: 0, translateY: 0 },
-  show: {
-    opacity: 1,
-    translateX: 0,
-    translateY: 0,
-    transition: { ease: 'easeIn', duration: 0.5 },
-  },
-}
+import { container, item } from '@styles/framer'
 
 function SigninModal({
   headerType = 'desktop',

@@ -13,7 +13,7 @@ import { Button } from '@components/ui/button'
 import NextArrow from '@components/SvgComponents/NextArrow'
 import SignUpModule from '@components/SignUpModal'
 import { motion } from 'framer-motion'
-import { container, item } from '@components/SigninModal'
+import { container, item } from '@styles/framer'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email' }),
