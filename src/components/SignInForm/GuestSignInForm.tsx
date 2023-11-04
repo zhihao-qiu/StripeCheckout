@@ -12,12 +12,14 @@ import * as z from 'zod'
 import { Button } from '@components/ui/button'
 import NextArrow from '@components/SvgComponents/NextArrow'
 import SignUpModule from '@components/SignUpModal'
+import useAuth from '@/services/authentication/useAuth'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email' }),
 })
 
 function GuestSignInForm() {
+  const { writeUserInfoToFragment } = useAuth()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -27,6 +29,7 @@ function GuestSignInForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
+    writeUserInfoToFragment(values.email, 'guest', 'guest user')
   }
 
   return (

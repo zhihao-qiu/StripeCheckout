@@ -14,6 +14,7 @@ import Link from 'next/link'
 import NextArrow from '@components/SvgComponents/NextArrow'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import Image from 'next/image'
+import useAuth from '@/services/authentication/useAuth'
 
 const formSchema = z
   .object({
@@ -48,6 +49,7 @@ const formSchema = z
   )
 
 function SignUpModule() {
+  const { writeUserInfoToFragment } = useAuth()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -61,6 +63,7 @@ function SignUpModule() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
+    writeUserInfoToFragment(values.email, values.firstName, values.lastName)
   }
 
   return (

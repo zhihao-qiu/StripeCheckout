@@ -12,6 +12,14 @@ export const LOGIN = gql`
       }
       token
       errors
+      primaryAddress {
+        id
+        streetNumber
+        streetName
+        city
+        province
+        postal
+      }
     }
   }
 `
@@ -39,6 +47,14 @@ export const REGISTER = gql`
       }
       token
       errors
+      primaryAddress {
+        id
+        streetNumber
+        streetName
+        city
+        province
+        postal
+      }
     }
   }
 `

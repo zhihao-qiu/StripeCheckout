@@ -114,19 +114,32 @@ const useAuth = () => {
     }
   }
 
-  const writeUserInfoToFragment = (email: string) => {
-    const lastName = 'testLastName'
-    const firstName = 'testFirstName'
-
+  // TODO - remove write fragment directly to apollo client cache when backend is ready
+  const writeUserInfoToFragment = (
+    email: string,
+    firstName = 'testFirstName',
+    lastName = 'testLastName'
+  ) => {
     apolloClient.writeFragment({
       id: 'Auth:1',
       fragment: gql`
         fragment UserInfo on Auth {
           id
-          email
-          firstName
-          lastName
-          role
+          user {
+            id
+            email
+            firstName
+            lastName
+            role
+          }
+          primaryAddress {
+            id
+            streetNumber
+            streetName
+            city
+            province
+            postal
+          }
         }
       `,
       data: {
@@ -137,7 +150,7 @@ const useAuth = () => {
           email,
           firstName,
           lastName,
-          role: 'user',
+          role: 'platinum',
         },
         primaryAddress: {
           id: 1,
