@@ -4,15 +4,21 @@ import { motion, useInView, useAnimation } from 'framer-motion'
 interface Props {
   children: JSX.Element
   width?: 'fit-content' | '100%'
+  center?: boolean
 }
 
-export default function Reveal({ children, width = 'fit-content' }: Props) {
+export default function Reveal({
+  children,
+  width = 'fit-content',
+  center = false,
+}: Props) {
   const ref = useRef(null)
   const isInView = useInView(ref, {
     once: true,
     margin: '0px 0px -25px 0px',
   })
   const mainControls = useAnimation()
+  const centerContent = center ? 'flex justify-center w-full' : ''
 
   useEffect(() => {
     if (isInView) {
@@ -21,7 +27,11 @@ export default function Reveal({ children, width = 'fit-content' }: Props) {
   }, [isInView, mainControls])
 
   return (
-    <div ref={ref} style={{ position: 'relative', width, overflow: 'hidden' }}>
+    <div
+      ref={ref}
+      style={{ position: 'relative', width, overflow: 'hidden' }}
+      className={centerContent}
+    >
       <motion.div
         variants={{
           hidden: { opacity: 0, y: 75 },
@@ -30,6 +40,7 @@ export default function Reveal({ children, width = 'fit-content' }: Props) {
         initial="hidden"
         animate={mainControls}
         transition={{ duration: 0.5 }}
+        className={centerContent}
       >
         {children}
       </motion.div>

@@ -19,7 +19,7 @@ export default function Terms(props: {
   }
   /*
   Just add useState for acceptance and pass it to prop.
-  Add the future terms and conditions once it is made into the termsAndConditions array in sections.
+  Add the future terms and conditions once it is made by the legal team into the termsAndConditions array in sections.
   */
   const termsAndConditions: termsSection[] = [
     {
@@ -35,6 +35,20 @@ export default function Terms(props: {
       subheading: 'PERMISSION TO USE THE WEBSITE',
       text: [
         `You may use the Website only if you are a resident of Canada, have reached the age of majority where you live and you can form legally binding contracts under applicable law. You may not use the Website if you live in a jurisdiction where access to or use of the Website or any part of it may be illegal or prohibited. It is solely your responsibility to determine whether your use of the Website is lawful, and you must comply with all applicable laws. ReturnPal reserves the right to request proof of identification and age. ReturnPal returns products only to addresses in Canada.`,
+      ],
+    },
+    {
+      subheading: 'Your Account',
+      text: [
+        `If you use the Services, you are responsible for maintaining the confidentiality of your account and password and for restricting access to your devices. You agree to accept responsibility for all activities that occur under your account or password. ReturnPal reserves the right to refuse service, terminate accounts, remove or edit content, or cancel orders in its sole discretion.`,
+      ],
+    },
+    {
+      subheading: 'LIABILITY',
+      text: [
+        `You understand that there is inherent risk in delivery (and related services) and there is potential for returned goods, packages and related items to get lost or damaged. ReturnPal will do its best to ensure situations like this do not happen, and in the instances they do happen, will work with you to help rectify the situation, as long as you provide us with written notification identifying the concern within fourteen (14) days of you receiving notice. ReturnPal will help rectify damaged returns to the extent the damage was not caused due to inadequate padding, cushioning, wrapping and/or packaging by you. `,
+        `In addition, the information, recommendations and/or services provided to you on or through the Services is for general information purposes only. The use of the Site or the Contents is at your own risk. The Contents in this Site could include technical inaccuracies or typographical errors. ReturnPal may make changes or improvements at any time`,
+        `THE CONTENTS IN THIS SITE ARE PROVIDED “AS IS” AND WITHOUT WARRANTIES OF ANY KIND EITHER EXPRESS OR IMPLIED. Except as otherwise provided in these Terms, to the fullest extent permissible pursuant to applicable law, ReturnPal disclaims all warranties of merchantability or fitness for a particular purpose. ReturnPal does not warrant that the functions contained in the material will be uninterrupted or error-free, that defects will be corrected, or that this Site or the server that makes it available are free of viruses or other harmful components. ReturnPal does not warrant or make any representations regarding the use of, or the result of the use of, the contents in this Site in terms of their correctness, accuracy, reliability, or otherwise. To the fullest extent permissible pursuant to applicable law, ReturnPal assumes no liability, whether in contract or tort, for any direct, indirect, special, consequential, or punitive damages, including (without limitation) damages for loss of anticipated profits or revenue or other economic loss in connection with or arising from any act or omission by ReturnPal, its agents, affiliates, joint venture partners, independent contractors, or unaffiliated third parties as a result of any act or omission in fulfillment of or in breach of these Terms or the Privacy Policy`,
       ],
     },
   ]

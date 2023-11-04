@@ -10,6 +10,7 @@ import { ReturnProcessBackButton } from '@/components/common/return-process'
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import Reveal from '@components/common/reveal'
 
 export interface MockData {
   plan: 'bronze' | 'silver' | 'gold' | 'platinum'
@@ -82,126 +83,168 @@ export default function ConfirmPickup() {
       <section className="mx-1 flex w-full flex-col items-center text-base sm:mb-10 sm:w-2/3 sm:text-smallText">
         <div className="flex w-11/12 flex-col md:w-3/4">
           <section className="mb-4 sm:mb-10">
-            <h1 className="md-1 w-full text-mediumText sm:mb-2 sm:text-subtitle">
-              Confirm Pickup
-            </h1>
-            <p className="text-grey md:tracking-wide">
-              Make sure all the details look good!
-            </p>
+            <Reveal>
+              <h1 className="md-1 w-full text-mediumText sm:mb-2 sm:text-subtitle">
+                Confirm Pickup
+              </h1>
+            </Reveal>
+            <Reveal>
+              <p className="text-grey md:tracking-wide">
+                Make sure all the details look good!
+              </p>
+            </Reveal>
           </section>
 
           <section className="sm:mb-10">
-            <h2 className="text-smallText font-semibold text-primary sm:mb-6 sm:text-2xl">
-              Pickup Information
-            </h2>
+            <Reveal>
+              <h2 className="text-smallText font-semibold text-primary sm:mb-6 sm:text-2xl">
+                Pickup Information
+              </h2>
+            </Reveal>
             <div className="flex w-full justify-between gap-2 md:gap-10">
               <div className="flex min-w-[35px] justify-center md:min-w-[70px]">
                 <div className="h-[28px] w-[21px] pt-3 sm:h-[56px] sm:w-[42px] sm:pt-0">
-                  <Location />
+                  <Reveal>
+                    <Location />
+                  </Reveal>
                 </div>
               </div>
               <div className="w-full space-y-3">
-                <p className="font-bold">
-                  {mockOrder.name}
-                  <span className="text-mediumText font-normal">
-                    &nbsp;|&nbsp;
-                  </span>
-                  {mockOrder.tel}
-                </p>
-                <p>{mockOrder.location}</p>
-                {mockOrder.pickupMethod === 'Direct Handoff' && (
-                  <p className="text-grey md:tracking-wide">
-                    Please ring the doorbell when picking up
+                <Reveal>
+                  <p className="font-bold">
+                    {mockOrder.name}
+                    <span className="text-mediumText font-normal">
+                      &nbsp;|&nbsp;
+                    </span>
+                    {mockOrder.tel}
                   </p>
+                </Reveal>
+                <Reveal>
+                  <p>{mockOrder.location}</p>
+                </Reveal>
+                {mockOrder.pickupMethod === 'Direct Handoff' && (
+                  <Reveal>
+                    <p className="text-grey md:tracking-wide">
+                      Please ring the doorbell when picking up
+                    </p>
+                  </Reveal>
                 )}
               </div>
               <EditContainer />
             </div>
-
-            <Separator className="mb-4 mt-4 w-full bg-brand" />
-
+            <Reveal width="100%">
+              <Separator className="mb-4 mt-4 w-full bg-brand" />
+            </Reveal>
             <div className="flex w-full justify-between gap-2 md:gap-10">
               <div className="flex min-w-[35px] justify-center md:min-w-[70px]">
                 <div className="h-[39px] w-[31px] sm:h-[79px] sm:w-[63px]">
-                  <Calendar />
+                  <Reveal>
+                    <Calendar />
+                  </Reveal>
                 </div>
               </div>
-              <p className="grow sm:mt-4">
-                <span className="font-bold">Pickup Date:</span>
-                <span>&nbsp;{mockOrder.pickupDate}</span>
-              </p>
+              <Reveal width="100%">
+                <p className="grow sm:mt-4">
+                  <span className="font-bold">Pickup Date:</span>
+                  <span>&nbsp;{mockOrder.pickupDate}</span>
+                </p>
+              </Reveal>
               <EditContainer />
             </div>
-
-            <Separator className="mb-4 mt-4 w-full bg-brand" />
-
+            <Reveal width="100%">
+              <Separator className="mb-4 mt-4 w-full bg-brand" />
+            </Reveal>
             <div className="flex w-full justify-between gap-2 md:gap-10">
               <div className="flex min-w-[35px] justify-center md:min-w-[70px]">
                 <div className="h-[34px] w-[30px] sm:h-[68px] sm:w-[60px]">
-                  <PickupTrolley />
+                  <Reveal>
+                    <PickupTrolley />
+                  </Reveal>
                 </div>
               </div>
-              <p className="grow sm:mt-4">
-                <span className="font-bold">Pickup Method:</span>
-                <span>&nbsp;{mockOrder.pickupMethod}</span>
-              </p>
+              <Reveal width="100%">
+                <p className="grow sm:mt-4">
+                  <span className="font-bold">Pickup Method:</span>
+                  <span>&nbsp;{mockOrder.pickupMethod}</span>
+                </p>
+              </Reveal>
               <EditContainer />
             </div>
-            <Separator className="mb-4 mt-4 w-full bg-brand" />
+            <Reveal width="100%">
+              <Separator className="mb-4 mt-4 w-full bg-brand" />
+            </Reveal>
           </section>
 
           <section>
-            <h2 className="mb-2 text-smallText font-semibold text-primary sm:mb-6 sm:text-2xl">
-              Package Summary
-            </h2>
+            <Reveal>
+              <h2 className="mb-2 text-smallText font-semibold text-primary sm:mb-6 sm:text-2xl">
+                Package Summary
+              </h2>
+            </Reveal>
             <div className="flex w-full justify-between gap-2 md:gap-10">
               <div className="flex min-w-[35px] justify-center md:min-w-[70px]">
                 <div className="h-[21px] w-[27px] sm:h-[46px] sm:w-[60px]">
-                  <Package />
+                  <Reveal>
+                    <Package />
+                  </Reveal>
                 </div>
               </div>
               <div className="grow">
-                <p>
-                  <span className="font-bold">Total Packages:&nbsp;</span>
-                  <span>
-                    {mockData.extraBoxes ? mockData.extraBoxes + 1 : 1}
-                  </span>
-                </p>
+                <Reveal width="100%">
+                  <p>
+                    <span className="font-bold">Total Packages:&nbsp;</span>
+                    <span>
+                      {mockData.extraBoxes ? mockData.extraBoxes + 1 : 1}
+                    </span>
+                  </p>
+                </Reveal>
                 <Link href="/" className="w-2/3 text-primary">
-                  <div className="flex items-center justify-start">
-                    <div className="text-normal sm:text-subtitle">+</div>
-                    <div className="mt-1">&nbsp;Add a package</div>
-                  </div>
+                  <Reveal width="100%">
+                    <div className="flex items-center justify-start">
+                      <div className="text-normal sm:text-subtitle">+</div>
+                      <div className="mt-1">&nbsp;Add a package</div>
+                    </div>
+                  </Reveal>
                 </Link>
               </div>
               <EditContainer />
             </div>
-            <Separator className="mb-4 mt-4 w-full bg-brand" />
+            <Reveal width="100%">
+              <Separator className="mb-4 mt-4 w-full bg-brand" />
+            </Reveal>
           </section>
 
           <section>
-            <h2 className="text-smallText font-semibold text-primary sm:mb-2 sm:text-2xl">
-              Payment Method
-            </h2>
+            <Reveal>
+              <h2 className="text-smallText font-semibold text-primary sm:mb-2 sm:text-2xl">
+                Payment Method
+              </h2>
+            </Reveal>
             <div className="flex w-full justify-between gap-2 md:gap-10">
               <div className="flex min-w-[35px] justify-center md:min-w-[70px]">
                 <div className="h-[35px] w-[35px] sm:h-[70px] sm:w-[70px]">
-                  <CreditCard />
+                  <Reveal>
+                    <CreditCard />
+                  </Reveal>
                 </div>
               </div>
               <div className="mt-1 grow sm:mt-3">
-                <p>
-                  <span className="font-bold">
-                    {mockOrder.cardType} ending in:&nbsp;
-                  </span>
-                  <span>{mockOrder.cardNumber} </span>
-                </p>
+                <Reveal width="100%">
+                  <p>
+                    <span className="font-bold">
+                      {mockOrder.cardType} ending in:&nbsp;
+                    </span>
+                    <span>{mockOrder.cardNumber} </span>
+                  </p>
+                </Reveal>
               </div>
               <EditContainer />
             </div>
           </section>
           <div className="my-2 flex sm:my-10">
-            <ReturnProcessBackButton />
+            <Reveal>
+              <ReturnProcessBackButton />
+            </Reveal>
           </div>
         </div>
       </section>
