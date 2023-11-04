@@ -93,8 +93,10 @@ function Dashboard() {
             <Image
               src={'/images/returnpal-logo.png'}
               alt="logo"
-              width={200}
-              height={200}
+              width="0"
+              height="0"
+              sizes="200px"
+              style={{ width: 'auto', height: '100%' }}
               className="mx-auto"
             />
           </Link>

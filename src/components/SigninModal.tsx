@@ -9,6 +9,7 @@ import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { motion } from 'framer-motion'
 import { container, item } from '@styles/framer'
 
+// Default headerType is desktop
 function SigninModal({
   headerType = 'desktop',
 }: {

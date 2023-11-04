@@ -10,7 +10,11 @@ function DashBoardMain({ userInfo }: { userInfo: UserInfo }) {
     <section className="flex flex-col justify-center space-y-16 p-36">
       <h3 className="text-title">
         Welcome back,{' '}
-        <span className={`${planTextClassName(userInfo.role)} text-title`}>
+        <span
+          className={`${planTextClassName(
+            userInfo.role
+          )} text-title sm:text-title`}
+        >
           {userInfo.role}
         </span>{' '}
         user <span className="font-bold text-primary">John</span>
