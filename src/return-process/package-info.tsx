@@ -47,6 +47,7 @@ import { SectionDescription, SectionHeader } from '@/components/common/section'
 import { Separator } from '@/components/ui/separator'
 import { ScrollArea } from '@components/ui/scroll-area'
 import UploadIconSvg from '@components/SvgComponents/UploadIcon'
+import Reveal from '@components/common/reveal'
 
 const ACCEPTED_FILE_TYPES = ['JPG', 'PNG', 'PDF']
 
@@ -344,77 +345,101 @@ export default function PackageInfo() {
         >
           <ReturnProcessRoot>
             <ReturnProcessSection>
-              <SectionHeader>Pickup Details</SectionHeader>
+              <Reveal>
+                <SectionHeader>Pickup Details</SectionHeader>
+              </Reveal>
               <SectionDescription className="flex w-full justify-between">
-                <p className="text-start">
-                  Select label type and we&apos;ll handle the label printing and
-                  repackaging. You can add multiple packages.
-                </p>
+                <Reveal>
+                  <p className="text-start">
+                    Select label type and we&apos;ll handle the label printing
+                    and repackaging. You can add multiple packages.
+                  </p>
+                </Reveal>
 
                 <Dialog>
                   <DialogTrigger className="pr-5">
-                    <div className="font-bold text-primary">Tutorial</div>
+                    <Reveal>
+                      <div className="font-bold text-primary">Tutorial</div>
+                    </Reveal>
                   </DialogTrigger>
                   <DialogContent className="h-5/6 bg-paleBlue object-scale-down">
                     <DialogHeader>
-                      <DialogTitle className="text-center font-bold text-brand">
-                        How to add a package label
-                        <div className="text-xs font-normal xxs:invisible">
-                          Please scroll/swipe down below for more information
-                        </div>
-                      </DialogTitle>
+                      <Reveal>
+                        <DialogTitle className="text-center font-bold text-brand">
+                          How to add a package label
+                          <div className="text-xs font-normal xxs:invisible">
+                            Please scroll/swipe down below for more information
+                          </div>
+                        </DialogTitle>
+                      </Reveal>
                     </DialogHeader>
                     <ScrollArea>
                       <div className="px-5 text-brand">
-                        <div className="my-2">
-                          Step 1: Click on the type of label you have.
-                          <Image
-                            height={300}
-                            width={500}
-                            src="/images/Step1.png"
-                            alt="Step 1 example Image"
-                          />
-                        </div>
-                        <Separator className="bg-brand" />
-                        <div className="my-2">
-                          Step 2: Drag your file over the area or click to
-                          browse your computer&apos;s files. If you are using
-                          physical labels you can skip this step.
-                          <Image
-                            height={300}
-                            width={500}
-                            src="/images/Step2.png"
-                            alt="Step 2 example image"
-                          />
-                        </div>
-                        <Separator className="bg-brand" />
-                        <div className="my-2">
-                          Step 3: Fill in the description box
-                          <Image
-                            height={300}
-                            width={500}
-                            src="/images/Step3.png"
-                            alt="Step 3 example image"
-                          />
-                        </div>
-                        <Separator className="bg-brand" />
-                        <div className="my-2">
-                          Step 4: Click &quot;Add Package&quot; to add it to the
-                          list.
-                          <Image
-                            height={300}
-                            width={500}
-                            src="/images/Step4.png"
-                            alt="Step 4 example image"
-                          />
-                        </div>
+                        <Reveal>
+                          <div className="my-2">
+                            Step 1: Click on the type of label you have.
+                            <Image
+                              height={300}
+                              width={500}
+                              src="/images/Step1.png"
+                              alt="Step 1 example Image"
+                            />
+                          </div>
+                        </Reveal>
+                        <Reveal width="100%">
+                          <Separator className="bg-brand" />
+                        </Reveal>
+                        <Reveal>
+                          <div className="my-2">
+                            Step 2: Drag your file over the area or click to
+                            browse your computer&apos;s files. If you are using
+                            physical labels you can skip this step.
+                            <Image
+                              height={300}
+                              width={500}
+                              src="/images/Step2.png"
+                              alt="Step 2 example image"
+                            />
+                          </div>
+                        </Reveal>
+                        <Reveal width="100%">
+                          <Separator className="bg-brand" />
+                        </Reveal>
+                        <Reveal>
+                          <div className="my-2">
+                            Step 3: Fill in the description box
+                            <Image
+                              height={300}
+                              width={500}
+                              src="/images/Step3.png"
+                              alt="Step 3 example image"
+                            />
+                          </div>
+                        </Reveal>
+                        <Reveal width="100%">
+                          <Separator className="bg-brand" />
+                        </Reveal>
+                        <Reveal>
+                          <div className="my-2">
+                            Step 4: Click &quot;Add Package&quot; to add it to
+                            the list.
+                            <Image
+                              height={300}
+                              width={500}
+                              src="/images/Step4.png"
+                              alt="Step 4 example image"
+                            />
+                          </div>
+                        </Reveal>
                       </div>
                     </ScrollArea>
 
                     <DialogFooter>
-                      <DialogClose asChild>
-                        <Button className="w-full px-5">Got it!</Button>
-                      </DialogClose>
+                      <Reveal width="100%">
+                        <DialogClose asChild>
+                          <Button className="w-full px-5">Got it!</Button>
+                        </DialogClose>
+                      </Reveal>
                     </DialogFooter>
                   </DialogContent>
                 </Dialog>
@@ -423,58 +448,60 @@ export default function PackageInfo() {
 
             <div className="flex w-full flex-col justify-between md:flex-row">
               <div className="relative w-full overflow-auto rounded-lg border-2 border-primary bg-white dark:border-gray-700 lg:w-1/2">
-                <Table>
-                  <TableHeader className="border-b-2 border-primary bg-primary bg-opacity-20">
-                    {table.getHeaderGroups().map((headerGroup) => (
-                      <TableRow key={headerGroup.id}>
-                        {headerGroup.headers.map((header) => {
-                          return (
-                            <TableHead
-                              key={header.id}
-                              className="text-center font-semibold text-primary"
-                            >
-                              {header.isPlaceholder
-                                ? undefined
-                                : flexRender(
-                                    header.column.columnDef.header,
-                                    header.getContext()
-                                  )}
-                            </TableHead>
-                          )
-                        })}
-                      </TableRow>
-                    ))}
-                  </TableHeader>
-                  <TableBody>
-                    {table.getRowModel().rows?.length ? (
-                      table.getRowModel().rows.map((row) => (
-                        <TableRow
-                          key={row.id}
-                          data-state={row.getIsSelected() && 'selected'}
-                          className="bg-white"
-                        >
-                          {row.getVisibleCells().map((cell) => (
-                            <TableCell key={cell.id} className="text-center">
-                              {flexRender(
-                                cell.column.columnDef.cell,
-                                cell.getContext()
-                              )}
-                            </TableCell>
-                          ))}
+                <Reveal width="100%">
+                  <Table>
+                    <TableHeader className="border-b-2 border-primary bg-primary bg-opacity-20">
+                      {table.getHeaderGroups().map((headerGroup) => (
+                        <TableRow key={headerGroup.id}>
+                          {headerGroup.headers.map((header) => {
+                            return (
+                              <TableHead
+                                key={header.id}
+                                className="text-center font-semibold text-primary"
+                              >
+                                {header.isPlaceholder
+                                  ? undefined
+                                  : flexRender(
+                                      header.column.columnDef.header,
+                                      header.getContext()
+                                    )}
+                              </TableHead>
+                            )
+                          })}
                         </TableRow>
-                      ))
-                    ) : (
-                      <TableRow>
-                        <TableCell
-                          colSpan={columns.length}
-                          className="h-24 text-center"
-                        >
-                          No labels added.
-                        </TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
+                      ))}
+                    </TableHeader>
+                    <TableBody>
+                      {table.getRowModel().rows?.length ? (
+                        table.getRowModel().rows.map((row) => (
+                          <TableRow
+                            key={row.id}
+                            data-state={row.getIsSelected() && 'selected'}
+                            className="bg-white"
+                          >
+                            {row.getVisibleCells().map((cell) => (
+                              <TableCell key={cell.id} className="text-center">
+                                {flexRender(
+                                  cell.column.columnDef.cell,
+                                  cell.getContext()
+                                )}
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        ))
+                      ) : (
+                        <TableRow>
+                          <TableCell
+                            colSpan={columns.length}
+                            className="h-24 text-center"
+                          >
+                            No labels added.
+                          </TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                </Reveal>
               </div>
 
               <div className="my-5 flex flex-row justify-between space-x-2 text-center sm:px-5 md:my-0 md:w-2/3 lg:w-1/2">
@@ -483,20 +510,26 @@ export default function PackageInfo() {
                     <div className="flex h-full grow flex-col justify-center self-center">
                       <div className="h-3/4">
                         <div className="mt-2 flex scale-75 justify-center object-scale-down text-center sm:scale-100 md:scale-75 lg:scale-100">
-                          <Image
-                            height={58}
-                            width={65}
-                            src="/images/physical.png"
-                            alt="physical label icon"
-                          />
+                          <Reveal>
+                            <Image
+                              height={58}
+                              width={65}
+                              src="/images/physical.png"
+                              alt="physical label icon"
+                            />
+                          </Reveal>
                         </div>
-                        <div className="3xl:mx-10  my-2 2xl:mx-5">
-                          Physical Label
+                        <Reveal>
+                          <div className="3xl:mx-10  my-2 2xl:mx-5">
+                            Physical Label
+                          </div>
+                        </Reveal>
+                      </div>
+                      <Reveal width="100%">
+                        <div className="h-1/4 text-largeText text-primary  lg:text-6xl">
+                          +
                         </div>
-                      </div>
-                      <div className="h-1/4 text-largeText text-primary  lg:text-6xl">
-                        +
-                      </div>
+                      </Reveal>
                     </div>
                   </DialogTrigger>
                   <DialogContent className="bg-paleBlue">
@@ -542,21 +575,27 @@ export default function PackageInfo() {
                     <div className="flex h-full grow flex-col justify-center self-center">
                       <div className="h-3/4">
                         <div className="mt-2 flex scale-75 justify-center object-scale-down text-center sm:scale-100 md:scale-75 lg:scale-100">
-                          <Image
-                            height={58}
-                            width={65}
-                            src="/images/digital.png"
-                            alt="digital label icon"
-                          />
+                          <Reveal>
+                            <Image
+                              height={58}
+                              width={65}
+                              src="/images/digital.png"
+                              alt="digital label icon"
+                            />
+                          </Reveal>
                         </div>
-                        <div className="3xl:mx-15 my-2 md:mx-4 2xl:mx-10">
-                          {' '}
-                          Digital Label{' '}
+                        <Reveal>
+                          <div className="3xl:mx-15 my-2 md:mx-4 2xl:mx-10">
+                            {' '}
+                            Digital Label{' '}
+                          </div>
+                        </Reveal>
+                      </div>
+                      <Reveal width="100%">
+                        <div className="h-1/4 text-largeText text-primary  lg:text-6xl">
+                          +
                         </div>
-                      </div>
-                      <div className="h-1/4 text-largeText text-primary  lg:text-6xl">
-                        +
-                      </div>
+                      </Reveal>
                     </div>
                   </DialogTrigger>
                   <DialogContent className="bg-paleBlue">
@@ -628,18 +667,24 @@ export default function PackageInfo() {
                     <div className="flex h-full grow flex-col justify-center self-center">
                       <div className="h-3/4">
                         <div className="mt-2 flex scale-75 justify-center object-scale-down text-center sm:scale-100 md:scale-75 lg:scale-100">
-                          <Image
-                            height={58}
-                            width={65}
-                            src="/images/qr.png"
-                            alt="QR code image"
-                          />
+                          <Reveal>
+                            <Image
+                              height={58}
+                              width={65}
+                              src="/images/qr.png"
+                              alt="QR code image"
+                            />
+                          </Reveal>
                         </div>
-                        <div className="my-2">Amazon QR Code</div>
+                        <Reveal>
+                          <div className="my-2">Amazon QR Code</div>
+                        </Reveal>
                       </div>
-                      <div className="h-1/4 text-largeText text-primary  lg:text-6xl">
-                        +
-                      </div>
+                      <Reveal width="100%">
+                        <div className="h-1/4 text-largeText text-primary  lg:text-6xl">
+                          +
+                        </div>
+                      </Reveal>
                     </div>
                   </DialogTrigger>
                   <DialogContent className="bg-paleBlue">
@@ -710,9 +755,12 @@ export default function PackageInfo() {
               </div>
             </div>
             <span className="mt-5 flex justify-between">
-              <ReturnProcessBackButton />
-
-              <ReturnProcessNextButton />
+              <Reveal>
+                <ReturnProcessBackButton />
+              </Reveal>
+              <Reveal>
+                <ReturnProcessNextButton />
+              </Reveal>
             </span>
           </ReturnProcessRoot>
         </form>

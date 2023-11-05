@@ -4,7 +4,7 @@ function NounDelivery() {
   return (
     <svg
       width="200"
-      className=" w-1/5"
+      // className=" w-1/5"
       height="100"
       viewBox="0 0 200 200"
       fill="none"

@@ -31,6 +31,7 @@ import {
   ReturnProcessSection,
 } from '@/components/common/return-process'
 import { SectionDescription, SectionHeader } from '@/components/common/section'
+import Reveal from '@components/common/reveal'
 
 const formSchema = z.object({
   pickupType: z.union([z.literal('direct'), z.literal('doorstep')]),
@@ -73,10 +74,14 @@ export default function Pickup() {
         >
           <ReturnProcessRoot>
             <ReturnProcessSection>
-              <SectionHeader>Pickup Details</SectionHeader>
-              <SectionDescription className="text-start sm:text-center">
-                Which pickup method do you prefer?
-              </SectionDescription>
+              <Reveal>
+                <SectionHeader>Pickup Details</SectionHeader>
+              </Reveal>
+              <Reveal>
+                <SectionDescription className="text-start sm:text-center">
+                  Which pickup method do you prefer?
+                </SectionDescription>
+              </Reveal>
             </ReturnProcessSection>
 
             <FormField
@@ -90,43 +95,51 @@ export default function Pickup() {
                       selectionType="keep-selected"
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className=" flex max-w-screen-lg justify-center gap-x-5 sm:gap-x-10 md:gap-x-20"
+                      className="flex max-w-screen-lg justify-center gap-x-5 sm:gap-x-10 md:gap-x-20"
                     >
                       <ExtendedToggleGroupItem value="direct" asChild>
                         <Card className={cardClassnames}>
                           <CardHeader className="flex items-center pl-5">
-                            <CardTitle className={cardTitleClassnames}>
-                              <div className="flex items-end justify-center align-bottom">
-                                <HandingPackage className="h-12 w-12 fill-primary xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
-                              </div>
-                              Direct Handoff
-                            </CardTitle>
-
-                            <CardDescription
-                              className={cardDescriptionClassNames}
-                            >
-                              Hand the package directly to our specialist at
-                              your door
-                            </CardDescription>
+                            <Reveal>
+                              <CardTitle className={cardTitleClassnames}>
+                                <div className="flex items-end justify-center align-bottom">
+                                  <HandingPackage className="h-12 w-12 fill-primary xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
+                                </div>
+                                Direct Handoff
+                              </CardTitle>
+                            </Reveal>
+                            <Reveal>
+                              <CardDescription
+                                className={cardDescriptionClassNames}
+                              >
+                                Hand the package directly to our specialist at
+                                your door
+                              </CardDescription>
+                            </Reveal>
                           </CardHeader>
                         </Card>
                       </ExtendedToggleGroupItem>
+
                       <ExtendedToggleGroupItem value="doorstep" asChild>
                         <Card className={cardClassnames}>
                           <CardHeader className="flex items-center pl-5">
-                            <CardTitle className={cardTitleClassnames}>
-                              <div className="flex items-end justify-center align-bottom">
-                                <Door className="h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
-                                <Box className="h-5 w-5 xxs:h-7 xxs:w-7 xs:h-10 xs:w-10" />
-                              </div>
-                              Leave on Doorstep
-                            </CardTitle>
-                            <CardDescription
-                              className={cardDescriptionClassNames}
-                            >
-                              Place items outside your door ahead of your pick
-                              up window
-                            </CardDescription>
+                            <Reveal>
+                              <CardTitle className={cardTitleClassnames}>
+                                <div className="flex items-end justify-center align-bottom">
+                                  <Door className="h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
+                                  <Box className="h-5 w-5 xxs:h-7 xxs:w-7 xs:h-10 xs:w-10" />
+                                </div>
+                                Leave on Doorstep
+                              </CardTitle>
+                            </Reveal>
+                            <Reveal>
+                              <CardDescription
+                                className={cardDescriptionClassNames}
+                              >
+                                Place items outside your door ahead of your pick
+                                up window
+                              </CardDescription>
+                            </Reveal>
                           </CardHeader>
                         </Card>
                       </ExtendedToggleGroupItem>
@@ -138,9 +151,12 @@ export default function Pickup() {
             />
 
             <span className="mt-5 flex justify-between">
-              <ReturnProcessBackButton />
-
-              <ReturnProcessNextButton />
+              <Reveal>
+                <ReturnProcessBackButton />
+              </Reveal>
+              <Reveal>
+                <ReturnProcessNextButton />
+              </Reveal>
             </span>
           </ReturnProcessRoot>
         </form>

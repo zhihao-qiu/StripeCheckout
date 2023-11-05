@@ -12,6 +12,7 @@ import EditProfileForm from '@/components/DashBoard/EditProfileForm'
 import { profileFormSchema, type UserInfo } from './types'
 import EditAddressForm from '@/components/DashBoard/EditAddressForm'
 import { type ProfilePropsType } from '@/components/DashBoard/types'
+import Reveal from '@components/common/reveal'
 
 function Profile({ userInfo, setUserInfo }: ProfilePropsType) {
   const form = useForm({
@@ -46,77 +47,89 @@ function Profile({ userInfo, setUserInfo }: ProfilePropsType) {
         email={userInfo.email}
       />
       <section className="flex h-[75vh] flex-col justify-between space-y-6 p-10 text-xl">
-        <h2 className="mb-4 text-largeText font-semibold">Profile</h2>
+        <Reveal>
+          <h2 className="mb-4 text-largeText font-semibold">Profile</h2>
+        </Reveal>
+        <Reveal>
+          <div className="mb-2 flex h-8 items-center gap-10">
+            <label className="block">First Name:</label>
 
-        <div className="mb-2 flex h-8 items-center gap-10">
-          <label className="block">First Name:</label>
+            <span>{userInfo.firstName}</span>
+            <Separator orientation="vertical" className="bg-brand" />
+            <label className="block">Last Name:</label>
 
-          <span>{userInfo.firstName}</span>
-          <Separator orientation="vertical" className="bg-brand" />
-          <label className="block">Last Name:</label>
+            <span>{userInfo.lastName}</span>
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="mb-2 flex gap-10">
+            <label className="block">Email:</label>
 
-          <span>{userInfo.lastName}</span>
-        </div>
-        <div className="mb-2 flex gap-10">
-          <label className="block">Email:</label>
+            <span>{userInfo.email}</span>
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="mb-2 flex gap-10">
+            <label className="block">Primary Address:</label>
 
-          <span>{userInfo.email}</span>
-        </div>
-
-        <div className="mb-2 flex gap-10">
-          <label className="block">Primary Address:</label>
-
-          <span>
-            {typeof userInfo.primaryAddress.apartmentUnitNumber === 'string'
-              ? '# '
-              : ''}
-            {userInfo.primaryAddress.apartmentUnitNumber}{' '}
-            {typeof userInfo.primaryAddress.apartmentUnitNumber === 'string'
-              ? '- '
-              : ''}
-            {userInfo.primaryAddress.streetNumber}{' '}
-            {userInfo.primaryAddress.streetName}
-            {', '}
-            {userInfo.primaryAddress.city}
-            {', '}
-            {userInfo.primaryAddress.province}
-            {', '} {userInfo.primaryAddress.postal}
-          </span>
-        </div>
+            <span>
+              {typeof userInfo.primaryAddress.apartmentUnitNumber === 'string'
+                ? '# '
+                : ''}
+              {userInfo.primaryAddress.apartmentUnitNumber}{' '}
+              {typeof userInfo.primaryAddress.apartmentUnitNumber === 'string'
+                ? '- '
+                : ''}
+              {userInfo.primaryAddress.streetNumber}{' '}
+              {userInfo.primaryAddress.streetName}
+              {', '}
+              {userInfo.primaryAddress.city}
+              {', '}
+              {userInfo.primaryAddress.province}
+              {', '} {userInfo.primaryAddress.postal}
+            </span>
+          </div>
+        </Reveal>
         {userInfo.additionalAddress &&
         userInfo?.additionalAddress?.length > 0 ? (
-          <div className="mb-2 flex gap-10">
-            <label className="block">Additional Addresses:</label>
-            <div className="flex flex-col">
-              {userInfo.additionalAddress.map((address, index) => {
-                return (
-                  <EditAddressForm
-                    key={`${address.streetNumber} ${index}`}
-                    type="edit"
-                    address={address}
-                    setUserInfo={setUserInfo}
-                    index={index}
-                  />
-                )
-              })}
+          <Reveal>
+            <div className="mb-2 flex gap-10">
+              <label className="block">Additional Addresses:</label>
+              <div className="flex flex-col">
+                {userInfo.additionalAddress.map((address, index) => {
+                  return (
+                    <EditAddressForm
+                      key={`${address.streetNumber} ${index}`}
+                      type="edit"
+                      address={address}
+                      setUserInfo={setUserInfo}
+                      index={index}
+                    />
+                  )
+                })}
+              </div>
             </div>
-          </div>
+          </Reveal>
         ) : null}
         <div className="flex justify-between">
-          <EditProfileForm form={form} onSubmit={onSubmit} />
-          <EditAddressForm
-            type="add"
-            address={{
-              apartmentUnitNumber: '',
-              streetNumber: '',
-              streetName: '',
-              city: '',
-              province: '',
-              postal: '',
-            }}
-            setUserInfo={setUserInfo}
-            index={0}
-          />
+          <Reveal>
+            <EditProfileForm form={form} onSubmit={onSubmit} />
+          </Reveal>
+          <Reveal>
+            <EditAddressForm
+              type="add"
+              address={{
+                apartmentUnitNumber: '',
+                streetNumber: '',
+                streetName: '',
+                city: '',
+                province: '',
+                postal: '',
+              }}
+              setUserInfo={setUserInfo}
+              index={0}
+            />
+          </Reveal>
         </div>
       </section>
     </>

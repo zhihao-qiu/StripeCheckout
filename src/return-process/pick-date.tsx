@@ -31,6 +31,9 @@ import {
   SectionHeader,
   SectionHeaderHighlight,
 } from '@/components/common/section'
+import Reveal from '@components/common/reveal'
+import { motion } from 'framer-motion'
+import { fadeIn } from '@styles/framer'
 
 export default function PickDate() {
   const returnProcess = useReturnProcess()
@@ -77,40 +80,62 @@ export default function PickDate() {
           <ReturnProcessRoot>
             <ReturnProcessSection>
               <SectionHeader className="flex w-full justify-between">
-                <div>
-                  Choose a pickup{' '}
-                  <SectionHeaderHighlight>date</SectionHeaderHighlight>
+                <Reveal>
+                  <div>
+                    Choose a pickup{' '}
+                    <SectionHeaderHighlight>date</SectionHeaderHighlight>
+                  </div>
+                </Reveal>
+                <div className="flex min-h-[59px] min-w-[50px] items-center justify-start">
+                  <Reveal>
+                    <Link
+                      href="/"
+                      className="flex flex-col items-center justify-center text-base text-primary hover:cursor-pointer hover:text-brand"
+                    >
+                      <FontAwesomeIcon
+                        icon={faClose}
+                        width={'35'}
+                        height={'35'}
+                      />
+                      <p>Cancel</p>
+                    </Link>
+                  </Reveal>
                 </div>
-                <Link
-                  href="/"
-                  className="flex flex-col items-center justify-center text-base text-primary hover:cursor-pointer hover:text-brand"
-                >
-                  <FontAwesomeIcon icon={faClose} width={'35'} height={'35'} />
-                  <p>Cancel</p>
-                </Link>
               </SectionHeader>
-              <SectionDescription>
-                We&apos;ll text you the morning of your pickup with an estimated
-                time arrival.
-              </SectionDescription>
+              <Reveal>
+                <SectionDescription>
+                  We&apos;ll text you the morning of your pickup with an
+                  estimated time arrival.
+                </SectionDescription>
+              </Reveal>
             </ReturnProcessSection>
 
             <div className="flex-row justify-center gap-x-4 space-y-11">
               <div className="flex justify-center gap-x-11 xl:hidden">
-                <LastWeekButton
-                  size="default"
-                  onClick={() => weekBackwards()}
-                />
-                <NextWeekButton size="default" onClick={() => weekForwards()} />
+                <Reveal>
+                  <LastWeekButton
+                    size="default"
+                    onClick={() => weekBackwards()}
+                  />
+                </Reveal>
+                <Reveal>
+                  <NextWeekButton
+                    size="default"
+                    onClick={() => weekForwards()}
+                  />
+                </Reveal>
               </div>
-
-              <div className="flex justify-center">
+              <motion.div
+                className="flex w-full justify-center"
+                variants={fadeIn}
+                initial="hidden"
+                animate="show"
+              >
                 <LastWeekButton
                   className="hidden xl:flex"
                   size="small"
                   onClick={() => weekBackwards()}
                 />
-
                 <FormField
                   control={form.control}
                   name="pickupDate"
@@ -119,7 +144,7 @@ export default function PickDate() {
                       <FormControl>
                         <ToggleGroup.Root
                           type="single"
-                          className="grid w-full grid-cols-1 place-content-center place-items-center content-center items-center justify-center gap-x-7 gap-y-5 xxs:grid-cols-2 xs:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7"
+                          className="grid grid-cols-1 place-content-center place-items-center content-center items-center justify-center gap-x-7 gap-y-5 xxs:grid-cols-2 xs:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7"
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                         >
@@ -148,10 +173,12 @@ export default function PickDate() {
                   size="small"
                   onClick={() => weekForwards()}
                 />
-              </div>
+              </motion.div>
             </div>
             <span className="mt-5 flex justify-end">
-              <ReturnProcessNextButton />
+              <Reveal>
+                <ReturnProcessNextButton />
+              </Reveal>
             </span>
           </ReturnProcessRoot>
         </form>

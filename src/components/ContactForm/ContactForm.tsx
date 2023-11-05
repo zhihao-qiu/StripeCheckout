@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Button } from '@components/ui/button'
+import Reveal from '@components/common/reveal'
 
 const contactFormSchema = z.object({
   firstName: z
@@ -63,22 +64,27 @@ function ContactForm() {
         // TODO figure out api call for email sending
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6  lg:space-y-10"
+        className="w-full space-y-6 lg:space-y-10"
       >
-        <div className="flex flex-col space-y-6 lg:flex-row lg:justify-between lg:space-y-0">
+        <div className="flex w-full flex-col gap-x-2 space-y-6 lg:flex-row lg:justify-between lg:space-y-0">
           <FormField
             control={form.control}
             name="firstName"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-black">First Name</FormLabel>
+              <FormItem className="h-20">
+                <Reveal>
+                  <FormLabel className="text-black">First Name</FormLabel>
+                </Reveal>
                 <FormControl>
-                  <Input
-                    minLength={1}
-                    className="mr-32"
-                    placeholder="Please Enter Your First Name."
-                    {...field}
-                  />
+                  <Reveal>
+                    <Input
+                      minLength={1}
+                      className="h-10 shrink rounded-md border-2 border-black text-sm placeholder:text-grey sm:h-12 sm:text-lg"
+                      placeholder="First Name"
+                      size={30}
+                      {...field}
+                    />
+                  </Reveal>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -88,15 +94,20 @@ function ContactForm() {
             control={form.control}
             name="lastName"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-black">Last Name</FormLabel>
+              <FormItem className="h-20">
+                <Reveal>
+                  <FormLabel className="text-black">Last Name</FormLabel>
+                </Reveal>
                 <FormControl>
-                  <Input
-                    minLength={1}
-                    className="mr-32"
-                    placeholder="Please Enter Your Last Name."
-                    {...field}
-                  />
+                  <Reveal>
+                    <Input
+                      minLength={1}
+                      className="h-10 shrink rounded-md border-2 border-black text-sm placeholder:text-grey sm:h-12 sm:text-lg"
+                      placeholder="Last Name"
+                      size={30}
+                      {...field}
+                    />
+                  </Reveal>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -107,10 +118,19 @@ function ContactForm() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-black">Email</FormLabel>
+            <FormItem className="h-20">
+              <Reveal>
+                <FormLabel className="text-black">Email</FormLabel>
+              </Reveal>
               <FormControl>
-                <Input placeholder="Please Enter Your Email." {...field} />
+                <Reveal width="100%">
+                  <Input
+                    className="h-10 rounded-md border-2 border-black text-sm placeholder:text-grey sm:h-12 sm:text-lg"
+                    placeholder="Please Enter Your Email."
+                    size={60}
+                    {...field}
+                  />
+                </Reveal>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -120,22 +140,28 @@ function ContactForm() {
           control={form.control}
           name="message"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-black">Message</FormLabel>
+            <FormItem className="h-44">
+              <Reveal>
+                <FormLabel className="text-black">Message</FormLabel>
+              </Reveal>
               <FormControl>
-                <Textarea
-                  placeholder="Please Enter Your Message."
-                  className="h-36"
-                  {...field}
-                />
+                <Reveal width="100%">
+                  <Textarea
+                    placeholder="Please Enter Your Message"
+                    className="h-36 w-full rounded-md border-2 border-black text-sm placeholder:text-grey sm:h-36 sm:text-lg"
+                    {...field}
+                  />
+                </Reveal>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button className="w-full lg:max-w-xs" type="submit">
-          Submit
-        </Button>
+        <Reveal width="100%">
+          <Button className="w-full rounded-md" type="submit">
+            Submit
+          </Button>
+        </Reveal>
       </form>
     </Form>
   )

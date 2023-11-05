@@ -15,3 +15,12 @@ export const item = {
     transition: { ease: 'easeIn', duration: 0.5 },
   },
 }
+
+export const fadeIn = {
+  hidden: { opacity: 0, y: 75 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { ease: 'easeIn', duration: 0.5 },
+  },
+}
