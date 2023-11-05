@@ -73,8 +73,6 @@ function EditAddressForm({
 
   const onClickDelete = () => {
     setUserInfo((prev) => {
-      console.log('prev', prev)
-
       return {
         ...prev,
         additionalAddress: prev.additionalAddress

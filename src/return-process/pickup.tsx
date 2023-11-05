@@ -48,7 +48,6 @@ export default function Pickup() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log('Submitted:', values)
     returnProcess.setCurrentData(values)
     returnProcess.forward()
   }

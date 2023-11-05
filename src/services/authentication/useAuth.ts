@@ -5,15 +5,15 @@ import { useToast } from '@components/ui/use-toast'
 import { apolloClient } from '@lib/graphql'
 import { gql } from '@apollo/client'
 import { useRouter } from 'next/navigation'
+import { type Address } from '@components/DashBoard/types'
 
 // TODO - get graphql type from auto generated types from graphql codegen
 type UserResponseType = {
-  _typename?: 'User'
   id: string
   firstName: string
   lastName: string
   email: string
-  role: string
+  role: 'Admin' | 'Platinum' | 'Gold' | 'Silver' | 'Bronze'
 }
 
 type AuthResponseType =
@@ -49,14 +49,27 @@ export type RegisterMutation = {
     | undefined
 }
 
+export type UserInfoFragment = {
+  __typename: string
+  id: string
+  user: UserResponseType
+  primaryAddress: Address
+}
+
 const useAuth = () => {
   const router = useRouter()
 
   const { toast } = useToast()
-  const [loginRequest, { client: afterLoginClient }] =
-    useMutation<LoginMutation>(LOGIN)
-  const [registerRequest, { client: afterRegisterClient }] =
-    useMutation<RegisterMutation>(REGISTER)
+  const [
+    loginRequest,
+    // TODO - use client to reset store when backend is ready
+    // {client: afterLoginClient}
+  ] = useMutation<LoginMutation>(LOGIN)
+  const [
+    registerRequest,
+    // TODO - use client to reset store when backend is ready
+    // {client: afterRegisterClient}
+  ] = useMutation<RegisterMutation>(REGISTER)
 
   const login = async (
     email: string,
@@ -65,7 +78,7 @@ const useAuth = () => {
     try {
       const response = await loginRequest({
         variables: { email, password },
-
+        // TODO - use client to reset store when backend is ready
         // onCompleted: () => {
         //   afterLoginClient.resetStore()
         // },
@@ -94,6 +107,7 @@ const useAuth = () => {
     try {
       const response = await registerRequest({
         variables: { username, email, password },
+        // TODO - use client to reset store when backend is ready
         // onCompleted: () => {
         //   afterRegisterClient.resetStore()
         // },
@@ -150,7 +164,7 @@ const useAuth = () => {
           email,
           firstName,
           lastName,
-          role: 'platinum',
+          role: 'Gold',
         },
         primaryAddress: {
           id: 1,
@@ -170,10 +184,38 @@ const useAuth = () => {
     router.push('/dashboard')
   }
 
+  const readUserInfoFromFragment = () => {
+    const data: UserInfoFragment | null = apolloClient.readFragment({
+      id: 'Auth:1',
+      fragment: gql`
+        fragment UserInfo on Auth {
+          id
+          user {
+            id
+            email
+            firstName
+            lastName
+            role
+          }
+          primaryAddress {
+            id
+            streetNumber
+            streetName
+            city
+            province
+            postal
+          }
+        }
+      `,
+    })
+    return data
+  }
+
   return {
     login,
     register,
     writeUserInfoToFragment,
+    readUserInfoFromFragment,
   }
 }
 

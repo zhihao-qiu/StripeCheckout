@@ -90,7 +90,6 @@ export default function ChoosePlan() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log('Submitted:', values)
     returnProcess.setCurrentData(values)
     returnProcess.forward()
   }

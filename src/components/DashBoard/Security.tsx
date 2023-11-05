@@ -16,6 +16,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Separator } from '../ui/separator'
 import Link from 'next/link'
+import { type UserInfo } from './types'
 import Reveal from '@components/common/reveal'
 
 const securityFormSchema = z.object({
@@ -24,7 +25,7 @@ const securityFormSchema = z.object({
   confirmPassword: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
-function Security() {
+function Security({ userInfo }: { userInfo: UserInfo }) {
   const form = useForm<z.infer<typeof securityFormSchema>>({
     resolver: zodResolver(securityFormSchema),
     defaultValues: {
@@ -33,7 +34,7 @@ function Security() {
       confirmPassword: '',
     },
   })
-
+  // TODO - update api call to update user password when backend is ready
   function onSubmit(values: z.infer<typeof securityFormSchema>) {
     console.log(values)
   }
@@ -41,9 +42,9 @@ function Security() {
   return (
     <>
       <DashBoardHeader
-        firstName="John"
-        lastName="Doe"
-        email="john@example.com"
+        firstName={userInfo.firstName}
+        lastName={userInfo.lastName}
+        email={userInfo.email}
       />
       <div className="flex flex-col space-y-8 px-8 py-4 text-brand">
         <Reveal>

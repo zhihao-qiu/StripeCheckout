@@ -121,14 +121,9 @@ export default function PackageInfo() {
   }, [arrayOfLabels, form])
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log('Submitted:', values.labelFileUploads)
-
     returnProcess.setCurrentData({ labelFileUploads: values.labelFileUploads })
     returnProcess.forward()
   }
-
-  console.log('currentData:', returnProcess.currentData.labelFileUploads)
-  console.log('labelFileUploads:', form.getValues('labelFileUploads'))
 
   const labelDialogClasses =
     'flex w-[30%] min-w-[30%] max-w-2xl flex-col justify-between rounded-lg border-4 border-brand bg-white font-bold text-brand lg:text-2xl'
@@ -286,7 +281,6 @@ export default function PackageInfo() {
     file: File | undefined,
     type: 'Physical' | 'Digital' | 'Amazon'
   ) => {
-    console.log(file)
     if (file) {
       setArrayOfLabels([
         ...arrayOfLabels,

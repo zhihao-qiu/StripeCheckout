@@ -30,14 +30,11 @@ export const addressSchema = z.object({
     .regex(/^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/, {
       message: 'Please enter a valid postal code',
     })
+    // use transform to add space between postal code
     .transform((val: string) => {
       if (val.length === 6 && typeof val[3] === 'string') {
-        console.log(val)
-        console.log(val.slice(0, 3) + ' ' + val.slice(3))
-
         return val.slice(0, 3) + ' ' + val.slice(3)
       }
-      console.log(val)
 
       return val
     }),
