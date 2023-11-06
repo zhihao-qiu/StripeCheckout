@@ -16,6 +16,7 @@ import Security from '@/components/DashBoard/Security'
 import { type UserInfo } from '@/components/DashBoard/types'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import useAuth from '@/services/authentication/useAuth'
+import MobileSideBar from '@components/DashBoard/MobileSideBar'
 
 const tabsTriggerClassName =
   'data-[state=active]:ml-6 data-[state=active]:scale-105 data-[state=active]:border-l-8 data-[state=active]:bg-paleBlue data-[state=active]:text-primary dark:data-[state=active]:bg-slate-950 dark:data-[state=active]:text-slate-50 pl-10 justify-start text-sm md:text-lg lg:text-mediumText xl:text-subtitle'
@@ -152,20 +153,37 @@ function Dashboard() {
             </Fragment>
           ))}
         </TabsList>
-        <TabsContent value="main" className="mt-0 min-h-screen w-3/4">
+
+        <TabsList className="flex p-0 md:hidden">
+          <MobileSideBar />
+        </TabsList>
+
+        <TabsContent value="main" className="mt-0 min-h-screen w-full md:w-3/4">
           <DashBoardMain userInfo={userInfo} />
         </TabsContent>
-        <TabsContent value="profile" className="mt-0 min-h-screen w-3/4">
+        <TabsContent
+          value="profile"
+          className="mt-0 min-h-screen w-full md:w-3/4"
+        >
           <Profile setUserInfo={setUserInfo} userInfo={userInfo} />
         </TabsContent>
-        <TabsContent value="inbox" className="mt-0 min-h-screen w-3/4">
+        <TabsContent
+          value="inbox"
+          className="mt-0 min-h-screen w-full md:w-3/4"
+        >
           <Inbox userInfo={userInfo} />
         </TabsContent>
-        <TabsContent value="security" className="mt-0 min-h-screen w-3/4">
+        <TabsContent
+          value="security"
+          className="mt-0 min-h-screen w-full md:w-3/4"
+        >
           <Security userInfo={userInfo} />
         </TabsContent>
         {/* TODO - redirect when logout*/}
-        <TabsContent value="signOut" className="mt-0 min-h-screen w-3/4">
+        <TabsContent
+          value="signOut"
+          className="mt-0 min-h-screen w-full md:w-3/4"
+        >
           <div className="flex h-full items-center justify-center text-center">
             <LoadingSpinner />
           </div>
