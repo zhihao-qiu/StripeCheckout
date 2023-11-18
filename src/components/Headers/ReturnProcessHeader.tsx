@@ -86,10 +86,10 @@ export default function ReturnProcessHeader() {
               const state = returnProcess.isFinished
                 ? 'completed' // If process is finished, mark every option as completed
                 : returnProcess.currentStepIndex === index // Mark the current step as in-progress
-                ? 'in-progress'
-                : returnProcess.currentStepIndex > index // Mark all previous steps as completed and the options in front as not-completed
-                ? 'completed'
-                : 'not-completed'
+                  ? 'in-progress'
+                  : returnProcess.currentStepIndex > index // Mark all previous steps as completed and the options in front as not-completed
+                    ? 'completed'
+                    : 'not-completed'
               return (
                 <ProgressBarItem
                   key={step.id}

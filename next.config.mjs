@@ -12,5 +12,8 @@ const config = {
     defaultLocale: 'en',
   },
 }
-
+// // Conditionally use performance object
+// if (typeof window !== 'undefined' && window.performance) {
+//   window.performance.mark('next-start')
+// }
 export default config

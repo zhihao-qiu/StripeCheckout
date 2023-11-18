@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import emailjs from '@emailjs/browser'
 import {
   Form,
   FormControl,
@@ -14,6 +15,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Button } from '@components/ui/button'
 import Reveal from '@components/common/reveal'
+
+// import { Button, Grid, TextField } from '@mui/material'
+
 
 const contactFormSchema = z.object({
   firstName: z
@@ -44,9 +48,6 @@ const contactFormSchema = z.object({
 })
 
 function ContactForm() {
-  const onSubmit = (values: z.infer<typeof contactFormSchema>) => {
-    console.log(values)
-  }
 
   const form = useForm({
     resolver: zodResolver(contactFormSchema),
@@ -58,13 +59,39 @@ function ContactForm() {
     },
   })
 
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const onSubmit = (values: z.infer<typeof contactFormSchema>) => {
+    console.log(values)
+  }
+
+  const sendEmail = (e) => {
+    e.preventDefault()
+
+    emailjs
+      .sendForm(
+        'service_kaw06lg',
+        'template_l0jgijd',
+        formRef.current,
+        'D0Xk7y6Z9b9kB-neE'
+      )
+      .then(
+        (result) => {
+          console.log(result.text)
+          console.log('message sent')
+        },
+        (error) => {
+          console.log(error.text)
+        }
+      )
+  }
+
   return (
     <Form {...form}>
       <form
-        // TODO figure out api call for email sending
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full space-y-6 lg:space-y-10"
+        ref={formRef}
       >
         <div className="flex w-full flex-col gap-x-2 space-y-6 lg:flex-row lg:justify-between lg:space-y-0">
           <FormField
@@ -162,6 +189,16 @@ function ContactForm() {
             Submit
           </Button>
         </Reveal>
+      </form>
+
+      <form ref={formRef} onSubmit={sendEmail}>
+        <label>Name</label>
+        <input type="text" name="user_name" />
+        <label>Email</label>
+        <input type="email" name="user_email" />
+        <label>Message</label>
+        <textarea name="message" />
+        <input type="submit" value="Send" />
       </form>
     </Form>
   )

@@ -27,8 +27,8 @@
       "@pages/*": ["./src/pages/*"],
       "@returnprocess/*": ["./src/return-process/*"],
       "@styles/*": ["./src/styles/*"],
-      "@/*": ["./src/*"],
-    },
+      "@/*": ["./src/*"]
+    }
   },
   "include": [
     "src",

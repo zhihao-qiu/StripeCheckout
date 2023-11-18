@@ -90,7 +90,7 @@ const ToggleGroupImplSingle = React.forwardRef<
   const {
     value: valueProp,
     defaultValue,
-    onValueChange = () => { },
+    onValueChange = () => {},
     ...toggleGroupSingleProps
   } = props
 
@@ -138,7 +138,7 @@ const ToggleGroupImplMultiple = React.forwardRef<
   const {
     value: valueProp,
     defaultValue,
-    onValueChange = () => { },
+    onValueChange = () => {},
     ...toggleGroupMultipleProps
   } = props
 
@@ -226,7 +226,7 @@ const ToggleGroupImpl = React.forwardRef<
     selectionType = 'keep-selected',
     dir,
     firstSelected,
-    onFirstSelectedValueChange = () => { },
+    onFirstSelectedValueChange = () => {},
     loop = true,
     ...toggleGroupProps
   } = props
@@ -313,7 +313,9 @@ const ExtendedToggleGroupItem = React.forwardRef<
   return context.rovingFocus ? (
     <RovingFocusGroup.Item
       asChild
-      data-state={context.firstSelected ? pressed ? 'on' : 'off' : "unselected"}
+      data-state={
+        context.firstSelected ? (pressed ? 'on' : 'off') : 'unselected'
+      }
       {...rovingFocusGroupScope}
       focusable={!disabled}
       active={pressed}
@@ -362,7 +364,7 @@ const ToggleGroupItemImpl = React.forwardRef<
         if (pressed) {
           valueContext.onItemActivate(value)
         } else if (context.selectionType === 'unselect') {
-          valueContext.onItemDeactivate(value);
+          valueContext.onItemDeactivate(value)
         }
       }}
     />

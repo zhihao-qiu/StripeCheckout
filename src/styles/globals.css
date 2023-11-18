@@ -18,28 +18,28 @@
   position: absolute;
   top: 0;
   height: 100%;
-  content: "";
+  content: '';
   z-index: 2;
 }
 
 .carousel-container:before {
   left: 0;
-  background: linear-gradient(to left, rgba(255, 255, 255, 0), #008BE7);
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), #008be7);
 }
 
 .carousel-container:after {
   right: 0;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), #008BE7);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #008be7);
 }
 
 .delivery-container:before {
   left: 0;
-  background: linear-gradient(to left, rgba(255, 255, 255, 0), #FFFFFF);
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), #ffffff);
 }
 
 .delivery-container:after {
   right: 0;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), #FFFFFF);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff);
 }
 
 .carousel-container:hover .carousel,
