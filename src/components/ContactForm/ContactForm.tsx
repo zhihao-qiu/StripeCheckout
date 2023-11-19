@@ -16,9 +16,6 @@ import * as z from 'zod'
 import { Button } from '@components/ui/button'
 import Reveal from '@components/common/reveal'
 
-// import { Button, Grid, TextField } from '@mui/material'
-
-
 const contactFormSchema = z.object({
   firstName: z
     .string()
@@ -48,7 +45,6 @@ const contactFormSchema = z.object({
 })
 
 function ContactForm() {
-
   const form = useForm({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -78,10 +74,11 @@ function ContactForm() {
       .then(
         (result) => {
           console.log(result.text)
-          console.log('message sent')
+          console.log('Email sent successfully')
         },
         (error) => {
           console.log(error.text)
+          console.error('Error sending email:', error)
         }
       )
   }
@@ -89,7 +86,10 @@ function ContactForm() {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={(e) => {
+          form.handleSubmit(onSubmit)(e);
+          sendEmail(e)
+        }}
         className="w-full space-y-6 lg:space-y-10"
         ref={formRef}
       >
@@ -185,20 +185,10 @@ function ContactForm() {
           )}
         />
         <Reveal width="100%">
-          <Button className="w-full rounded-md" type="submit">
+          <Button className="w-full rounded-md" type="submit" value="Send">
             Submit
           </Button>
         </Reveal>
-      </form>
-
-      <form ref={formRef} onSubmit={sendEmail}>
-        <label>Name</label>
-        <input type="text" name="user_name" />
-        <label>Email</label>
-        <input type="email" name="user_email" />
-        <label>Message</label>
-        <textarea name="message" />
-        <input type="submit" value="Send" />
       </form>
     </Form>
   )
