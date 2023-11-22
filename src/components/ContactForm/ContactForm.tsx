@@ -58,40 +58,46 @@ function ContactForm() {
     },
   })
 
-  const formRef = useRef<HTMLFormElement>(null)
+  const formRef = useRef<HTMLFormElement | null>(null)
 
   const onSubmit = (values: z.infer<typeof contactFormSchema>) => {
     console.log(values)
   }
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    emailjs
-      .sendForm(
-        'service_kaw06lg',
-        'template_l0jgijd',
-        formRef.current,
-        'D0Xk7y6Z9b9kB-neE'
-      )
-      .then(
-        (result) => {
-          console.log(result.text)
-          console.log('Email sent successfully')
-        },
-        (error) => {
+    const formElement = formRef.current
+
+    if (formElement) {
+      try {
+        const result = await emailjs.sendForm(
+          'service_kaw06lg',
+          'template_l0jgijd',
+          formElement,
+          'D0Xk7y6Z9b9kB-neE'
+        )
+        console.log(result.text)
+        console.log('Email sent successfully')
+      } catch (error: unknown) {
+        if (error instanceof Error && 'text' in error) {
           console.log(error.text)
+        } else {
           console.error('Error sending email:', error)
         }
-      )
+      }
+    } else {
+      console.error('Form element is null or undefined.')
+    }
   }
 
   return (
     <Form {...form}>
       <form
-        onSubmit={(e) => {
-          form.handleSubmit(onSubmit)(e);
-          sendEmail(e)
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onSubmit={async (e) => {
+          await form.handleSubmit(onSubmit)(e)
+          await sendEmail(e)
         }}
         className="w-full space-y-6 lg:space-y-10"
         ref={formRef}
