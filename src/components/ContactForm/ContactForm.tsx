@@ -15,6 +15,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Button } from '@components/ui/button'
 import Reveal from '@components/common/reveal'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 //testing here
@@ -62,6 +64,15 @@ function ContactForm() {
 
   const onSubmit = (values: z.infer<typeof contactFormSchema>) => {
     console.log(values)
+    // Show success toast
+    toast.success('Message sent successfully!', {
+      position: 'top-right',
+      autoClose: 3000, // 3 seconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    })
   }
 
   const sendEmail = async (e: React.FormEvent) => {
@@ -79,6 +90,7 @@ function ContactForm() {
         )
         console.log(result.text)
         console.log('Email sent successfully')
+        form.reset()
       } catch (error: unknown) {
         if (error instanceof Error && 'text' in error) {
           console.log(error.text)
@@ -93,6 +105,7 @@ function ContactForm() {
 
   return (
     <Form {...form}>
+      <ToastContainer />
       <form
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={async (e) => {
