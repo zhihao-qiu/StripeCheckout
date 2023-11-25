@@ -13,6 +13,7 @@ import { Button } from '@components/ui/button'
 import NextArrow from '@components/SvgComponents/NextArrow'
 import { motion } from 'framer-motion'
 import { container, item } from '@styles/framer'
+import { isPostalCodeValid } from '@lib/utils'
 
 const formSchema = z.object({
   postalCode: z.string().min(6, 'Please enter valid postal code'),
@@ -27,7 +28,8 @@ function PostalCodeForm() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    console.log(values.postalCode)
+    console.log(isPostalCodeValid(values.postalCode))
   }
 
   return (

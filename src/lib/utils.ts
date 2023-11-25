@@ -54,10 +54,24 @@ export function getDateFrom(startDate: Date, amountOfDays: number): Date {
  * @param amount - The numeric value to be formatted as currency.
  * @returns A string representing the `amount` formatted as a currency in CAD.
  */
-export default function dollarFormat(amount: number) {
+export function dollarFormat(amount: number) {
   const formatted = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'CAD',
   }).format(amount)
   return formatted
+}
+
+// list of postal codes in service
+const POSTAL_CODE_ARRAY = ['L4HL3P', 'L6ZL7L', 'L4GM4C']
+
+/**
+ * Verifies if given postal code is part of the accepted postal codes.
+ *
+ * @param postalCode - The postal code to be verified.
+ * @returns boolean.
+ */
+export function isPostalCodeValid(postalCode: string) {
+  const postalCodeCleaned = postalCode.trim().replace(/\s/g, '').toUpperCase()
+  return POSTAL_CODE_ARRAY.includes(postalCodeCleaned)
 }
