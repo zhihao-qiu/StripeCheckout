@@ -13,6 +13,7 @@ import { Button } from '@components/ui/button'
 import NextArrow from '@components/SvgComponents/NextArrow'
 import { motion } from 'framer-motion'
 import { container, item } from '@styles/framer'
+import { useRouter } from 'next/navigation'
 import { isPostalCodeValid } from '@lib/utils'
 
 const formSchema = z.object({
@@ -20,6 +21,7 @@ const formSchema = z.object({
 })
 
 function PostalCodeForm() {
+  const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,8 +30,12 @@ function PostalCodeForm() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values.postalCode)
-    console.log(isPostalCodeValid(values.postalCode))
+    const postalIsValid = isPostalCodeValid(values.postalCode)
+    if (postalIsValid) {
+      //TODO: Redirect to proper page
+      router.push('/dashboard')
+    } else {
+    }
   }
 
   return (
