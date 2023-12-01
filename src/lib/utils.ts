@@ -73,5 +73,6 @@ const POSTAL_CODE_ARRAY = ['L4HL3P', 'L6ZL7L', 'L4GM4C']
  */
 export function isPostalCodeValid(postalCode: string) {
   const postalCodeCleaned = postalCode.trim().replace(/\s/g, '').toUpperCase()
+  console.log(POSTAL_CODE_ARRAY.includes(postalCodeCleaned))
   return POSTAL_CODE_ARRAY.includes(postalCodeCleaned)
 }

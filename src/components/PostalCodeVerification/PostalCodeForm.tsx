@@ -13,15 +13,18 @@ import { Button } from '@components/ui/button'
 import NextArrow from '@components/SvgComponents/NextArrow'
 import { motion } from 'framer-motion'
 import { container, item } from '@styles/framer'
-import { useRouter } from 'next/navigation'
 import { isPostalCodeValid } from '@lib/utils'
 
 const formSchema = z.object({
   postalCode: z.string().min(6, 'Please enter valid postal code'),
 })
 
-function PostalCodeForm() {
-  const router = useRouter()
+function PostalCodeForm({onSuccessRedirect, onFailRedirect,
+}: {
+  onSuccessRedirect: () => void;
+  onFailRedirect: () => void;
+}) {
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -29,12 +32,23 @@ function PostalCodeForm() {
     },
   })
 
+  // function onSubmit(values: z.infer<typeof formSchema>) {
+  //   const postalIsValid = isPostalCodeValid(values.postalCode)
+  //   if (postalIsValid) {
+  //     //TODO: Redirect to proper page
+  //     router.push('/dashboard')
+  //   } else {
+  //     router.push('/mailing')
+  //   }
+  // }
   function onSubmit(values: z.infer<typeof formSchema>) {
     const postalIsValid = isPostalCodeValid(values.postalCode)
     if (postalIsValid) {
-      //TODO: Redirect to proper page
-      router.push('/dashboard')
+      // Redirect to /dashboard
+      onSuccessRedirect()
     } else {
+      // Redirect to /mailing
+      onFailRedirect()
     }
   }
 
