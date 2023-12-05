@@ -22,7 +22,7 @@ const formSchema = z.object({
 function PostalCodeForm({onSuccessRedirect, onFailRedirect,
 }: {
   onSuccessRedirect: () => void;
-  onFailRedirect: () => void;
+  onFailRedirect: (invalidPostalCode: string) => void;
 }) {
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -48,7 +48,7 @@ function PostalCodeForm({onSuccessRedirect, onFailRedirect,
       onSuccessRedirect()
     } else {
       // Redirect to /mailing
-      onFailRedirect()
+      onFailRedirect(values.postalCode)
     }
   }
 

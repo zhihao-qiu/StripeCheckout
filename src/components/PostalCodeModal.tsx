@@ -69,7 +69,7 @@ function PostalCodeModal({
           </p>
           <PostalCodeForm
             onSuccessRedirect={() => handleRedirect('/dashboard')}
-            onFailRedirect={() => handleRedirect('/mailing')}
+            onFailRedirect={(invalidPostalCode: any) => handleRedirect(`/mailing?invalidPostalCode=${invalidPostalCode}`)}
           />
         </DialogContent>
       </motion.div>
