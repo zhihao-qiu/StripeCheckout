@@ -20,21 +20,13 @@ import Reveal from '@components/common/reveal'
 //testing here
 
 const mailingFormSchema = z.object({
-  firstName: z
+  fullName: z
     .string()
     .min(1, {
-      message: 'First name is required',
+      message: 'Full name is required',
     })
-    .max(60, {
-      message: 'First name must be less than 60 characters',
-    }),
-  lastName: z
-    .string()
-    .min(1, {
-      message: 'Last name is required',
-    })
-    .max(60, {
-      message: 'Last name must be less than 60 characters',
+    .max(120, {
+      message: 'Full name must be less than 120 characters',
     }),
   email: z.string().email()
 })
@@ -43,8 +35,7 @@ function MailingForm() {
   const form = useForm({
     resolver: zodResolver(mailingFormSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      fullName: '',
       email: '',
     },
   })
@@ -96,42 +87,19 @@ function MailingForm() {
         <div className="flex w-full flex-col gap-x-2 space-y-6 lg:flex-row lg:justify-between lg:space-y-0">
           <FormField
             control={form.control}
-            name="firstName"
+            name="fullName"
             render={({ field }) => (
               <FormItem className="h-20">
                 <Reveal>
-                  <FormLabel className="text-black">First Name</FormLabel>
+                  <FormLabel className="text-black">Full Name</FormLabel>
                 </Reveal>
                 <FormControl>
                   <Reveal>
                     <Input
                       minLength={1}
                       className="h-10 shrink rounded-md border-2 border-black text-sm placeholder:text-grey sm:h-12 sm:text-lg"
-                      placeholder="First Name"
-                      size={30}
-                      {...field}
-                    />
-                  </Reveal>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem className="h-20">
-                <Reveal>
-                  <FormLabel className="text-black">Last Name</FormLabel>
-                </Reveal>
-                <FormControl>
-                  <Reveal>
-                    <Input
-                      minLength={1}
-                      className="h-10 shrink rounded-md border-2 border-black text-sm placeholder:text-grey sm:h-12 sm:text-lg"
-                      placeholder="Last Name"
-                      size={30}
+                      placeholder="Full Name"
+                      size={60}
                       {...field}
                     />
                   </Reveal>
