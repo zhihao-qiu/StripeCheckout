@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Stripe } from 'stripe'
-import { type MockData } from '@/return-process/confirm-pickup'
+import { type MockData, type Order } from '@/return-process/confirm-pickup'
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
@@ -12,9 +12,10 @@ export default async function handler(
 ): Promise<void> {
   if (req.method === 'POST') {
     try {
-      const { orderData, promoCode } = req.body as {
+      const { orderData, orderDetail, promoCode } = req.body as {
         orderData: MockData
         promoCode: string
+        orderDetail: Order
       }
 
       const lineItems = []
@@ -55,8 +56,8 @@ export default async function handler(
           success_url: `${req.headers.origin}/api/checkout_success?session_id={CHECKOUT_SESSION_ID}`,
           cancel_url: `${req.headers.origin}/?canceled=true`,
           metadata: {
-            // orderId: 'aaa',
-            products: JSON.stringify(lineItems),
+            orderData: JSON.stringify(orderData),
+            orderDetail: JSON.stringify(orderDetail),
           },
         })
 

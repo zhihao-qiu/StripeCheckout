@@ -12,7 +12,7 @@ import * as z from 'zod'
 import { Button } from '@components/ui/button'
 import Stamp from '../SvgComponents/Stamp'
 import Link from 'next/link'
-import { type MockData } from '@/return-process/confirm-pickup'
+import { type MockData, type Order } from '@/return-process/confirm-pickup'
 import { useReturnProcess } from '@hooks/useReturnProcess'
 import Reveal from '@components/common/reveal'
 // import CheckoutModal from '@/components/CheckoutModal'
@@ -22,6 +22,7 @@ import { loadStripe } from '@stripe/stripe-js'
 interface Props {
   promoState: [string, React.Dispatch<React.SetStateAction<string>>]
   orderData: MockData
+  orderDetail: Order
 }
 
 interface CheckoutResponse {
@@ -36,6 +37,7 @@ const formSchema = z.object({
 export default function OrderSummary({
   promoState: [promoCode, setPromoCode],
   orderData,
+  orderDetail,
 }: Props) {
   const [isCheckingout, setIsCheckingout] = useState(false)
   const stripePromise = loadStripe(
@@ -74,6 +76,7 @@ export default function OrderSummary({
           body: JSON.stringify({
             promoCode: promoCode,
             orderData: orderData,
+            orderDetail: orderDetail,
           }),
         })
 
