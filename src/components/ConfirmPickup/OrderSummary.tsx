@@ -12,13 +12,22 @@ import * as z from 'zod'
 import { Button } from '@components/ui/button'
 import Stamp from '../SvgComponents/Stamp'
 import Link from 'next/link'
-import { type MockData } from '@/return-process/confirm-pickup'
+import { type MockData, type Order } from '@/return-process/confirm-pickup'
 import { useReturnProcess } from '@hooks/useReturnProcess'
 import Reveal from '@components/common/reveal'
+// import CheckoutModal from '@/components/CheckoutModal'
+import { useState } from 'react'
+import { loadStripe } from '@stripe/stripe-js'
 
 interface Props {
   promoState: [string, React.Dispatch<React.SetStateAction<string>>]
   orderData: MockData
+  orderDetail: Order
+}
+
+interface CheckoutResponse {
+  checkoutLinkUrl: string
+  CHECKOUT_SESSION_ID: string
 }
 
 const formSchema = z.object({
@@ -28,7 +37,13 @@ const formSchema = z.object({
 export default function OrderSummary({
   promoState: [promoCode, setPromoCode],
   orderData,
+  orderDetail,
 }: Props) {
+  const [isCheckingout, setIsCheckingout] = useState(false)
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  )
+
   const returnProcess = useReturnProcess()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,6 +55,69 @@ export default function OrderSummary({
   function onSubmit(values: z.infer<typeof formSchema>) {
     setPromoCode(values.promo)
   }
+
+  const onCheckout = (): void => {
+    setIsCheckingout(true)
+
+    const performCheckout = async (): Promise<void> => {
+      const stripe = await stripePromise
+      if (!stripe) {
+        console.error('Error loading Stripe.js')
+        setIsCheckingout(false)
+        return
+      }
+
+      try {
+        const response = await fetch('/api/checkout_session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', // Specify the content type as JSON
+          },
+          body: JSON.stringify({
+            promoCode: promoCode,
+            orderData: orderData,
+            orderDetail: orderDetail,
+          }),
+        })
+
+        if (response.ok) {
+          const responseData = (await response.json()) as CheckoutResponse
+
+          const checkoutWindow = window.open(
+            responseData.checkoutLinkUrl,
+            '_blank'
+          )
+
+          if (!checkoutWindow) {
+            console.error('Error opening checkout window')
+            return
+          }
+        } else {
+          console.error('Error during checkout:', response.statusText)
+        }
+      } catch (error) {
+        console.error('Error during checkout:', error)
+      } finally {
+        setIsCheckingout(false)
+      }
+    }
+
+    // Ensure the promise is awaited
+    performCheckout().catch((error) => {
+      console.error('Error during checkout:', error)
+    })
+  }
+
+  window.addEventListener('message', (event) => {
+    if (event.data === 'CheckoutSuccess' && event.origin === window.origin) {
+      console.log('Turning forward')
+      if (returnProcess?.forward) {
+        returnProcess.forward()
+      } else {
+        console.error('returnProcess.forward is not available.')
+      }
+    }
+  })
 
   return (
     <section className="mx-1 tracking-normal md:w-1/3">
@@ -136,9 +214,11 @@ export default function OrderSummary({
       <Reveal width="100%">
         <Button
           className="my-6 h-fit w-full max-w-[300px] sm:text-xl"
-          onClick={() => returnProcess.forward()}
+          onClick={onCheckout}
+          disabled={isCheckingout}
+          // onClick={() => returnProcess.forward()}
         >
-          Confirm Pickup
+          {!isCheckingout ? `Confirm Pickup` : `Processing`}
         </Button>
       </Reveal>
     </section>
