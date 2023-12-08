@@ -5,8 +5,7 @@ import {
   OptionalUnlessRequiredId,
 } from 'mongodb'
 
-const uri =
-  'mongodb+srv://bruce:returnpal@returnpal.dfixs8u.mongodb.net/ReturnPal?retryWrites=true&w=majority'
+const uri = process.env.uri!
 
 export async function writeToMongoDB<T extends Document>(
   collectionName: string,
