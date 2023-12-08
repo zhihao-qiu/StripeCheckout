@@ -15,6 +15,7 @@ import { motion } from 'framer-motion'
 import { container, item } from '@styles/framer'
 import { useRouter } from 'next/navigation'
 import { isPostalCodeValid } from '@lib/utils'
+import SigninModal from '@components/SigninModal'
 
 const formSchema = z.object({
   postalCode: z.string().min(6, 'Please enter valid postal code'),
@@ -81,6 +82,12 @@ function PostalCodeForm() {
               </Button>
             </motion.div>
           </form>
+          <motion.div variants={item}>
+            <p className="my-8 flex flex-col items-center justify-center font-semibold text-grey">
+              Already have an account?
+              <SigninModal headerType="link" />
+            </p>
+          </motion.div>
         </div>
       </motion.div>
     </Form>
