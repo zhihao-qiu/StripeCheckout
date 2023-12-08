@@ -17,6 +17,7 @@ export interface MockData {
   extraBoxes?: number
   bronzePrice: number
   extraBoxPrice: number
+  productList: Record<string, number>
 }
 
 const mockData: MockData = {
@@ -24,6 +25,11 @@ const mockData: MockData = {
   extraBoxes: 1,
   bronzePrice: 1099,
   extraBoxPrice: 399,
+  productList: {
+    price_1OFQ6pJLx3jkPDehgceZQr2g: 2,
+    price_1OIJOdJLx3jkPDehZUoDKJsU: 3,
+    price_1OIJLLJLx3jkPDehIEOgyYa4: 1,
+  },
 }
 
 export interface Order {
@@ -252,6 +258,7 @@ export default function ConfirmPickup() {
         <OrderSummary
           promoState={[promoCode, setPromoCode]}
           orderData={mockData}
+          orderDetail={mockOrder}
         />
       )}
       {showScrollBtn && <ScrollContainer scrollDown={scrollDown} />}
