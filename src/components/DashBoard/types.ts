@@ -129,3 +129,21 @@ export type ProfilePropsType = {
   userInfo: UserInfo
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>
 }
+
+export interface Order {
+  _id?: string
+  itemName: string
+  quantity: number
+  price: number
+  customerName: string
+  customerPhoneNumber: string
+  deliveryAddress: string
+  orderNumber: string
+  dateAndTime: string
+  deliveryOption: string
+  packageOrderType: string
+  labelType: string
+  paymentMethod: string
+  promoCode: string
+  upgradeOption: string
+}
