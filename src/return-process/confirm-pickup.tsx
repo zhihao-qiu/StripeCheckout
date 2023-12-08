@@ -26,7 +26,7 @@ const mockData: MockData = {
   extraBoxPrice: 399,
 }
 
-interface Order {
+export interface Order {
   name: string
   tel: string
   orderRef: string
