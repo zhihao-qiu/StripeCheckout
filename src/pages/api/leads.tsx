@@ -2,11 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { MongoClient } from 'mongodb'
 
 // Define the structure of the data using TypeScript interface
-// TODO: update to full name if needed
-
 interface LeadData {
-  firstName: string
-  lastName: string
+  fullName: string
   postal: string
   email: string
 }
@@ -26,8 +23,8 @@ export default async function handler(
     try {
       // Connect to the database
       await client.connect()
-      const database = client.db('test')
-      const leads = database.collection<LeadData>('leads')
+      const database = client.db('ReturnPal')
+      const leads = database.collection<LeadData>('mailingList')
 
       // Add the data to the database
       const leadData = req.body as LeadData
