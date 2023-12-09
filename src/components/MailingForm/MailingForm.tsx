@@ -17,7 +17,7 @@ import { Button } from '@components/ui/button'
 import Reveal from '@components/common/reveal'
 
 
-//testing here
+// testing here
 
 const mailingFormSchema = z.object({
   fullName: z
