@@ -21,6 +21,7 @@ export type FileUploadType = {
 
 export type ReturnProcessFullObjectType = {
   pickupDate: string
+  sender: string
   address: string
   pickupType: 'direct' | 'doorstep'
   plan: 'bronze' | 'silver' | 'gold' | 'platinum'

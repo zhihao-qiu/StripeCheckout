@@ -7,6 +7,7 @@ import Package from '@/components/SvgComponents/ConfirmPickup/Package'
 import PickupTrolley from '@/components/SvgComponents/ConfirmPickup/PickupTrolley'
 import ScrollContainer from '@/components/SvgComponents/ConfirmPickup/ScrollContainer'
 import { ReturnProcessBackButton } from '@/components/common/return-process'
+import { useReturnProcess } from '@/hooks/useReturnProcess'
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
@@ -20,42 +21,17 @@ export interface MockData {
   productList: Record<string, number>
 }
 
-const mockData: MockData = {
-  plan: 'bronze',
-  extraBoxes: 1,
-  bronzePrice: 1099,
-  extraBoxPrice: 399,
-  productList: {
-    price_1OFQ6pJLx3jkPDehgceZQr2g: 2,
-    price_1OIJOdJLx3jkPDehZUoDKJsU: 3,
-    price_1OIJLLJLx3jkPDehIEOgyYa4: 1,
-  },
-}
-
 export interface Order {
   name: string
   tel: string
   orderRef: string
   email: string
-  location: string
+  address: string
   pickupDate: string
   pickupMethod: string
   totalPackages: number
   cardType: string
   cardNumber: number
-}
-
-const mockOrder: Order = {
-  name: 'John Doe',
-  tel: '(123) 456-7891',
-  orderRef: 'R957394',
-  email: 'johndoe2394@gmail.com',
-  location: '6500 Boulevard de Rome, Brossard, QC J4Y 0B6',
-  pickupDate: 'Mon, Sep 25th',
-  pickupMethod: 'Direct Handoff',
-  totalPackages: 1,
-  cardType: 'Visa',
-  cardNumber: 4832,
 }
 
 export default function ConfirmPickup() {
@@ -64,6 +40,37 @@ export default function ConfirmPickup() {
 
   // Logic for the Scroll-to-Bottom button
   const [showScrollBtn, setShowScrollBtn] = useState(true)
+
+  const returnProcess = useReturnProcess()
+
+  const mockOrder: Order = {
+    // name: returnProcess.currentData.sender,
+    name: 'John Doe',
+    tel: '(123) 456-7891',
+    orderRef: 'R957394',
+    email: 'johndoe2394@gmail.com',
+    // address: returnProcess.currentData.address,
+    address: '6500 Boulevard de Rome, Brossard, QC, J4Y 0B6, Canada',
+    pickupDate: returnProcess.currentData.pickupDate,
+    // pickupMethod: 'Direct Handoff',
+    pickupMethod: returnProcess.currentData.pickupType,
+    totalPackages: returnProcess.currentData.labelFileUploads.length,
+    cardType: 'Visa',
+    cardNumber: 4832,
+  }
+
+  const mockData: MockData = {
+    // plan: returnProcess.currentData.plan,
+    plan: 'bronze',
+    extraBoxes: 1,
+    bronzePrice: 1099,
+    extraBoxPrice: 399,
+    productList: {
+      price_1OFQ6pJLx3jkPDehgceZQr2g: 2,
+      price_1OIJOdJLx3jkPDehZUoDKJsU: 3,
+      price_1OIJLLJLx3jkPDehIEOgyYa4: 1,
+    },
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -119,14 +126,14 @@ export default function ConfirmPickup() {
                 <Reveal>
                   <p className="font-bold">
                     {mockOrder.name}
-                    <span className="text-mediumText font-normal">
+                    {/* <span className="text-mediumText font-normal">
                       &nbsp;|&nbsp;
-                    </span>
-                    {mockOrder.tel}
+                    </span> */}
+                    {/* {mockOrder.tel} */}
                   </p>
                 </Reveal>
                 <Reveal>
-                  <p>{mockOrder.location}</p>
+                  <p>{mockOrder.address}</p>
                 </Reveal>
                 {mockOrder.pickupMethod === 'Direct Handoff' && (
                   <Reveal>
