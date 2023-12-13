@@ -59,6 +59,7 @@ export default async function handler(
             orderData: JSON.stringify(orderData),
             orderDetail: JSON.stringify(orderDetail),
           },
+          customer_email: 'john_doe@example.com',
         })
 
       // res.send({ clientSecret: session.client_secret })

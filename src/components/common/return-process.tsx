@@ -34,9 +34,13 @@ const ReturnProcessSection = React.forwardRef<
 ))
 ReturnProcessSection.displayName = 'ReturnProcessSection'
 
+interface ReturnProcessNextButtonProps extends ButtonProps {
+  pickupDate?: Date
+}
+
 const ReturnProcessNextButton = React.forwardRef<
   HTMLButtonElement,
-  ButtonProps
+  ReturnProcessNextButtonProps
 >(({ className, disabled, ...props }, ref) => {
   const methods = useFormContext()
   return (
@@ -49,7 +53,8 @@ const ReturnProcessNextButton = React.forwardRef<
       {...props}
     >
       <div className="flex items-center justify-center space-x-2">
-        <p>Next</p> <NextArrow />
+        <p>Next</p>
+        <NextArrow />
       </div>
     </Button>
   )
