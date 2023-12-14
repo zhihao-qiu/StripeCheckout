@@ -20,6 +20,7 @@ export type FileUploadType = {
 }
 
 export type ReturnProcessFullObjectType = {
+  userId: string
   pickupDate: string
   sender: string
   address: string
