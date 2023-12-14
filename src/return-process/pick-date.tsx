@@ -36,6 +36,8 @@ import { motion } from 'framer-motion'
 import { fadeIn } from '@styles/framer'
 
 export default function PickDate() {
+  const mockUserId = '657a3c20334ac659a3b33708'
+
   const returnProcess = useReturnProcess()
   const dateSelection = useDateSelection(new Date())
   const formSchema = z.object({
@@ -53,7 +55,11 @@ export default function PickDate() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    returnProcess.setCurrentData(values)
+    // returnProcess.setCurrentData(values)
+    returnProcess.setCurrentData({
+      userId: mockUserId,
+      pickupDate: values.pickupDate,
+    })
     returnProcess.forward()
   }
 
