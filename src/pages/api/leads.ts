@@ -4,7 +4,7 @@ import { MongoClient } from 'mongodb'
 // Define the structure of the data using TypeScript interface
 interface LeadData {
   fullName: string
-  postal: string
+  postalCode: string
   email: string
 }
 

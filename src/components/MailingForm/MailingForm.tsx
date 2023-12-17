@@ -8,14 +8,19 @@ import {
   FormLabel,
   FormMessage,
 } from '@components/ui/form'
-import { Textarea } from '../ui/textarea'
 import { Input } from '@components/ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Button } from '@components/ui/button'
 import Reveal from '@components/common/reveal'
+import { useRouter } from 'next/router'
 
+interface ResponseData {
+  message: string
+  id: string
+  error: string
+}
 
 // testing here
 
@@ -28,10 +33,13 @@ const mailingFormSchema = z.object({
     .max(120, {
       message: 'Full name must be less than 120 characters',
     }),
-  email: z.string().email()
+  email: z.string().email(),
 })
 
 function MailingForm() {
+  const router = useRouter()
+  const { invalidPostalCode } = router.query
+
   const form = useForm({
     resolver: zodResolver(mailingFormSchema),
     defaultValues: {
@@ -40,15 +48,10 @@ function MailingForm() {
     },
   })
 
+  // handling email sending ufter form is submitted
   const formRef = useRef<HTMLFormElement | null>(null)
 
-  const onSubmit = (values: z.infer<typeof mailingFormSchema>) => {
-    console.log(values)
-  }
-
-  const sendEmail = async (e: React.FormEvent) => {
-    e.preventDefault()
-
+  const handleEmailSending = async () => {
     const formElement = formRef.current
 
     if (formElement) {
@@ -73,14 +76,39 @@ function MailingForm() {
     }
   }
 
+  const onSubmit = async (values: z.infer<typeof mailingFormSchema>) => {
+    const leadsData = { ...values, postalCode: invalidPostalCode }
+
+    //saving data to the DB
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...leadsData,
+        }),
+      })
+
+      if (response.ok) {
+        console.log('User data inserted successfully')
+      } else {
+        const data = (await response.json()) as ResponseData
+        console.error(data.error || 'Failed to insert user data')
+      }
+    } catch (error) {
+      console.error('Error inserting user data:', error)
+    }
+
+    await handleEmailSending()
+  }
+
   return (
     <Form {...form}>
       <form
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onSubmit={async (e) => {
-          await form.handleSubmit(onSubmit)(e)
-          await sendEmail(e)
-        }}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="w-full space-y-6 lg:space-y-10"
         ref={formRef}
       >
