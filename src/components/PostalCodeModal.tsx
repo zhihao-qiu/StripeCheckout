@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { motion } from 'framer-motion'
 import { container, item } from '@styles/framer'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 // Default headerType is desktop
 function PostalCodeModal({
@@ -13,8 +15,23 @@ function PostalCodeModal({
 }: {
   headerType?: 'desktop' | 'mobile'
 }) {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClose = () => {
+    setIsOpen(false)
+  }
+
+  const router = useRouter()
+
+  const handleRedirect = (path: string) => {
+    router.push(path);
+    handleClose(); // Close the modal after redirecting
+  };
+
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         {headerType === 'desktop' ? (
           <Button variant="secondary" className="h-9 w-fit">
@@ -50,7 +67,10 @@ function PostalCodeModal({
           <p className="flex w-full items-center justify-center pl-2 text-2xl sm:text-3xl">
             Check Service Area
           </p>
-          <PostalCodeForm />
+          <PostalCodeForm
+            onSuccessRedirect={() => handleRedirect('/dashboard')}
+            onFailRedirect={(invalidPostalCode: any) => handleRedirect(`/mailing?invalidPostalCode=${invalidPostalCode}`)}
+          />
         </DialogContent>
       </motion.div>
     </Dialog>
