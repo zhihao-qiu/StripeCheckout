@@ -12,27 +12,28 @@ import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import Reveal from '@components/common/reveal'
+import type { Item, Order } from '@/components/DashBoard/types'
 
-export interface MockData {
-  plan: 'bronze' | 'silver' | 'gold' | 'platinum'
-  extraBoxes?: number
-  bronzePrice: number
-  extraBoxPrice: number
-  productList: Record<string, number>
-}
+// export interface MockData {
+//   plan: 'bronze' | 'silver' | 'gold' | 'platinum'
+//   extraBoxes?: number
+//   bronzePrice: number
+//   extraBoxPrice: number
+//   productList: Record<string, number>
+// }
 
-export interface Order {
-  name: string
-  tel: string
-  orderRef: string
-  email: string
-  address: string
-  pickupDate: string
-  pickupMethod: string
-  totalPackages: number
-  cardType: string
-  cardNumber: number
-}
+// export interface Order {
+//   name: string
+//   tel: string
+//   orderRef: string
+//   email: string
+//   address: string
+//   pickupDate: string
+//   pickupMethod: string
+//   totalPackages: number
+//   cardType: string
+//   cardNumber: number
+// }
 
 export default function ConfirmPickup() {
   // If the user enters a Promo Code in the Order Summary, it will be held in state here
@@ -43,33 +44,37 @@ export default function ConfirmPickup() {
 
   const returnProcess = useReturnProcess()
 
+  const mockItems: Item[] = [
+    { itemName: 'price_1OFQ6pJLx3jkPDehgceZQr2g', quantity: 2 },
+    { itemName: 'price_1OIJOdJLx3jkPDehZUoDKJsU', quantity: 3 },
+    { itemName: 'price_1OIJLLJLx3jkPDehIEOgyYa4', quantity: 1 },
+  ]
+
   const mockOrder: Order = {
     // name: returnProcess.currentData.sender,
-    name: 'John Doe',
-    tel: '(123) 456-7891',
-    orderRef: 'R957394',
-    email: 'johndoe2394@gmail.com',
+    items: mockItems,
+    customerName: 'John Doe',
+    customerPhoneNumber: '6041234567',
     // address: returnProcess.currentData.address,
-    address: '6500 Boulevard de Rome, Brossard, QC, J4Y 0B6, Canada',
-    pickupDate: returnProcess.currentData.pickupDate,
-    // pickupMethod: 'Direct Handoff',
-    pickupMethod: returnProcess.currentData.pickupType,
-    totalPackages: returnProcess.currentData.labelFileUploads.length,
-    cardType: 'Visa',
-    cardNumber: 4832,
-  }
+    deliveryAddress: '6500 Boulevard de Rome, Brossard, QC, J4Y 0B6',
+    dateAndTime: returnProcess.currentData.pickupDate,
+    deliveryOption: returnProcess.currentData.pickupType,
+    packageOrderType: returnProcess.currentData.plan,
+    labelType: 'physical',
+    paymentMethod: 'visa',
+    promoCode: promoCode,
+    upgradeOption: 'upgradeOption',
+    orderNumber: '',
 
-  const mockData: MockData = {
-    // plan: returnProcess.currentData.plan,
-    plan: 'bronze',
-    extraBoxes: 1,
-    bronzePrice: 1099,
-    extraBoxPrice: 399,
-    productList: {
-      price_1OFQ6pJLx3jkPDehgceZQr2g: 2,
-      price_1OIJOdJLx3jkPDehZUoDKJsU: 3,
-      price_1OIJLLJLx3jkPDehIEOgyYa4: 1,
-    },
+    // pickupMethod: 'Direct Handoff',
+    // pickupMethod: returnProcess.currentData.pickupType,
+    // totalPackages: returnProcess.currentData.labelFileUploads.length,
+    // cardType: 'Visa',
+    // cardNumber: 4832,
+    // plan: 'bronze',
+    // extraBoxes: 1,
+    // bronzePrice: 1099,
+    // extraBoxPrice: 399,
   }
 
   useEffect(() => {
@@ -125,17 +130,17 @@ export default function ConfirmPickup() {
               <div className="w-full space-y-3">
                 <Reveal>
                   <p className="font-bold">
-                    {mockOrder.name}
-                    {/* <span className="text-mediumText font-normal">
+                    {mockOrder.customerName}
+                    <span className="text-mediumText font-normal">
                       &nbsp;|&nbsp;
-                    </span> */}
-                    {/* {mockOrder.tel} */}
+                    </span>
+                    {mockOrder.customerPhoneNumber}
                   </p>
                 </Reveal>
                 <Reveal>
-                  <p>{mockOrder.address}</p>
+                  <p>{mockOrder.deliveryAddress}</p>
                 </Reveal>
-                {mockOrder.pickupMethod === 'Direct Handoff' && (
+                {mockOrder.deliveryOption === 'Direct Handoff' && (
                   <Reveal>
                     <p className="text-grey md:tracking-wide">
                       Please ring the doorbell when picking up
@@ -159,7 +164,7 @@ export default function ConfirmPickup() {
               <Reveal width="100%">
                 <p className="grow sm:mt-4">
                   <span className="font-bold">Pickup Date:</span>
-                  <span>&nbsp;{mockOrder.pickupDate}</span>
+                  <span>&nbsp;{mockOrder.dateAndTime}</span>
                 </p>
               </Reveal>
               <EditContainer />
@@ -178,7 +183,7 @@ export default function ConfirmPickup() {
               <Reveal width="100%">
                 <p className="grow sm:mt-4">
                   <span className="font-bold">Pickup Method:</span>
-                  <span>&nbsp;{mockOrder.pickupMethod}</span>
+                  <span>&nbsp;{mockOrder.deliveryOption}</span>
                 </p>
               </Reveal>
               <EditContainer />
@@ -207,7 +212,7 @@ export default function ConfirmPickup() {
                   <p>
                     <span className="font-bold">Total Packages:&nbsp;</span>
                     <span>
-                      {mockData.extraBoxes ? mockData.extraBoxes + 1 : 1}
+                      {returnProcess.currentData.labelFileUploads.length}
                     </span>
                   </p>
                 </Reveal>
@@ -244,10 +249,8 @@ export default function ConfirmPickup() {
               <div className="mt-1 grow sm:mt-3">
                 <Reveal width="100%">
                   <p>
-                    <span className="font-bold">
-                      {mockOrder.cardType} ending in:&nbsp;
-                    </span>
-                    <span>{mockOrder.cardNumber} </span>
+                    <span className="font-bold">Visa ending in:&nbsp;</span>
+                    <span>1234 </span>
                   </p>
                 </Reveal>
               </div>
@@ -261,11 +264,10 @@ export default function ConfirmPickup() {
           </div>
         </div>
       </section>
-      {mockData.plan === 'bronze' && (
+      {mockOrder.packageOrderType === 'bronze' && (
         <OrderSummary
           promoState={[promoCode, setPromoCode]}
-          orderData={mockData}
-          orderDetail={mockOrder}
+          order={mockOrder}
         />
       )}
       {showScrollBtn && <ScrollContainer scrollDown={scrollDown} />}

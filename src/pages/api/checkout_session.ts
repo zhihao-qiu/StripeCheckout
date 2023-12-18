@@ -1,6 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { Stripe } from 'stripe'
-import { type MockData, type Order } from '@/return-process/confirm-pickup'
+import type { Order } from '@/components/DashBoard/types'
+
+interface LineItem {
+  price: string
+  quantity: number
+}
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
@@ -12,37 +17,16 @@ export default async function handler(
 ): Promise<void> {
   if (req.method === 'POST') {
     try {
-      const { orderData, orderDetail, promoCode } = req.body as {
-        orderData: MockData
-        promoCode: string
-        orderDetail: Order
-      }
+      const { order } = req.body as { order: Order }
 
-      const lineItems = []
+      const lineItems: LineItem[] = order.items.map((item) => ({
+        price: item.itemName,
+        quantity: item.quantity || 0,
+      }))
 
-      for (const [key, value] of Object.entries(orderData.productList)) {
-        const lineItem = {
-          price: key,
-          quantity: value || 0,
-        }
-        lineItems.push(lineItem)
-      }
       const session: Stripe.Checkout.Session =
         await stripe.checkout.sessions.create({
           // ui_mode: 'embedded',
-          // line_items: [
-          //   {
-          //     price: 'price_1OFQ6pJLx3jkPDehgceZQr2g',
-          //     quantity: 2,
-          //     // price_data: {
-          //     //   currency: 'cad',
-          //     //   product_data: {
-          //     //     name: 'Custom amount',
-          //     //   },
-          //     //   unit_amount: 13000,
-          //     // },
-          //   },
-          // ],
           line_items: lineItems,
           // discounts: [
           //   {
@@ -55,10 +39,9 @@ export default async function handler(
           // automatic_tax: { enabled: true },
           success_url: `${req.headers.origin}/api/checkout_success?session_id={CHECKOUT_SESSION_ID}`,
           cancel_url: `${req.headers.origin}/?canceled=true`,
-          metadata: {
-            orderData: JSON.stringify(orderData),
-            orderDetail: JSON.stringify(orderDetail),
-          },
+          // metadata: {
+          //   order: JSON.stringify(order),
+          // },
           customer_email: 'john_doe@example.com',
         })
 
