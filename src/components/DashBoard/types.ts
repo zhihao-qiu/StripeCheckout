@@ -134,11 +134,12 @@ export type ProfilePropsType = {
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>
 }
 
-export interface Item {
-  itemId: string
-  itemName?: string
-  quantity?: number
-}
+export type OrderStatus =
+  | 'Driver received'
+  | 'Driver on the way'
+  | 'Driver delivered to post office'
+  | 'Delivered'
+  | 'Cancelled'
 
 export interface Order {
   items: Item[]
@@ -152,6 +153,14 @@ export interface Order {
   packageOrderType: string
   labelType?: string
   paymentMethod: string
-  promoCode?: string
-  upgradeOption?: string
+  promoCode: string
+  upgradeOption: string
+  specialInstructions?: string
+  status: OrderStatus
+}
+
+export interface Item {
+  itemId: string
+  itemName?: string
+  quantity?: number
 }

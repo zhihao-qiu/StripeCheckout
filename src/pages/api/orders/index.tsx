@@ -1,4 +1,4 @@
-// pages/api/orders.ts
+// pages/api/orders/index.ts
 import type { NextApiRequest, NextApiResponse } from 'next'
 import client, { connectDB, disconnectDB } from '@/lib/db'
 import { Item, type Order } from '@/components/DashBoard/types'
