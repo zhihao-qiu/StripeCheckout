@@ -1,28 +1,30 @@
 import { type UseFormReturn } from 'react-hook-form'
 import * as z from 'zod'
 import { type ColumnDef } from '@tanstack/react-table'
+import { ObjectId } from 'mongodb'
 
 export const addressSchema = z.object({
-  apartmentUnitNumber: z
+  contact_full_name: z.string().min(3).max(50),
+  unitNumber: z
     .string()
-    .min(1)
     .max(10)
     .regex(/^[a-zA-Z0-9]*$/, {
       message: 'Please enter a valid apartment unit number',
     })
     .optional(),
-  streetNumber: z.coerce
-    .number()
-    .min(1, {
-      message: 'Please enter a valid number',
-    })
-    .max(999999, {
-      message: 'Please enter a valid number',
-    }),
-  streetName: z.string().min(3).max(50),
+  // streetNumber: z.coerce
+  //   .number()
+  //   .min(1, {
+  //     message: 'Please enter a valid number',
+  //   })
+  //   .max(999999, {
+  //     message: 'Please enter a valid number',
+  //   }),
+  street: z.string().min(3).max(50),
   city: z.string().min(3).max(50),
   province: z.string().min(2).max(2),
-  postal: z
+  country: z.string().min(2).max(50),
+  postalCode: z
     .string()
     .min(6)
     .max(7)
@@ -38,10 +40,13 @@ export const addressSchema = z.object({
 
       return val
     }),
+  instructions: z.string().min(0),
+  primary: z.boolean().default(false),
 })
 
-export type Address = Omit<z.infer<typeof addressSchema>, 'streetNumber'> & {
-  streetNumber: string | number
+export type Address = Omit<z.infer<typeof addressSchema>, 'instructions'> & {
+  instructions?: string
+  addressId: ObjectId
 }
 
 export const profileFormSchema = z.object({
@@ -61,24 +66,23 @@ export const profileFormSchema = z.object({
     .max(60, {
       message: 'Last name must be less than 60 characters',
     }),
-  primaryAddress: addressSchema,
-  role: z.enum(['Admin', 'Platinum', 'Gold', 'Silver', 'Bronze']),
-  email: z.string().email({
-    message: 'Please enter a valid email address',
-  }),
-  additionalAddress: z.array(addressSchema).optional(),
+  email: z
+    .string()
+    .min(1, { message: 'Email is required' })
+    .email('Please enter a valid email address'),
+  addresses: z.array(addressSchema).optional(),
+  subscription: z.enum(['Admin', 'Platinum', 'Gold', 'Silver', 'Bronze']),
 })
 
-type UserInfoBaseWithoutPrimaryAddress = Omit<
-  z.infer<typeof profileFormSchema>,
-  'primaryAddress'
->
+// type UserInfoBaseWithoutPrimaryAddress = Omit<
+//   z.infer<typeof profileFormSchema>,
+//   'primaryAddress'
+// >
 
-type UserInfoBase = Omit<UserInfoBaseWithoutPrimaryAddress, 'additionalAddress'>
+type UserInfoBase = Omit<z.infer<typeof profileFormSchema>, 'addresses'>
 
 export type UserInfo = UserInfoBase & {
-  primaryAddress: Address
-  additionalAddress?: Address[]
+  addresses?: Address[]
 }
 
 export type EditProfileFormPropsType = {
@@ -131,8 +135,9 @@ export type ProfilePropsType = {
 }
 
 export interface Item {
-  itemName: string
-  quantity: number
+  itemId: string
+  itemName?: string
+  quantity?: number
 }
 
 export interface Order {

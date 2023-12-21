@@ -36,12 +36,12 @@ import { motion } from 'framer-motion'
 import { fadeIn } from '@styles/framer'
 
 export default function PickDate() {
-  const mockUserId = '657a3c20334ac659a3b33708'
+  const userId = '657a3c20334ac659a3b33708'
 
   const returnProcess = useReturnProcess()
   const dateSelection = useDateSelection(new Date())
   const formSchema = z.object({
-    pickupDate: z.coerce
+    dateAndTime: z.coerce
       .string()
       .refine((data) => new Date(data) > dateSelection.initialDate, {
         message: 'Start date must be in the future',
@@ -50,15 +50,15 @@ export default function PickDate() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      pickupDate: returnProcess.currentData.pickupDate,
+      dateAndTime: returnProcess.currentData.dateAndTime,
     },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // returnProcess.setCurrentData(values)
     returnProcess.setCurrentData({
-      userId: mockUserId,
-      pickupDate: values.pickupDate,
+      userId: userId,
+      dateAndTime: values.dateAndTime,
     })
     returnProcess.forward()
   }
@@ -143,7 +143,7 @@ export default function PickDate() {
                 />
                 <FormField
                   control={form.control}
-                  name="pickupDate"
+                  name="dateAndTime"
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormControl>

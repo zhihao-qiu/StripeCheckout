@@ -21,12 +21,14 @@ export type FileUploadType = {
 
 export type ReturnProcessFullObjectType = {
   userId: string
-  pickupDate: string
-  sender: string
-  address: string
-  pickupType: 'direct' | 'doorstep'
-  plan: 'bronze' | 'silver' | 'gold' | 'platinum'
+  dateAndTime: string
+  contact_full_name: string
+  contact_phone_number: string
+  deliveryAddress: string
+  deliveryOption: 'direct' | 'doorstep'
+  packageOrderType: 'bronze' | 'silver' | 'gold' | 'platinum'
   labelFileUploads: FileUploadType[]
+  instructions?: string
 }
 
 export type ReturnProcessContextType = {

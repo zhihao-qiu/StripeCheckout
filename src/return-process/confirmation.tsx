@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import CloseX from '@components/SvgComponents/CloseX'
 import Link from 'next/link'
 import Reveal from '@components/common/reveal'
+import { useReturnProcess } from '@/hooks/useReturnProcess'
 
 interface Order {
   name: string
@@ -37,6 +38,8 @@ const mockOrder: Order = {
 }
 
 export default function Confirmation() {
+  const returnProcess = useReturnProcess()
+
   return (
     <ReturnProcessRoot className="mb-4 flex w-full flex-col items-center space-y-2 pt-2 sm:space-y-8 sm:pt-6 md:pt-10 lg:pt-16">
       <ReturnProcessSection className="relative mt-0 w-full space-y-1 text-base text-brand sm:my-2 sm:w-5/6 sm:space-y-3 sm:pr-12 md:my-4 md:text-smallText">
@@ -78,19 +81,19 @@ export default function Confirmation() {
             <Reveal>
               <p className="mb-2 sm:mb-4">
                 <span className="font-bold">Location:</span>{' '}
-                {mockOrder.location}
+                {returnProcess.currentData.deliveryAddress}
               </p>
             </Reveal>
             <Reveal>
               <p className="mb-2 sm:mb-4">
                 <span className="font-bold">Pickup Date:</span>{' '}
-                {mockOrder.pickupDate}
+                {returnProcess.currentData.dateAndTime}
               </p>
             </Reveal>
             <Reveal>
               <p className="mb-2 sm:mb-4">
                 <span className="font-bold">Pickup Method:</span>{' '}
-                {mockOrder.pickupMethod}
+                {returnProcess.currentData.deliveryOption}
               </p>
             </Reveal>
             <Reveal>

@@ -29,7 +29,6 @@ export default async function handler(
         const closeWindowScript = '<script>window.close()</script>'
 
         // console.log(redirectWindowScript)
-        console.log('sending')
         res.send(redirectWindowScript + closeWindowScript)
       }
     } catch (error) {

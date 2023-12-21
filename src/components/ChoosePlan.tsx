@@ -71,7 +71,7 @@ const planData: PlanDataType[] = [
 ]
 
 const formSchema = z.object({
-  plan: z.union([
+  packageOrderType: z.union([
     z.literal('bronze'),
     z.literal('silver'),
     z.literal('gold'),
@@ -85,7 +85,7 @@ export default function ChoosePlan() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      plan: returnProcess.currentData.plan,
+      packageOrderType: returnProcess.currentData.packageOrderType,
     },
   })
 
@@ -104,7 +104,7 @@ export default function ChoosePlan() {
         <div className="flex min-h-screen w-screen flex-col items-center justify-start bg-paleBlue p-0 sm:p-10">
           <FormField
             control={form.control}
-            name="plan"
+            name="packageOrderType"
             render={({ field }) => (
               <FormItem className="space-y-3">
                 <FormControl>

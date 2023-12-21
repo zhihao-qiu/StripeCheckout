@@ -31,7 +31,7 @@ function InboxMessagesDialog({ mailOriginal }: { mailOriginal: Mail }) {
           </div>
           <DialogTitle className="mb-4">Message Details</DialogTitle>
           <DialogDescription>
-            <div className="flex flex-col space-y-4 p-4">
+            {/* <div className="flex flex-col space-y-4 p-4">
               <div className="mb-2 flex justify-between space-x-4">
                 <label className="block">From:</label>
 
@@ -128,7 +128,7 @@ function InboxMessagesDialog({ mailOriginal }: { mailOriginal: Mail }) {
 
                 <span>{mailOriginal.retrunDate}</span>
               </div>
-            </div>
+            </div> */}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter

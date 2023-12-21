@@ -10,7 +10,7 @@ import { VscSignOut } from 'react-icons/vsc'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import Link from 'next/link'
 import DashBoardMain from '@/components/DashBoard/DashBoardMain'
-import Profile from '@/components/DashBoard/Profile'
+// import Profile from '@/components/DashBoard/Profile'
 import Inbox from '@/components/DashBoard/Inbox'
 import Security from '@/components/DashBoard/Security'
 import { type UserInfo } from '@/components/DashBoard/types'
@@ -28,37 +28,37 @@ function Dashboard() {
   const userInCache = readUserInfoFromFragment()
 
   // TODO: replace this with global state management like Apollo Client cache
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    firstName: 'John',
-    lastName: 'Doe',
-    primaryAddress: {
-      apartmentUnitNumber: '12A',
-      streetNumber: 1234,
-      streetName: 'Main St',
-      city: 'Toronto',
-      province: 'ON',
-      postal: 'M1M1M1',
-    },
-    role: 'Platinum',
-    email: 'john@example.com',
-    additionalAddress: [
-      {
-        apartmentUnitNumber: '0',
-        streetNumber: 999,
-        streetName: 'Main St',
-        city: 'Toronto',
-        province: 'ON',
-        postal: 'M1M1M1',
-      },
-      {
-        streetNumber: 123,
-        streetName: 'Main St',
-        city: 'Toronto',
-        province: 'ON',
-        postal: 'M1M1M1',
-      },
-    ],
-  })
+  // const [userInfo, setUserInfo] = useState<UserInfo>({
+  //   firstName: 'John',
+  //   lastName: 'Doe',
+  //   primaryAddress: {
+  //     apartmentUnitNumber: '12A',
+  //     streetNumber: 1234,
+  //     streetName: 'Main St',
+  //     city: 'Toronto',
+  //     province: 'ON',
+  //     postal: 'M1M1M1',
+  //   },
+  //   role: 'Platinum',
+  //   email: 'john@example.com',
+  //   additionalAddress: [
+  //     {
+  //       apartmentUnitNumber: '0',
+  //       streetNumber: 999,
+  //       streetName: 'Main St',
+  //       city: 'Toronto',
+  //       province: 'ON',
+  //       postal: 'M1M1M1',
+  //     },
+  //     {
+  //       streetNumber: 123,
+  //       streetName: 'Main St',
+  //       city: 'Toronto',
+  //       province: 'ON',
+  //       postal: 'M1M1M1',
+  //     },
+  //   ],
+  // })
   const tabsData = [
     {
       id: 1,
@@ -93,25 +93,25 @@ function Dashboard() {
   ]
 
   // TODO: replace this with Apollo client query instead of fragment
-  useEffect(() => {
-    setUserInfo((preV) => {
-      return userInCache
-        ? {
-            firstName: userInCache.user.firstName,
-            lastName: userInCache.user.lastName,
-            primaryAddress: {
-              streetNumber: userInCache.primaryAddress.streetNumber,
-              streetName: userInCache.primaryAddress.streetName,
-              city: userInCache.primaryAddress.city,
-              province: userInCache.primaryAddress.province,
-              postal: userInCache.primaryAddress.postal,
-            },
-            role: userInCache.user.role,
-            email: userInCache.user.email,
-          }
-        : preV
-    })
-  }, [userInCache])
+  // useEffect(() => {
+  //   setUserInfo((preV) => {
+  //     return userInCache
+  //       ? {
+  //           firstName: userInCache.user.firstName,
+  //           lastName: userInCache.user.lastName,
+  //           primaryAddress: {
+  //             streetNumber: userInCache.primaryAddress.streetNumber,
+  //             streetName: userInCache.primaryAddress.streetName,
+  //             city: userInCache.primaryAddress.city,
+  //             province: userInCache.primaryAddress.province,
+  //             postal: userInCache.primaryAddress.postal,
+  //           },
+  //           role: userInCache.user.role,
+  //           email: userInCache.user.email,
+  //         }
+  //       : preV
+  //   })
+  // }, [userInCache])
 
   return (
     <Tabs defaultValue="main" className="h-full animate-in animate-out">
@@ -158,7 +158,7 @@ function Dashboard() {
           <MobileSideBar />
         </TabsList>
 
-        <TabsContent value="main" className="mt-0 min-h-screen w-full md:w-3/4">
+        {/* <TabsContent value="main" className="mt-0 min-h-screen w-full md:w-3/4">
           <DashBoardMain userInfo={userInfo} />
         </TabsContent>
         <TabsContent
@@ -178,7 +178,7 @@ function Dashboard() {
           className="mt-0 min-h-screen w-full md:w-3/4"
         >
           <Security userInfo={userInfo} />
-        </TabsContent>
+        </TabsContent> */}
         {/* TODO - redirect when logout*/}
         <TabsContent
           value="signOut"

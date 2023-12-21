@@ -1,32 +1,42 @@
 // pages/api/userAddresses.tsx
 import type { NextApiRequest, NextApiResponse } from 'next'
 import client, { connectDB, disconnectDB } from '@/lib/db'
-import { type UserInfo, Address } from '@/components/DashBoard/types'
+import type { UserInfo, Address } from '@/components/DashBoard/types'
 import { ObjectId } from 'mongodb'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const userId = new ObjectId(req.query.id as string)
-
+  const userId = new ObjectId(req.query.userId as string)
   await connectDB()
-
   if (req.method === 'GET') {
     // Get addresses based on userid
     try {
-      const database = client.db('returnpal')
-      const userAddresCollection = database.collection<UserInfo>('user')
-      const userAddresses = await userAddresCollection.findOne({ _id: userId })
-      res.status(200).json(userAddresses)
+      const database = client.db('ReturnPal')
+      const usersCollection = database.collection<UserInfo>('users')
+      const user = await usersCollection.findOne({
+        _id: userId,
+      })
+      if (user) {
+        user.addresses?.sort((a, b) => {
+          const primaryA = a.primary ? 1 : 0
+          const primaryB = b.primary ? 1 : 0
+          return primaryB - primaryA
+        })
+
+        res.status(200).json(user.addresses)
+      } else {
+        res.status(500).json({ message: 'Error cannot find user' })
+      }
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving orders', error })
     }
   } else if (req.method === 'POST') {
     // Create a new address
     try {
-      const database = client.db('returnpal')
-      const userCollection = database.collection<UserInfo>('user')
+      const database = client.db('ReturnPal')
+      const userCollection = database.collection<UserInfo>('users')
 
       const existingUser = await userCollection.findOne({ _id: userId })
 
@@ -37,7 +47,8 @@ export default async function handler(
 
       const newAdditionalAddress = req.body as Address
 
-      const result = await userCollection.updateOne(
+      // const result = await userCollection.updateOne(
+      await userCollection.updateOne(
         { _id: userId },
         {
           $push: {

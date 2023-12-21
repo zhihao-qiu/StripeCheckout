@@ -1,13 +1,32 @@
 // pages/api/orders.ts
 import type { NextApiRequest, NextApiResponse } from 'next'
 import client, { connectDB, disconnectDB } from '@/lib/db'
-import { type Order } from '@/components/DashBoard/types'
+import { Item, type Order } from '@/components/DashBoard/types'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   await connectDB()
+
+  async function getItemNameById(itemId: string): Promise<Item> {
+    const database = client.db('ReturnPal')
+    const itemsCollection = database.collection<Item>('items')
+
+    try {
+      const result = await itemsCollection.findOne({
+        itemId: itemId,
+      })
+      if (result) {
+        const { itemId, itemName, quantity } = result as unknown as Item
+        return { itemId, itemName, quantity }
+      } else {
+        throw new Error('Item not found')
+      }
+    } catch (error) {
+      throw new Error('Error retrieving item by ID', error as Error)
+    }
+  }
 
   if (req.method === 'GET') {
     // Get all orders
@@ -27,7 +46,17 @@ export default async function handler(
       const newOrder = req.body as Order
 
       // need to update itemName here
+      newOrder.items = await Promise.all(
+        newOrder.items.map(async (item: Item) => {
+          const { itemId, itemName, quantity } = await getItemNameById(
+            item.itemId
+          )
+          return { itemId, itemName, quantity }
+        })
+      )
+
       // need to update orderNumber here
+      // newOrder.orderNumber = generateOrderNumber()
 
       const result = await orders.insertOne(newOrder)
       res

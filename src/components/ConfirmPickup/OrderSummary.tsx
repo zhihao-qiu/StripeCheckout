@@ -156,29 +156,6 @@ export default function OrderSummary({
     }
   }, [])
 
-  // window.addEventListener('message', async (event) => {
-  //   return new Promise(async (resolve) => {
-  //     if (event.data === 'CheckoutSuccess' && event.origin === window.origin) {
-  //       const receivedData = event.data
-  //       order.price = receivedData.additionalInfo.price
-  //       // save to db
-  //       const response = await fetch('/api/orders', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify(order),
-  //       })
-
-  //       if (response.ok) {
-  //         returnProcess.forward()
-  //       } else {
-  //         console.error('Error saving to database.')
-  //       }
-  //     }
-  //   })
-  // })
-
   return (
     <section className="mx-1 tracking-normal md:w-1/3">
       <Reveal>

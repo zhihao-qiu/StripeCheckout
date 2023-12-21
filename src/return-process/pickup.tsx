@@ -34,7 +34,7 @@ import { SectionDescription, SectionHeader } from '@/components/common/section'
 import Reveal from '@components/common/reveal'
 
 const formSchema = z.object({
-  pickupType: z.union([z.literal('direct'), z.literal('doorstep')]),
+  deliveryOption: z.union([z.literal('direct'), z.literal('doorstep')]),
 })
 
 export default function Pickup() {
@@ -43,7 +43,7 @@ export default function Pickup() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      pickupType: returnProcess.currentData.pickupType,
+      deliveryOption: returnProcess.currentData.deliveryOption,
     },
   })
 
@@ -85,7 +85,7 @@ export default function Pickup() {
 
             <FormField
               control={form.control}
-              name="pickupType"
+              name="deliveryOption"
               render={({ field }) => (
                 <FormItem className="flex justify-center space-y-3">
                   <FormControl>
