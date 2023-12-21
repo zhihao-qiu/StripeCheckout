@@ -45,9 +45,9 @@ export default function ConfirmPickup() {
   const returnProcess = useReturnProcess()
 
   const mockItems: Item[] = [
-    { itemName: 'price_1OFQ6pJLx3jkPDehgceZQr2g', quantity: 2 },
-    { itemName: 'price_1OIJOdJLx3jkPDehZUoDKJsU', quantity: 3 },
-    { itemName: 'price_1OIJLLJLx3jkPDehIEOgyYa4', quantity: 1 },
+    { itemId: 'price_1OOoj7JLx3jkPDehSV6Dijgn', quantity: 2 },
+    { itemId: 'price_1OOokjJLx3jkPDeh7QNeEoFI', quantity: 3 },
+    { itemId: 'price_1OOolVJLx3jkPDeh0Sqa4iV3', quantity: 1 },
   ]
 
   const mockOrder: Order = {
@@ -57,9 +57,9 @@ export default function ConfirmPickup() {
     customerPhoneNumber: '6041234567',
     // address: returnProcess.currentData.address,
     deliveryAddress: '6500 Boulevard de Rome, Brossard, QC, J4Y 0B6',
-    dateAndTime: returnProcess.currentData.pickupDate,
-    deliveryOption: returnProcess.currentData.pickupType,
-    packageOrderType: returnProcess.currentData.plan,
+    dateAndTime: returnProcess.currentData.dateAndTime,
+    deliveryOption: returnProcess.currentData.deliveryOption,
+    packageOrderType: returnProcess.currentData.packageOrderType,
     labelType: 'physical',
     paymentMethod: 'visa',
     promoCode: promoCode,
@@ -264,12 +264,9 @@ export default function ConfirmPickup() {
           </div>
         </div>
       </section>
-      {mockOrder.packageOrderType === 'bronze' && (
-        <OrderSummary
-          promoState={[promoCode, setPromoCode]}
-          order={mockOrder}
-        />
-      )}
+      {/* {mockOrder.packageOrderType === 'bronze' && ( */}
+      <OrderSummary promoState={[promoCode, setPromoCode]} order={mockOrder} />
+      {/* )} */}
       {showScrollBtn && <ScrollContainer scrollDown={scrollDown} />}
     </div>
   )
