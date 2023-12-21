@@ -1,11 +1,18 @@
-// pages/api/orders.ts
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type {
+  NextApiRequest as Request,
+  NextApiResponse as Response,
+} from 'next'
 import client, { connectDB, disconnectDB } from '@/lib/db'
-import { type Order } from '@/components/DashBoard/types'
+import { Order } from '@/components/Dashboard/types'
+
+// Assuming there's a type/interface for your request body
+interface CancelOrderRequest {
+  orderId: string // Adjust the type accordingly
+}
 
 export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
+  req: Request<CancelOrderRequest>, // Use the imported Request type
+  res: Response
 ) {
   await connectDB()
 
@@ -32,8 +39,26 @@ export default async function handler(
     } catch (error) {
       res.status(500).json({ message: 'Error creating order', error })
     }
+  } else if (req.method === 'PUT') {
+    // Update order status to 'cancelled'
+    try {
+      const database = client.db('returnpal')
+      const orders = database.collection<Order>('orders')
+      const { orderId } = req.body
+      const result = await orders.updateOne(
+        { _id: orderId },
+        { $set: { status: 'cancelled' } }
+      )
+      if (result.matchedCount === 1) {
+        res.status(200).json({ message: 'Order cancelled successfully' })
+      } else {
+        res.status(404).json({ message: 'Order not found' })
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Error cancelling order', error })
+    }
   } else {
-    res.setHeader('Allow', ['GET', 'POST'])
+    res.setHeader('Allow', ['GET', 'POST', 'PUT'])
     res.status(405).end(`Method ${req.method} Not Allowed`)
   }
 
