@@ -24,7 +24,7 @@ import {
 } from '@/components/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import Head from 'next/head'
-import { Address, addressSchema } from '@/components/DashBoard/types'
+import { type Address, addressSchema } from '@/components/DashBoard/types'
 import { SectionDescription, SectionHeader } from '@/components/common/section'
 import Reveal from '@components/common/reveal'
 
@@ -56,10 +56,11 @@ export default function Address() {
     console.log(values.deliveryAddress)
     returnProcess.setCurrentData({
       contact_full_name: selectedAddress?.contact_full_name,
+      contact_phone_number: selectedAddress?.contact_phone_number,
       deliveryAddress: selectedAddress?.unitNumber
         ? `${selectedAddress?.unitNumber}-${selectedAddress?.street}, ${selectedAddress?.city}, ${selectedAddress?.province}, ${selectedAddress?.country} ${selectedAddress?.postalCode}`
         : `${selectedAddress?.street}, ${selectedAddress?.city}, ${selectedAddress?.province}, ${selectedAddress?.country} ${selectedAddress?.postalCode}`,
-      instructions: selectedAddress?.instructions,
+      specialInstructions: selectedAddress?.specialInstructions,
     })
     console.log(returnProcess.currentData)
     returnProcess.forward()
@@ -222,8 +223,8 @@ export default function Address() {
                                     htmlFor={address.addressId.toString()}
                                     className="break-word mx-2 my-4 w-[40%] max-w-max max-sm:text-xs sm:w-[50%] md:mx-0"
                                   >
-                                    {address.instructions &&
-                                      address.instructions}
+                                    {address.specialInstructions &&
+                                      address.specialInstructions}
                                   </Label>
                                   <Label
                                     htmlFor={address.addressId.toString()}

@@ -24,11 +24,12 @@ export type ReturnProcessFullObjectType = {
   dateAndTime: string
   contact_full_name: string
   contact_phone_number: string
+  email: string
   deliveryAddress: string
   deliveryOption: 'direct' | 'doorstep'
   packageOrderType: 'bronze' | 'silver' | 'gold' | 'platinum'
   labelFileUploads: FileUploadType[]
-  instructions?: string
+  specialInstructions?: string
 }
 
 export type ReturnProcessContextType = {

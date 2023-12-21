@@ -5,6 +5,7 @@ import { ObjectId } from 'mongodb'
 
 export const addressSchema = z.object({
   contact_full_name: z.string().min(3).max(50),
+  contact_phone_number: z.string().min(8).max(15),
   unitNumber: z
     .string()
     .max(10)
@@ -45,7 +46,7 @@ export const addressSchema = z.object({
 })
 
 export type Address = Omit<z.infer<typeof addressSchema>, 'instructions'> & {
-  instructions?: string
+  specialInstructions?: string
   addressId: ObjectId
 }
 
@@ -144,8 +145,9 @@ export type OrderStatus =
 export interface Order {
   items: Item[]
   price?: number
-  customerName: string
-  customerPhoneNumber?: string
+  contact_full_name: string
+  contact_phone_number?: string
+  email: string
   deliveryAddress: string
   orderNumber?: string
   dateAndTime: string

@@ -122,7 +122,7 @@ export default function OrderSummary({
 
           order.price = receivedData.price
 
-          fetch('/api/orders', {
+          fetch('/api/orders/index', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

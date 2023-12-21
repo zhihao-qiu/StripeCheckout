@@ -51,20 +51,21 @@ export default function ConfirmPickup() {
   ]
 
   const mockOrder: Order = {
-    // name: returnProcess.currentData.sender,
     items: mockItems,
-    customerName: 'John Doe',
-    customerPhoneNumber: '6041234567',
-    // address: returnProcess.currentData.address,
-    deliveryAddress: '6500 Boulevard de Rome, Brossard, QC, J4Y 0B6',
     dateAndTime: returnProcess.currentData.dateAndTime,
+    contact_full_name: returnProcess.currentData.contact_full_name,
+    contact_phone_number: returnProcess.currentData.contact_phone_number,
+    deliveryAddress: returnProcess.currentData.deliveryAddress,
+    specialInstructions: returnProcess.currentData.specialInstructions,
     deliveryOption: returnProcess.currentData.deliveryOption,
     packageOrderType: returnProcess.currentData.packageOrderType,
+    email: '',
     labelType: 'physical',
     paymentMethod: 'visa',
     promoCode: promoCode,
     upgradeOption: 'upgradeOption',
     orderNumber: '',
+    status: 'Driver received',
 
     // pickupMethod: 'Direct Handoff',
     // pickupMethod: returnProcess.currentData.pickupType,
@@ -130,11 +131,11 @@ export default function ConfirmPickup() {
               <div className="w-full space-y-3">
                 <Reveal>
                   <p className="font-bold">
-                    {mockOrder.customerName}
+                    {mockOrder.contact_full_name}
                     <span className="text-mediumText font-normal">
                       &nbsp;|&nbsp;
                     </span>
-                    {mockOrder.customerPhoneNumber}
+                    {mockOrder.contact_phone_number}
                   </p>
                 </Reveal>
                 <Reveal>
