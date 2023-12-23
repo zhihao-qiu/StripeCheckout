@@ -1,4 +1,5 @@
-// src/pages/orders/[id].tsx
+// src/components/Orders/[id].tsx
+
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 

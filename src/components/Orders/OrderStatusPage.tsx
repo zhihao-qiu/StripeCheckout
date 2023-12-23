@@ -1,5 +1,8 @@
+//src/components/Orders/OrderStatusPage.tsx
+
+
 import React, { useState } from 'react'
-import OrderStatusNodes from '@/components/Orders/OrderStatusNodes'
+import OrderStatusNodes from '@/components/Orders/OrderStatusPage'
 
 const OrderStatusPage: React.FC = () => {
   const [orderStatus, setOrderStatus] = useState('Order Placed')
