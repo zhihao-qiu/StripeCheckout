@@ -1,10 +1,10 @@
-//src/components/Orders/OrderStatusPage.tsx
+//src/components/Orders/OrderStatus.tsx
 
 
 import React, { useState } from 'react'
-import OrderStatusNodes from '@/components/Orders/OrderStatusPage'
+import OrderStatusNodes from '@components/Orders/OrderStatus'
 
-const OrderStatusPage: React.FC = () => {
+const OrderStatus: React.FC = () => {
   const [orderStatus, setOrderStatus] = useState('Order Placed')
   const [isCancelled, setIsCancelled] = useState(false)
 
@@ -34,4 +34,4 @@ const OrderStatusPage: React.FC = () => {
   )
 }
 
-export default OrderStatusPage
+export default OrderStatus
