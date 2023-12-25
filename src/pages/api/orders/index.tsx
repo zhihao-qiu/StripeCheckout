@@ -1,7 +1,7 @@
 // pages/api/orders/index.ts
 import type { NextApiRequest, NextApiResponse } from 'next'
 import client, { connectDB, disconnectDB } from '@/lib/db'
-import { Item, type Order } from '@/components/DashBoard/types'
+import type { Item, Order } from '@/components/DashBoard/types'
 
 export default async function handler(
   req: NextApiRequest,
@@ -54,6 +54,7 @@ export default async function handler(
           return { itemId, itemName, quantity }
         })
       )
+      // need to update email here
 
       // need to update orderNumber here
       // newOrder.orderNumber = generateOrderNumber()

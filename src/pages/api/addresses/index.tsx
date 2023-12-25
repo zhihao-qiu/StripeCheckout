@@ -25,7 +25,7 @@ export default async function handler(
           return primaryB - primaryA
         })
 
-        res.status(200).json(user.addresses)
+        res.status(200).json(user)
       } else {
         res.status(500).json({ message: 'Error cannot find user' })
       }

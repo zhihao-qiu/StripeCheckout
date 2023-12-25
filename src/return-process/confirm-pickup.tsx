@@ -56,10 +56,10 @@ export default function ConfirmPickup() {
     contact_full_name: returnProcess.currentData.contact_full_name,
     contact_phone_number: returnProcess.currentData.contact_phone_number,
     deliveryAddress: returnProcess.currentData.deliveryAddress,
-    specialInstructions: returnProcess.currentData.specialInstructions,
+    specialInstructions: returnProcess.currentData.instructions,
     deliveryOption: returnProcess.currentData.deliveryOption,
-    packageOrderType: returnProcess.currentData.packageOrderType,
-    email: '',
+    subscription: returnProcess.currentData.subscription,
+    email: returnProcess.currentData.userInfo.email,
     labelType: 'physical',
     paymentMethod: 'visa',
     promoCode: promoCode,
@@ -141,10 +141,10 @@ export default function ConfirmPickup() {
                 <Reveal>
                   <p>{mockOrder.deliveryAddress}</p>
                 </Reveal>
-                {mockOrder.deliveryOption === 'Direct Handoff' && (
+                {mockOrder.specialInstructions && (
                   <Reveal>
                     <p className="text-grey md:tracking-wide">
-                      Please ring the doorbell when picking up
+                      {mockOrder.specialInstructions}
                     </p>
                   </Reveal>
                 )}

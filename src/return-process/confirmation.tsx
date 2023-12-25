@@ -60,7 +60,7 @@ export default function Confirmation() {
         </Reveal>
         <Reveal>
           <SectionDescription className="text-left md:text-xl md:font-normal">
-            {mockOrder.name}, your pickup order{' '}
+            {returnProcess.currentData.contact_full_name}, your pickup order{' '}
             <SectionHeaderHighlight>
               #{mockOrder.orderRef}
             </SectionHeaderHighlight>{' '}
@@ -70,7 +70,9 @@ export default function Confirmation() {
         <Reveal>
           <SectionDescription className="text-left md:text-xl md:font-normal">
             A confirmation email will be sent to:{' '}
-            <SectionHeaderHighlight>{mockOrder.email}</SectionHeaderHighlight>
+            <SectionHeaderHighlight>
+              {returnProcess.currentData.userInfo.email}
+            </SectionHeaderHighlight>
           </SectionDescription>
         </Reveal>
       </ReturnProcessSection>

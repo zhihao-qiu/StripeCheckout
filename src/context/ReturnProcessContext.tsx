@@ -6,6 +6,7 @@ import {
   type Dispatch,
   type SetStateAction,
 } from 'react'
+import type { UserInfo } from '@components/DashBoard/types'
 
 export type ReturnProcessStep = {
   id: string
@@ -20,16 +21,15 @@ export type FileUploadType = {
 }
 
 export type ReturnProcessFullObjectType = {
-  userId: string
+  userInfo: UserInfo
   dateAndTime: string
   contact_full_name: string
   contact_phone_number: string
-  email: string
   deliveryAddress: string
   deliveryOption: 'direct' | 'doorstep'
-  packageOrderType: 'bronze' | 'silver' | 'gold' | 'platinum'
+  subscription: 'bronze' | 'silver' | 'gold' | 'platinum'
   labelFileUploads: FileUploadType[]
-  specialInstructions?: string
+  instructions?: string
 }
 
 export type ReturnProcessContextType = {
