@@ -24,6 +24,8 @@ export default async function handler(
         quantity: item.quantity ?? 0,
       }))
 
+      const mode = order.subscription == 'bronze' ? 'payment' : 'subscription'
+
       const session: Stripe.Checkout.Session =
         await stripe.checkout.sessions.create({
           // ui_mode: 'embedded',
