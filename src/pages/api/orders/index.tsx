@@ -1,7 +1,12 @@
+<<<<<<< HEAD:src/pages/api/orders.tsx
 import type {
   NextApiRequest as Request,
   NextApiResponse as Response,
 } from 'next'
+=======
+// pages/api/orders/index.ts
+import type { NextApiRequest, NextApiResponse } from 'next'
+>>>>>>> master:src/pages/api/orders/index.tsx
 import client, { connectDB, disconnectDB } from '@/lib/db'
 import { Order } from '@/components/Dashboard/types'
 
