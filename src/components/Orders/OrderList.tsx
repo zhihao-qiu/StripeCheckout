@@ -4,15 +4,14 @@ import { type Order } from '@components/DashBoard/types'
 import { useRouter } from 'next/router'
 
 interface OrderListProps {
-  orders?: Order[] // Make orders optional
+  orders?: Order[]
 }
 
 const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
   const router = useRouter()
 
   const handleManageOrderClick = (orderId: string) => {
-    // // Redirect to the page you want with the orderId
-    // router.push(`/manage-order/${orderId}`)
+    //Need to implement
   }
 
   return (
