@@ -13,6 +13,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import Reveal from '@components/common/reveal'
 import type { Item, Order } from '@/components/DashBoard/types'
+import { subscriptionData } from '@/return-process/subscriptions'
 
 // export interface MockData {
 //   plan: 'bronze' | 'silver' | 'gold' | 'platinum'
@@ -44,19 +45,28 @@ export default function ConfirmPickup() {
 
   const returnProcess = useReturnProcess()
 
-  const mockItems: Item[] = [
-    { itemId: 'price_1OOoj7JLx3jkPDehSV6Dijgn', quantity: 2 },
-    { itemId: 'price_1OOokjJLx3jkPDeh7QNeEoFI', quantity: 3 },
-    { itemId: 'price_1OOolVJLx3jkPDeh0Sqa4iV3', quantity: 1 },
-  ]
+  const items: Item[] = []
+  const foundSubscription = subscriptionData.find(
+    (plan) =>
+      plan.name.toLowerCase() ===
+      returnProcess.currentData.subscription.toLowerCase()
+  )
+  if (foundSubscription) {
+    const item = {
+      itemId: foundSubscription.itemId,
+      itemName: foundSubscription.name,
+      quantity: 1,
+    }
+    items.push(item)
+  }
 
   const mockOrder: Order = {
-    items: mockItems,
+    items: items,
     dateAndTime: returnProcess.currentData.dateAndTime,
     contact_full_name: returnProcess.currentData.contact_full_name,
     contact_phone_number: returnProcess.currentData.contact_phone_number,
     deliveryAddress: returnProcess.currentData.deliveryAddress,
-    specialInstructions: returnProcess.currentData.instructions,
+    instructions: returnProcess.currentData.instructions,
     deliveryOption: returnProcess.currentData.deliveryOption,
     subscription: returnProcess.currentData.subscription,
     email: returnProcess.currentData.userInfo.email,
@@ -141,10 +151,10 @@ export default function ConfirmPickup() {
                 <Reveal>
                   <p>{mockOrder.deliveryAddress}</p>
                 </Reveal>
-                {mockOrder.specialInstructions && (
+                {mockOrder.instructions && (
                   <Reveal>
                     <p className="text-grey md:tracking-wide">
-                      {mockOrder.specialInstructions}
+                      {mockOrder.instructions}
                     </p>
                   </Reveal>
                 )}

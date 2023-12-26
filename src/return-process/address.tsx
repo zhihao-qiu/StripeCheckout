@@ -121,7 +121,6 @@ export default function Address() {
         .catch((error) => {
           console.error('Error:', error)
         })
-
     } catch (err: unknown) {
       console.log(err)
       toast({
