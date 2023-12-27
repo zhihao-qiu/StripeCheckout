@@ -128,7 +128,6 @@ export type ProfilePropsType = {
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>
 }
 
-<<<<<<< HEAD
 export const orderSchema = z.object({
   itemName: z.string(),
   quantity: z.number(),
@@ -152,7 +151,8 @@ export const orderSchema = z.object({
     'Delivered',
     'Cancelled',
   ]),
+  subscription_expiry_date: z.date(),
+  address_id: z.string().optional(),
 })
 
 export type Order = Omit<z.infer<typeof orderSchema>, '_id'> & { _id?: string }
-

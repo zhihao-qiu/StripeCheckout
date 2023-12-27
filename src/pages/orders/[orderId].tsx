@@ -3,26 +3,27 @@
 //getting the order front the rout itself - because this is a dynamic rout.
 //Need to import the componeents into this page.
 // creating individual componeents 
-//For example the button can be used in many locations
-//Remove all Apis
-//src/components/Orders/OrderStatus.tsx
 
-import React, { useState } from 'react'
-import OrderStatusNodes from '@components/Orders/OrderStatusNodes'
+//src/components/Orders/OrderStatusNodes.tsx
+
+
+// src/pages/orders/[orderId].tsx
+import React, { useState } from 'react';
+import OrderStatusNodes from '@components/Orders/OrderStatusNodes';
 
 const OrderStatus: React.FC = () => {
-  const [orderStatus, setOrderStatus] = useState('Order Placed')
-  const [isCancelled, setIsCancelled] = useState(false)
+  const [orderStatus, setOrderStatus] = useState('Order Placed');
+  const [isCancelled, setIsCancelled] = useState(false);
 
   const handleCancelOrder = () => {
     // Logic for cancelling the order
-    setIsCancelled(true)
-  }
+    setIsCancelled(true);
+  };
 
   const handleBackClick = () => {
     // Logic for going back to recent orders
-    setIsCancelled(false)
-  }
+    setIsCancelled(false);
+  };
 
   return (
     <div style={{ padding: '20px' }}>
@@ -37,7 +38,7 @@ const OrderStatus: React.FC = () => {
         onCancelOrder={handleCancelOrder}
       />
     </div>
-  )
-}
+  );
+};
 
-export default OrderStatus
+export default OrderStatus;
