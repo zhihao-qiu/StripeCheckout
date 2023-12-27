@@ -155,31 +155,4 @@ export const orderSchema = z.object({
 })
 
 export type Order = Omit<z.infer<typeof orderSchema>, '_id'> & { _id?: string }
-=======
-export type OrderStatus =
-  | 'Driver received'
-  | 'Driver on the way'
-  | 'Driver delivered to post office'
-  | 'Delivered'
-  | 'Cancelled'
 
-export interface Order {
-  _id?: string
-  itemName: string
-  quantity: number
-  price: number
-  customerName: string
-  customerPhoneNumber: string
-  deliveryAddress: string
-  orderNumber: string
-  dateAndTime: string
-  deliveryOption: string
-  packageOrderType: string
-  labelType: string
-  paymentMethod: string
-  promoCode: string
-  upgradeOption: string
-  specialInstructions?: string
-  status: OrderStatus
-}
->>>>>>> master
