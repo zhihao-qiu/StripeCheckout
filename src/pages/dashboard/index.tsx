@@ -90,18 +90,6 @@ function Dashboard() {
       icon: <VscSignOut className={tabsIconClassName} />,
       value: 'signOut',
     },
-    {
-      id: 6,
-      title: 'Orders',
-      icon: <VscSignOut className={tabsIconClassName} />,
-      value: 'Orders',
-    },
-<TabsContent
-          value="Orders"
-          className="mt-0 min-h-screen w-full md:w-3/4"
-        >
-          <Orders />
-        </TabsContent>
   ]
 
   // TODO: replace this with Apollo client query instead of fragment

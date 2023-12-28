@@ -26,9 +26,11 @@ export const addressSchema = z.object({
     .string()
     .min(6)
     .max(7)
+    // use regex to validate postal code
     .regex(/^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/, {
       message: 'Please enter a valid postal code',
     })
+    // use transform to add space between postal code
     .transform((val: string) => {
       if (val.length === 6 && typeof val[3] === 'string') {
         return val.slice(0, 3) + ' ' + val.slice(3)
@@ -128,31 +130,29 @@ export type ProfilePropsType = {
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>
 }
 
-export const orderSchema = z.object({
-  itemName: z.string(),
-  quantity: z.number(),
-  price: z.number(),
-  customerName: z.string(),
-  customerPhoneNumber: z.string(),
-  deliveryAddress: z.string(),
-  orderNumber: z.string(),
-  dateAndTime: z.string(),
-  deliveryOption: z.string(),
-  packageOrderType: z.string(),
-  labelType: z.string(),
-  paymentMethod: z.string(),
-  promoCode: z.string(),
-  upgradeOption: z.string(),
-  specialInstructions: z.string().optional(),
-  status: z.enum([
-    'Driver received',
-    'Driver on the way',
-    'Driver delivered to post office',
-    'Delivered',
-    'Cancelled',
-  ]),
-  subscription_expiry_date: z.date(),
-  address_id: z.string().optional(),
-})
+export type OrderStatus =
+  | 'Driver received'
+  | 'Driver on the way'
+  | 'Driver delivered to post office'
+  | 'Delivered'
+  | 'Cancelled'
 
-export type Order = Omit<z.infer<typeof orderSchema>, '_id'> & { _id?: string }
+export interface Order {
+  _id?: string
+  itemName: string
+  quantity: number
+  price: number
+  customerName: string
+  customerPhoneNumber: string
+  deliveryAddress: string
+  orderNumber: string
+  dateAndTime: string
+  deliveryOption: string
+  packageOrderType: string
+  labelType: string
+  paymentMethod: string
+  promoCode: string
+  upgradeOption: string
+  specialInstructions?: string
+  status: OrderStatus
+}
