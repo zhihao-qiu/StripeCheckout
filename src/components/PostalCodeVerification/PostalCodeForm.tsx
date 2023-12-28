@@ -16,8 +16,16 @@ import { container, item } from '@styles/framer'
 import { isPostalCodeValid } from '@lib/utils'
 import SigninModal from '@components/SigninModal'
 
+//postal code regex to verify canadian postal code format
+const postalCodeRegex = /^[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$/
+
 const formSchema = z.object({
-  postalCode: z.string().min(6, 'Please enter valid postal code'),
+  postalCode: z
+    .string()
+    .min(6, { message: 'Postal Code should be 6 characters long' })
+    .regex(postalCodeRegex, {
+      message: 'Please make sure postal code entered properly',
+    }),
 })
 
 function PostalCodeForm({
@@ -41,7 +49,7 @@ function PostalCodeForm({
       onSuccessRedirect()
     } else {
       // Redirect to /mailing
-      onFailRedirect(values.postalCode)
+      onFailRedirect(values.postalCode.toUpperCase())
     }
   }
 

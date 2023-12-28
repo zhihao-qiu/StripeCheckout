@@ -112,7 +112,7 @@ function MailingForm() {
         className="w-full space-y-6 lg:space-y-10"
         ref={formRef}
       >
-        <div className="flex w-full flex-col gap-x-2 space-y-6 lg:flex-row lg:justify-between lg:space-y-0">
+        <div className="flex w-full flex-col justify-between gap-x-2 space-y-6">
           <FormField
             control={form.control}
             name="fullName"
@@ -122,10 +122,10 @@ function MailingForm() {
                   <FormLabel className="text-black">Full Name</FormLabel>
                 </Reveal>
                 <FormControl>
-                  <Reveal>
+                  <Reveal width="100%">
                     <Input
                       minLength={1}
-                      className="h-10 shrink rounded-md border-2 border-black text-sm placeholder:text-grey sm:h-12 sm:text-lg"
+                      className="h-10 rounded-md border-2 border-black text-sm placeholder:text-grey sm:h-12 sm:text-lg"
                       placeholder="Full Name"
                       size={60}
                       {...field}
@@ -136,34 +136,34 @@ function MailingForm() {
               </FormItem>
             )}
           />
-        </div>
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem className="h-20">
-              <Reveal>
-                <FormLabel className="text-black">Email</FormLabel>
-              </Reveal>
-              <FormControl>
-                <Reveal width="100%">
-                  <Input
-                    className="h-10 rounded-md border-2 border-black text-sm placeholder:text-grey sm:h-12 sm:text-lg"
-                    placeholder="Please Enter Your Email."
-                    size={60}
-                    {...field}
-                  />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem className="h-20">
+                <Reveal>
+                  <FormLabel className="text-black">Email</FormLabel>
                 </Reveal>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Reveal width="100%">
-          <Button className="w-full rounded-md" type="submit" value="Send">
-            Submit
-          </Button>
-        </Reveal>
+                <FormControl>
+                  <Reveal width="100%">
+                    <Input
+                      className="h-10 rounded-md border-2 border-black text-sm placeholder:text-grey sm:h-12 sm:text-lg"
+                      placeholder="Please Enter Your Email."
+                      size={60}
+                      {...field}
+                    />
+                  </Reveal>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Reveal width="100%">
+            <Button className="w-full rounded-md" type="submit" value="Send">
+              Submit
+            </Button>
+          </Reveal>
+        </div>
       </form>
     </Form>
   )

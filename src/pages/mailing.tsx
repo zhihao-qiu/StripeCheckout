@@ -21,7 +21,7 @@ function Mailing() {
             </span>
           </h2>
           <p>
-            You'll be the first to know when ReturnPal is serving {postalArea}!
+            You`ll be the first to know when ReturnPal is serving {postalArea}!
           </p>
         </Reveal>
         <MailingForm />

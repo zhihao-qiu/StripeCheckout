@@ -15,8 +15,7 @@ function PostalCodeModal({
 }: {
   headerType?: 'desktop' | 'mobile'
 }) {
-
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleClose = () => {
     setIsOpen(false)
@@ -25,10 +24,9 @@ function PostalCodeModal({
   const router = useRouter()
 
   const handleRedirect = (path: string) => {
-    router.push(path);
-    handleClose(); // Close the modal after redirecting
-  };
-
+    router.push(path)
+    handleClose() // Close the modal after redirecting
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -65,11 +63,13 @@ function PostalCodeModal({
             />
           </motion.div>
           <p className="flex w-full items-center justify-center pl-2 text-2xl sm:text-3xl">
-            Check Service Area
+            Let`s schedule your first pickup
           </p>
           <PostalCodeForm
             onSuccessRedirect={() => handleRedirect('/dashboard')}
-            onFailRedirect={(invalidPostalCode: any) => handleRedirect(`/mailing?invalidPostalCode=${invalidPostalCode}`)}
+            onFailRedirect={(invalidPostalCode: any) =>
+              handleRedirect(`/mailing?invalidPostalCode=${invalidPostalCode}`)
+            }
           />
         </DialogContent>
       </motion.div>
