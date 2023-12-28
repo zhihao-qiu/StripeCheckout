@@ -211,3 +211,14 @@ export const orderSchema = z.object({
 })
 
 export type Order = z.infer<typeof orderSchema>
+
+export type ModalPropsType = {
+  isOpen: boolean
+  setIsOpen: () => void
+}
+
+export type LeadData = {
+  fullName: string
+  postalCode: string
+  email: string
+}
