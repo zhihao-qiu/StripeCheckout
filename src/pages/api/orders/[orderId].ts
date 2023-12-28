@@ -36,10 +36,8 @@ export default async function handler(
       const database = client.db('returnpal')
       const orders = database.collection<Order>('orders')
 
-      // Assuming req.body contains the updated order details
       const updatedOrder = req.body as Order
 
-      // Update the order by its _id
       const result = await orders.updateOne(
         { _id: new ObjectId(orderId) },
         { $set: updatedOrder }
