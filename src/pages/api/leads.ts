@@ -1,28 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { MongoClient } from 'mongodb'
-
-// Define the structure of the data using TypeScript interface
-interface LeadData {
-  fullName: string
-  postalCode: string
-  email: string
-}
-
-// MongoDB connection URI
-const url = process.env.MONGODB_URI
-if (!url) {
-  throw new Error('MONGODB_URI is not defined in the environment variables.')
-}
-const client = new MongoClient(url)
+import { type LeadData } from '@components/DashBoard/types'
+import client, { connectDB, disconnectDB } from '@/lib/db'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  // Connect to the database
+  await connectDB()
+
   if (req.method === 'POST') {
+    // add lead to DB
     try {
-      // Connect to the database
-      await client.connect()
       const database = client.db('ReturnPal')
       const leads = database.collection<LeadData>('mailingList')
 
@@ -43,4 +32,6 @@ export default async function handler(
     res.setHeader('Allow', ['POST'])
     res.status(405).end(`Method ${req.method} Not Allowed`)
   }
+
+  await disconnectDB()
 }

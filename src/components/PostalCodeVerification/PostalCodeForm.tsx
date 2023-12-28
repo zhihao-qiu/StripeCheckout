@@ -15,6 +15,8 @@ import { motion } from 'framer-motion'
 import { container, item } from '@styles/framer'
 import { isPostalCodeValid } from '@lib/utils'
 import SigninModal from '@components/SigninModal'
+import SignUpModule from '@components/SignUpModal'
+import { useState } from 'react'
 
 //postal code regex to verify canadian postal code format
 const postalCodeRegex = /^[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$/
@@ -29,10 +31,8 @@ const formSchema = z.object({
 })
 
 function PostalCodeForm({
-  onSuccessRedirect,
   onFailRedirect,
 }: {
-  onSuccessRedirect: () => void
   onFailRedirect: (invalidPostalCode: string) => void
 }) {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -42,11 +42,17 @@ function PostalCodeForm({
     },
   })
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen)
+  }
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     const postalIsValid = isPostalCodeValid(values.postalCode)
     if (postalIsValid) {
-      // Redirect to /dashboard
-      onSuccessRedirect()
+      // open SignUpModule
+      setIsModalOpen(true)
     } else {
       // Redirect to /mailing
       onFailRedirect(values.postalCode.toUpperCase())
@@ -75,9 +81,9 @@ function PostalCodeForm({
                   <FormControl>
                     <motion.div variants={item}>
                       <Input
-                        className="h-10 w-[200px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[275px]"
+                        className="h-10 w-[300px] rounded-xl border-4 border-primary text-lg placeholder:text-grey sm:h-14 sm:w-[300px]"
                         type="text"
-                        placeholder="L4HL3P"
+                        placeholder="Enter Postal Code e.g. L4H9K0"
                         {...field}
                       />
                     </motion.div>
@@ -102,6 +108,9 @@ function PostalCodeForm({
               <SigninModal headerType="mobile" />
             </p>
           </motion.div>
+          {isModalOpen && (
+            <SignUpModule setIsOpen={toggleModal} isOpen={isModalOpen} />
+          )}
         </div>
       </motion.div>
     </Form>

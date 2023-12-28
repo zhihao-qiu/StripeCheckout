@@ -161,3 +161,9 @@ export type ModalPropsType = {
   isOpen: boolean
   setIsOpen: () => void
 }
+
+export type LeadData = {
+  fullName: string
+  postalCode: string
+  email: string
+}

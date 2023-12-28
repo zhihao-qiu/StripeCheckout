@@ -76,8 +76,15 @@ function MailingForm() {
     }
   }
 
-  const onSubmit = async (values: z.infer<typeof mailingFormSchema>) => {
-    const leadsData = { ...values, postalCode: invalidPostalCode }
+  const onSubmit = async ({
+    fullName,
+    email,
+  }: z.infer<typeof mailingFormSchema>) => {
+    const leadsData = {
+      full_name: fullName,
+      email: email,
+      postal_code: invalidPostalCode,
+    }
 
     //saving data to the DB
     try {
@@ -102,6 +109,8 @@ function MailingForm() {
     }
 
     await handleEmailSending()
+
+    await router.push('/')
   }
 
   return (
