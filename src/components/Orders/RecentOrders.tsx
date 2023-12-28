@@ -12,17 +12,16 @@ const RecentOrders = () => {
   useEffect(() => {
     fetch('/api/orders')
       .then((response) => response.json())
-      .then((data: Order[]) => setOrders(data))
+      .then((data: Order[]) => {
+        console.log('############Orders data:', data) // Log data to console
+        setOrders(data)
+      })
       .catch((error) => console.error('Error fetching orders', error))
   }, [])
 
   const handleCancelOrder = (orderNumber: string) => {
     // Implement cancel order logic here
     console.log(`Cancel Order ${orderNumber}`)
-  }
-
-  const handleManageOrder = (orderNumber: string) => {
-    console.log(`Manage Order ${orderNumber}`)
   }
 
   const recentOrders = orders.slice(0, 3)
@@ -43,18 +42,18 @@ const RecentOrders = () => {
       <div className="recent-orders-list flex flex-wrap">
         {recentOrders.map((order) => (
           <div
-            key={order.orderNumber}
+            key={order.order_number}
             className="order-box mb-4 mr-4 flex-shrink-0 overflow-hidden rounded-lg border"
           >
             <div className="rounded-xl bg-white p-4">
               <p className="mb-2 text-xl font-bold">
-                Order #{order.orderNumber}
+                Order #{order.order_number}
               </p>
 
               <div className="order-buttons mt-2">
                 <Button
                   variant="secondary"
-                  onClick={() => handleCancelOrder(order.orderNumber)}
+                  onClick={() => handleCancelOrder(order.order_number)}
                   style={{
                     opacity:
                       order.status === 'Cancelled' ||
@@ -73,33 +72,35 @@ const RecentOrders = () => {
                 >
                   Cancel Order
                 </Button>
-                <Button
-                  onClick={() => handleManageOrder(order.orderNumber)}
-                  className="ml-2"
-                  style={{
-                    backgroundColor:
+                <Link href={`/orders/${order._id}`}>
+                  <Button
+                    className="ml-2"
+                    style={{
+                      backgroundColor:
+                        order.status === 'Cancelled' ||
+                        order.status === 'Delivered'
+                          ? '#3182ce'
+                          : '#4299e1',
+                      opacity:
+                        order.status === 'Cancelled' ||
+                        order.status === 'Delivered'
+                          ? '0.7'
+                          : '1',
+                      cursor:
+                        order.status === 'Cancelled' ||
+                        order.status === 'Delivered'
+                          ? 'not-allowed'
+                          : 'pointer',
+                      color: '#ffffff',
+                    }}
+                    disabled={
                       order.status === 'Cancelled' ||
                       order.status === 'Delivered'
-                        ? '#3182ce'
-                        : '#4299e1',
-                    opacity:
-                      order.status === 'Cancelled' ||
-                      order.status === 'Delivered'
-                        ? '0.7'
-                        : '1',
-                    cursor:
-                      order.status === 'Cancelled' ||
-                      order.status === 'Delivered'
-                        ? 'not-allowed'
-                        : 'pointer',
-                    color: '#ffffff',
-                  }}
-                  disabled={
-                    order.status === 'Cancelled' || order.status === 'Delivered'
-                  }
-                >
-                  Manage Order
-                </Button>
+                    }
+                  >
+                    Manage Order
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

@@ -130,29 +130,84 @@ export type ProfilePropsType = {
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>
 }
 
-export type OrderStatus =
-  | 'Driver received'
-  | 'Driver on the way'
-  | 'Driver delivered to post office'
-  | 'Delivered'
-  | 'Cancelled'
+export const orderSchema = z.object({
+  _id: z.string(),
+  order_number: z.string(),
+  order_date: z.object({
+    $dateFromString: z.object({
+      dateString: z.string(),
+    }),
+  }),
+  order_details: z.object({
+    total_cost: z.number(),
+    pickup_date: z.object({
+      $dateFromString: z.object({
+        dateString: z.string(),
+      }),
+    }),
+    pickup_method: z.string(),
+    total_packages: z.number(),
+    extra_packages_included: z.number(),
+    promo_code: z.string(),
+    pickup_details: z.object({
+      first_name: z.string(),
+      last_name: z.string(),
+      phone_number: z.string(),
+      street: z.string(),
+      unitNumber: z.string(),
+      city: z.string(),
+      province: z.string(),
+      country: z.string(),
+      postalCode: z.string(),
+    }),
+  }),
+  client_details: z.object({
+    first_name: z.string(),
+    last_name: z.string(),
+    subscription: z.string(),
+    email: z.string(),
+    phone_number: z.string(),
+    payment_type: z.string(),
+    addresses: z.array(
+      z.object({
+        _id: z.string(),
+        street: z.string(),
+        unit_number: z.string(),
+        city: z.string(),
+        province: z.string(),
+        country: z.string(),
+        postal_code: z.string(),
+        primary: z.boolean(),
+      })
+    ),
+  }),
+  subscription_expiry_date: z.object({
+    $dateFromString: z.object({
+      dateString: z.string(),
+    }),
+  }),
+  address_id: z.string(),
+  itemName: z.string(),
+  quantity: z.number(),
+  price: z.number(),
+  customerName: z.string(),
+  customerPhoneNumber: z.string(),
+  deliveryAddress: z.string(),
+  dateAndTime: z.string(),
+  deliveryOption: z.string(),
+  packageOrderType: z.string(),
+  labelType: z.string(),
+  paymentMethod: z.string(),
+  promoCode: z.string(),
+  upgradeOption: z.string(),
+  specialInstructions: z.string().optional(),
+  status: z.enum([
+    'Driver received',
+    'Driver on the way',
+    'Driver delivered to post office',
+    'Delivered',
+    'Cancelled',
+  ]),
+})
 
-export interface Order {
-  _id?: string
-  itemName: string
-  quantity: number
-  price: number
-  customerName: string
-  customerPhoneNumber: string
-  deliveryAddress: string
-  orderNumber: string
-  dateAndTime: string
-  deliveryOption: string
-  packageOrderType: string
-  labelType: string
-  paymentMethod: string
-  promoCode: string
-  upgradeOption: string
-  specialInstructions?: string
-  status: OrderStatus
-}
+export type Order = z.infer<typeof orderSchema>

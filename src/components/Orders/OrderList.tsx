@@ -1,5 +1,6 @@
 // components/Orders/OrderList.tsx
 import React from 'react'
+import Link from 'next/link'
 import { type Order } from '@components/DashBoard/types'
 
 interface OrderListProps {
@@ -7,10 +8,6 @@ interface OrderListProps {
 }
 
 const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
-  const handleManageOrderClick = (orderId: string) => {
-    //Need toimplement
-  }
-
   return (
     <div className="rounded-3xl p-4">
       {orders && orders.length > 0 ? (
@@ -22,9 +19,9 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
             <div className="flex items-center space-x-4 ">
               <div className="mr-2 h-11 w-11 rounded bg-gray-300"></div>
               <div className="flex flex-col space-y-2">
-                <div className="text-gray-700">Order #{order.orderNumber}</div>
+                <div className="text-gray-700">Order #{order.order_number}</div>
                 <div className="text-sm text-gray-500">
-                  Pick up Scheduled for {order.orderNumber}
+                  Pick up Scheduled for {order.order_number}
                 </div>
               </div>
             </div>
@@ -34,12 +31,20 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
                 Cancelled
               </div>
             )}
-            <button
-              onClick={() => order?._id && handleManageOrderClick(order._id)}
-              className="cursor-pointer text-gray-700 underline focus:outline-none"
-            >
-              Manage Order
-            </button>
+            <Link href={`/orders/${order._id}`} passHref>
+              <button
+                className={`cursor-pointer text-gray-700 underline focus:outline-none ${
+                  order.status === 'Cancelled' || order.status === 'Delivered'
+                    ? 'cursor-not-allowed disabled:opacity-50'
+                    : ''
+                }`}
+                disabled={
+                  order.status === 'Cancelled' || order.status === 'Delivered'
+                }
+              >
+                Manage Order
+              </button>
+            </Link>
           </div>
         ))
       ) : (
