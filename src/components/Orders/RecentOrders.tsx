@@ -25,6 +25,9 @@ const RecentOrders = () => {
   }
 
   const recentOrders = orders.slice(0, 3)
+  if (recentOrders.length === 0) {
+    return null // Don't render anything if there are no orders
+  }
 
   return (
     <div className="recent-orders-container mt-14 flex flex-col items-start p-5">
@@ -73,33 +76,7 @@ const RecentOrders = () => {
                   Cancel Order
                 </Button>
                 <Link href={`/orders/${order._id}`}>
-                  <Button
-                    className="ml-2"
-                    style={{
-                      backgroundColor:
-                        order.status === 'Cancelled' ||
-                        order.status === 'Delivered'
-                          ? '#3182ce'
-                          : '#4299e1',
-                      opacity:
-                        order.status === 'Cancelled' ||
-                        order.status === 'Delivered'
-                          ? '0.7'
-                          : '1',
-                      cursor:
-                        order.status === 'Cancelled' ||
-                        order.status === 'Delivered'
-                          ? 'not-allowed'
-                          : 'pointer',
-                      color: '#ffffff',
-                    }}
-                    disabled={
-                      order.status === 'Cancelled' ||
-                      order.status === 'Delivered'
-                    }
-                  >
-                    Manage Order
-                  </Button>
+                  <Button className="ml-2">Manage Order</Button>
                 </Link>
               </div>
             </div>

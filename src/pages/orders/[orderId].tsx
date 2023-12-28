@@ -44,6 +44,10 @@ const OrderStatus: React.FC = () => {
           <p>Order Number: {order.order_number}</p>
           <p>Item Name: {order.itemName}</p>
           <p>Quantity: {order.quantity}</p>
+          <p>Orders Status: {order.status}</p>
+          <p>
+            Orders Placed on: {order.order_date?.$dateFromString?.dateString}
+          </p>
         </>
       ) : (
         <p>Loading...</p>

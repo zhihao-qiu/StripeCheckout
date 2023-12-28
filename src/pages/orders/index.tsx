@@ -9,6 +9,7 @@ interface OrdersProps {
 
 const Orders: React.FC<OrdersProps> = ({ initialOrders }) => {
   const [orders, setOrders] = useState<Order[]>(initialOrders)
+  const [loading, setLoading] = useState(true)
 
   const fetchOrders = async () => {
     try {
@@ -21,6 +22,8 @@ const Orders: React.FC<OrdersProps> = ({ initialOrders }) => {
       }
     } catch (error) {
       console.error('Error fetching orders:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -38,7 +41,7 @@ const Orders: React.FC<OrdersProps> = ({ initialOrders }) => {
     <div className="p-8">
       <h1 className="mb-4 text-2xl font-bold">Recent Orders</h1>
       <div className="overflow-hidden rounded bg-white sm:flex-row">
-        <OrderList orders={orders} />
+        {loading ? <p>Loading...</p> : <OrderList orders={orders} />}
       </div>
     </div>
   )

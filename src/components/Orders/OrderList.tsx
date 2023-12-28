@@ -1,4 +1,3 @@
-// components/Orders/OrderList.tsx
 import React from 'react'
 import Link from 'next/link'
 import { type Order } from '@components/DashBoard/types'
@@ -10,7 +9,7 @@ interface OrderListProps {
 const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
   return (
     <div className="rounded-3xl p-4">
-      {orders && orders.length > 0 ? (
+      {orders.length > 0 ? (
         orders.map((order) => (
           <div
             key={order._id}
@@ -33,14 +32,7 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
             )}
             <Link href={`/orders/${order._id}`} passHref>
               <button
-                className={`cursor-pointer text-gray-700 underline focus:outline-none ${
-                  order.status === 'Cancelled' || order.status === 'Delivered'
-                    ? 'cursor-not-allowed disabled:opacity-50'
-                    : ''
-                }`}
-                disabled={
-                  order.status === 'Cancelled' || order.status === 'Delivered'
-                }
+                className={`cursor-pointer text-gray-700 underline focus:outline-none`}
               >
                 Manage Order
               </button>
@@ -48,7 +40,7 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
           </div>
         ))
       ) : (
-        <p>No orders available</p>
+        <p>{orders.length === 0 ? 'No orders available' : 'Loading...'}</p>
       )}
     </div>
   )
