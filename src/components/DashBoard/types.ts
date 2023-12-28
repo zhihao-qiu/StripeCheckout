@@ -156,3 +156,8 @@ export interface Order {
   specialInstructions?: string
   status: OrderStatus
 }
+
+export type ModalPropsType = {
+  isOpen: boolean
+  setIsOpen: () => void
+}

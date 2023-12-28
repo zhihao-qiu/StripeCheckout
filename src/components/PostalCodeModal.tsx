@@ -1,52 +1,22 @@
 import Image from 'next/image'
 import PostalCodeForm from './PostalCodeVerification/PostalCodeForm'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Button } from '@/components/ui/button'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { motion } from 'framer-motion'
 import { container, item } from '@styles/framer'
-import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { type ModalPropsType } from '@/components/DashBoard/types'
 
 // Default headerType is desktop
-function PostalCodeModal({
-  headerType = 'desktop',
-}: {
-  headerType?: 'desktop' | 'mobile'
-}) {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const handleClose = () => {
-    setIsOpen(false)
-  }
-
+function PostalCodeModal({ setIsOpen, isOpen }: ModalPropsType) {
   const router = useRouter()
 
   const handleRedirect = (path: string) => {
     router.push(path)
-    handleClose() // Close the modal after redirecting
+    setIsOpen() // Close the modal after redirecting
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        {headerType === 'desktop' ? (
-          <Button variant="secondary" className="h-9 w-fit">
-            Check Availabilty
-          </Button>
-        ) : (
-          <Button
-            variant="link"
-            className="text-secondary h-fit p-0 text-base hover:text-primary hover:no-underline"
-          >
-            <p className="flex gap-x-2">
-              <FontAwesomeIcon icon={faRightToBracket} width={'17'} />
-              Check Availabilty
-            </p>
-          </Button>
-        )}
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={() => setIsOpen()}>
       <motion.div
         className="m-0 h-full w-full p-0"
         variants={container}
