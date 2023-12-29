@@ -76,6 +76,7 @@ export default function OrderSummary({
             'Content-Type': 'application/json', // Specify the content type as JSON
           },
           body: JSON.stringify({
+            user: returnProcess.currentData.userInfo,
             order: order,
           }),
         })
@@ -121,13 +122,15 @@ export default function OrderSummary({
           console.log('Received CheckoutSuccess message!')
 
           order.price = receivedData.price
-
-          fetch('/api/orders/index', {
+          fetch('/api/orders', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(order),
+            body: JSON.stringify({
+              user: returnProcess.currentData.userInfo,
+              order: order,
+            }),
           })
             .then((response) => {
               if (response.ok) {

@@ -19,7 +19,7 @@ export const subscriptionData: SubscriptionPlan[] = [
     duration: 'Unlimited pickups during the month',
     speed: 'Repackaging and labeling',
     support: 'Email and phone support',
-    itemId: 'price_1OOoj7JLx3jkPDehSV6Dijgn',
+    itemId: 'price_1OPAvbJLx3jkPDehx7MuPpju',
   },
   {
     name: 'Gold',
@@ -29,7 +29,7 @@ export const subscriptionData: SubscriptionPlan[] = [
     duration: 'Unlimited pickups for 3 months',
     speed: 'Expedited repackaging and labeling service',
     support: 'Email and phone support',
-    itemId: 'price_1OOoj7JLx3jkPDehSV6Dijgn',
+    itemId: 'price_1OPAicJLx3jkPDehFn3qoRNG',
   },
   {
     name: 'Platinum',
@@ -39,6 +39,6 @@ export const subscriptionData: SubscriptionPlan[] = [
     duration: 'Unlimited pickups for 1 year',
     speed: 'Expedited repackaging and labeling service',
     support: 'Email and phone support',
-    itemId: 'price_1OOoj7JLx3jkPDehSV6Dijgn',
+    itemId: 'price_1OOonDJLx3jkPDeh7iEDRVhg',
   },
 ]

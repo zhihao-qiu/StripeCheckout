@@ -25,7 +25,7 @@ interface Order {
   cardNumber: number
 }
 
-const mockOrder: Order = {
+const order: Order = {
   name: 'John',
   orderRef: 'R957394',
   email: 'johndoe2394@gmail.com',
@@ -61,9 +61,7 @@ export default function Confirmation() {
         <Reveal>
           <SectionDescription className="text-left md:text-xl md:font-normal">
             {returnProcess.currentData.contact_full_name}, your pickup order{' '}
-            <SectionHeaderHighlight>
-              #{mockOrder.orderRef}
-            </SectionHeaderHighlight>{' '}
+            <SectionHeaderHighlight>#{order.orderRef}</SectionHeaderHighlight>{' '}
             is confirmed.
           </SectionDescription>
         </Reveal>
@@ -101,13 +99,13 @@ export default function Confirmation() {
             <Reveal>
               <p className="mb-2 sm:mb-4">
                 <span className="font-bold">Total Packages:</span>{' '}
-                {mockOrder.totalPackages}
+                {returnProcess.currentData.labelFileUploads.length}
               </p>
             </Reveal>
             <Reveal>
               <p className="mb-0">
                 <span className="font-bold">Payment Method:</span>{' '}
-                {mockOrder.cardType} ending in {mockOrder.cardNumber}
+                {order.cardType} ending in {order.cardNumber}
               </p>
             </Reveal>
           </section>

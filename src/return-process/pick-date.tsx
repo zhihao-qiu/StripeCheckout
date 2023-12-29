@@ -91,7 +91,6 @@ export default function PickDate() {
 
       if (response.ok) {
         const userInfo = (await response.json()) as UserInfo
-        console.log(userInfo)
         setUser(userInfo)
       } else {
         console.error('Error retrieving user info:', response.statusText)

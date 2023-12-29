@@ -26,8 +26,8 @@ export type ReturnProcessFullObjectType = {
   contact_full_name: string
   contact_phone_number: string
   deliveryAddress: string
-  deliveryOption: 'direct' | 'doorstep'
-  subscription: 'bronze' | 'silver' | 'gold' | 'platinum'
+  deliveryOption: 'Direct Handoff' | 'Leave on Doorstep'
+  subscription: 'Bronze' | 'Silver' | 'Gold' | 'Platinum'
   labelFileUploads: FileUploadType[]
   instructions?: string
 }

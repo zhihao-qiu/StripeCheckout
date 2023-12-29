@@ -13,21 +13,13 @@ export const addressSchema = z.object({
       message: 'Please enter a valid apartment unit number',
     })
     .optional(),
-  // streetNumber: z.coerce
-  //   .number()
-  //   .min(1, {
-  //     message: 'Please enter a valid number',
-  //   })
-  //   .max(999999, {
-  //     message: 'Please enter a valid number',
-  //   }),
   street: z.string().min(3).max(50),
   city: z.string().min(3).max(50),
   province: z.string().min(2).max(2),
   country: z.string().min(2).max(50),
   postalCode: z
     .string()
-    .min(6)
+    .min(5)
     .max(7)
     // use regex to validate postal code
     .regex(/^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/, {
@@ -41,13 +33,13 @@ export const addressSchema = z.object({
 
       return val
     }),
-  instructions: z.string().min(0),
+  instructions: z.string().min(0).optional(),
   primary: z.boolean().default(false),
 })
 
 export type Address = Omit<z.infer<typeof addressSchema>, 'instructions'> & {
-  specialInstructions?: string
-  addressId: ObjectId
+  instructions?: string
+  address_Id: ObjectId | string
 }
 
 export const profileFormSchema = z.object({
@@ -84,6 +76,7 @@ type UserInfoBase = Omit<z.infer<typeof profileFormSchema>, 'addresses'>
 
 export type UserInfo = UserInfoBase & {
   addresses?: Address[]
+  _id: ObjectId
 }
 
 export type EditProfileFormPropsType = {
@@ -152,12 +145,12 @@ export interface Order {
   orderNumber?: string
   dateAndTime: string
   deliveryOption: string
-  packageOrderType: string
+  subscription: 'Admin' | 'Platinum' | 'Gold' | 'Silver' | 'Bronze'
   labelType?: string
   paymentMethod: string
   promoCode: string
   upgradeOption: string
-  specialInstructions?: string
+  instructions?: string
   status: OrderStatus
 }
 
@@ -165,4 +158,15 @@ export interface Item {
   itemId: string
   itemName?: string
   quantity?: number
+}
+
+export type SubscriptionPlan = {
+  name: string
+  price: number
+  period?: string
+  total?: string
+  duration?: string
+  speed?: string
+  support?: string
+  itemId: string
 }

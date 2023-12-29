@@ -11,24 +11,19 @@ export default async function handler(
 ): Promise<void> {
   if (req.method === 'GET') {
     const sessionId = req.query.session_id as string
-
     try {
       // Retrieve the payment intent using the session_id
-      const session = await stripe.checkout.sessions.retrieve(sessionId, {
-        expand: ['payment_intent'],
-      } as Stripe.Checkout.SessionRetrieveParams)
-
-      if (
-        typeof session.payment_intent === 'object' &&
-        session.payment_intent !== null
-      ) {
+      // const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      //   expand: ['payment_intent'],
+      // } as Stripe.Checkout.SessionRetrieveParams)
+      const session = await stripe.checkout.sessions.retrieve(sessionId)
+      if (session.status?.toString() === 'complete') {
         // Opener redirect to complete
-        const redirectWindowScript = `<script>window.opener.postMessage('{"action":"CheckoutSuccess","price":${session.payment_intent.amount_received}}')</script>`
+        const redirectWindowScript = `<script>window.opener.postMessage('{"action":"CheckoutSuccess","price":${session.amount_total}}')</script>`
 
         // Close the current window
         const closeWindowScript = '<script>window.close()</script>'
 
-        // console.log(redirectWindowScript)
         res.send(redirectWindowScript + closeWindowScript)
       }
     } catch (error) {

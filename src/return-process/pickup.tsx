@@ -34,7 +34,10 @@ import { SectionDescription, SectionHeader } from '@/components/common/section'
 import Reveal from '@components/common/reveal'
 
 const formSchema = z.object({
-  deliveryOption: z.union([z.literal('direct'), z.literal('doorstep')]),
+  deliveryOption: z.union([
+    z.literal('Direct Handoff'),
+    z.literal('Leave on Doorstep'),
+  ]),
 })
 
 export default function Pickup() {
@@ -96,7 +99,7 @@ export default function Pickup() {
                       defaultValue={field.value}
                       className="flex max-w-screen-lg justify-center gap-x-5 sm:gap-x-10 md:gap-x-20"
                     >
-                      <ExtendedToggleGroupItem value="direct" asChild>
+                      <ExtendedToggleGroupItem value="Direct Handoff" asChild>
                         <Card className={cardClassnames}>
                           <CardHeader className="flex items-center pl-5">
                             <Reveal>
@@ -119,7 +122,10 @@ export default function Pickup() {
                         </Card>
                       </ExtendedToggleGroupItem>
 
-                      <ExtendedToggleGroupItem value="doorstep" asChild>
+                      <ExtendedToggleGroupItem
+                        value="Leave on Doorstep"
+                        asChild
+                      >
                         <Card className={cardClassnames}>
                           <CardHeader className="flex items-center pl-5">
                             <Reveal>
