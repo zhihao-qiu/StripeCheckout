@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import client, { connectDB, disconnectDB } from '@/lib/db'
 import { type Order } from '@/components/DashBoard/types'
+const dbName = process.env.DATABASE
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,7 +13,7 @@ export default async function handler(
   if (req.method === 'GET') {
     // Get all orders
     try {
-      const database = client.db('returnpal')
+      const database = client.db(dbName)
       const orders = database.collection<Order>('orders')
       const allOrders = await orders.find({}).toArray()
       res.status(200).json(allOrders)
@@ -22,7 +23,7 @@ export default async function handler(
   } else if (req.method === 'POST') {
     // Create a new order
     try {
-      const database = client.db('returnpal')
+      const database = client.db(dbName)
       const orders = database.collection<Order>('orders')
       const newOrder = req.body as Order
       const result = await orders.insertOne(newOrder)

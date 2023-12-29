@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { type Order } from '@components/DashBoard/types'
 
-const OrderStatus: React.FC = () => {
+const OrderId: React.FC = () => {
   const router = useRouter()
   const { orderId } = router.query
   const [order, setOrder] = useState<Order | null>(null)
@@ -56,4 +56,4 @@ const OrderStatus: React.FC = () => {
   )
 }
 
-export default OrderStatus
+export default OrderId

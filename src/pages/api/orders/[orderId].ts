@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import client, { connectDB, disconnectDB } from '@/lib/db'
 import { type Order } from '@/components/DashBoard/types'
+const dbName = process.env.DATABASE
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,7 +19,7 @@ export default async function handler(
 
   if (req.method === 'GET') {
     try {
-      const database = client.db('returnpal')
+      const database = client.db(dbName)
       const orders = database.collection<Order>('orders')
 
       const order = await orders.findOne({ _id: new ObjectId(orderId) })
@@ -33,7 +34,7 @@ export default async function handler(
     }
   } else if (req.method === 'PUT') {
     try {
-      const database = client.db('returnpal')
+      const database = client.db('ReturnPal')
       const orders = database.collection<Order>('orders')
 
       const updatedOrder = req.body as Order
