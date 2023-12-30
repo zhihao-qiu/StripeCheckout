@@ -16,7 +16,7 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
             className="mb-4 flex items-center justify-between  border-b-2 border-b-gray-300 p-4"
           >
             <div className="flex items-center space-x-4 ">
-              <div className="mr-2 h-11 w-11 rounded bg-gray-300"></div>
+              <div className="mr-5 h-11 w-11 rounded bg-gray-300"></div>
               <div className="flex flex-col space-y-2">
                 <div className="text-gray-700">Order #{order.order_number}</div>
                 <div className="text-sm text-gray-500">
@@ -32,7 +32,7 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
             )}
             <Link href={`/orders/${order._id}`} passHref>
               <button
-                className={`cursor-pointer text-gray-700 underline focus:outline-none`}
+                className={`ml-5 cursor-pointer text-gray-700 underline  focus:outline-none`}
               >
                 Manage Order
               </button>
