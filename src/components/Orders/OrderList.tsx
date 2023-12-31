@@ -27,7 +27,7 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
             className="mb-4 flex items-center justify-between  border-b-2 border-b-gray-300 p-4"
           >
             <div className="flex items-center space-x-4 ">
-              <div className="mr-5 h-11 w-11 rounded bg-gray-300"></div>
+              <div className="ml-3 mr-5 h-11 w-11 rounded bg-gray-300"></div>
               <div className="flex flex-col space-y-2">
                 <div className="text-smallText font-bold text-gray-950">
                   Order #{order.order_number}
