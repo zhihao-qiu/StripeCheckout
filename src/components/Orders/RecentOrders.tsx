@@ -13,7 +13,6 @@ const RecentOrders = () => {
     fetch('/api/orders')
       .then((response) => response.json())
       .then((data: Order[]) => {
-        console.log('############Orders data:', data) // Log data to console
         setOrders(data)
       })
       .catch((error) => console.error('Error fetching orders', error))
@@ -26,14 +25,14 @@ const RecentOrders = () => {
 
   const recentOrders = orders.slice(0, 3)
   if (recentOrders.length === 0) {
-    return null // Don't render anything if there are no orders
+    return null
   }
 
   return (
     <div className="recent-orders-container mt-14 flex flex-col items-start p-5">
       <div className="mb-4 flex w-full items-center justify-between">
         <div className="recent-order-header">
-          <h2 className="mb-2 text-3xl font-bold">Recent Orders</h2>
+          <h2 className="mb-2 text-xl font-bold">Recent Orders</h2>
         </div>
         <div>
           <Link href="/orders">
