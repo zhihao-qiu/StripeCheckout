@@ -6,6 +6,17 @@ interface OrderListProps {
   orders?: Order[]
 }
 
+const formatPickupDate = (dateString: string | undefined): string => {
+  const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' }
+  const date = dateString ? new Date(dateString) : null
+
+  if (date) {
+    return date.toLocaleDateString(undefined, options)
+  }
+
+  return ''
+}
+
 const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
   return (
     <div className="rounded-3xl p-4">
@@ -18,9 +29,17 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
             <div className="flex items-center space-x-4 ">
               <div className="mr-5 h-11 w-11 rounded bg-gray-300"></div>
               <div className="flex flex-col space-y-2">
-                <div className="text-gray-700">Order #{order.order_number}</div>
-                <div className="text-sm text-gray-500">
-                  Pick up Scheduled for {order.order_number}
+                <div className="text-smallText font-bold">
+                  Order #{order.order_number}
+                </div>
+                <div className="text-sm text-gray-700">
+                  Pick up Scheduled for{' '}
+                  {order.order_details.pickup_date
+                    ? formatPickupDate(
+                        order.order_details.pickup_date.$dateFromString
+                          .dateString
+                      )
+                    : ''}
                 </div>
               </div>
             </div>
