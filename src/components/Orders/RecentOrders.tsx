@@ -48,7 +48,7 @@ const RecentOrders = () => {
             className="order-box mb-4 mr-4 flex-shrink-0 overflow-hidden rounded-lg border"
           >
             <div className="rounded-xl bg-white p-4">
-              <p className="mb-2 text-xl font-bold">
+              <p className="mb-2 text-base font-bold">
                 Order #{order.order_number}
               </p>
 
