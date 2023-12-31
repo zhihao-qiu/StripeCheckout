@@ -29,10 +29,10 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
             <div className="flex items-center space-x-4 ">
               <div className="mr-5 h-11 w-11 rounded bg-gray-300"></div>
               <div className="flex flex-col space-y-2">
-                <div className="text-smallText font-bold">
+                <div className="text-smallText font-bold text-gray-950">
                   Order #{order.order_number}
                 </div>
-                <div className="text-sm text-gray-700">
+                <div className="text-sm text-gray-900">
                   Pick up Scheduled for{' '}
                   {order.order_details.pickup_date
                     ? formatPickupDate(
@@ -51,7 +51,7 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
             )}
             <Link href={`/orders/${order._id}`} passHref>
               <button
-                className={`ml-5 cursor-pointer text-gray-700 underline  focus:outline-none`}
+                className={`ml-5 cursor-pointer text-gray-800 underline  focus:outline-none`}
               >
                 Manage Order
               </button>
