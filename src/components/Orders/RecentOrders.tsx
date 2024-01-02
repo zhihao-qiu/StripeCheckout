@@ -1,13 +1,14 @@
-// components/Orders/RecentOrders.tsx
-// need to integrate the Order status component once available
-
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { type Order } from '@components/DashBoard/types'
 import { Button } from '@/components/ui/button'
+import ConfirmationDialog from '@components/Orders/ConfirmationDialog'
+import { useRouter } from 'next/router'
 
 const RecentOrders = () => {
   const [orders, setOrders] = useState<Order[]>([])
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     fetch('/api/orders')
@@ -18,12 +19,32 @@ const RecentOrders = () => {
       .catch((error) => console.error('Error fetching orders', error))
   }, [])
 
-  const handleCancelOrder = (orderNumber: string) => {
-    // Implement cancel order logic here
-    console.log(`Cancel Order ${orderNumber}`)
+  const handleCancelOrder = (_id: string, order_number: string) => {
+    setSelectedOrder({ _id, order_number } as Order)
+  }
+
+  const confirmCancellation = () => {
+    if (selectedOrder) {
+      console.log(
+        `Cancel Order ${selectedOrder.order_number} (${selectedOrder._id})`
+      )
+      router
+        .push('/dashboard')
+        .then(() => {
+          setSelectedOrder(null)
+          window.location.reload()
+        })
+        .catch((error) => {
+          console.error('Error navigating to dashboard:', error)
+        })
+    }
+  }
+  const cancelCancellation = () => {
+    setSelectedOrder(null)
   }
 
   const recentOrders = orders.slice(0, 3)
+
   if (recentOrders.length === 0) {
     return null
   }
@@ -55,7 +76,9 @@ const RecentOrders = () => {
               <div className="order-buttons mt-2">
                 <Button
                   variant="secondary"
-                  onClick={() => handleCancelOrder(order.order_number)}
+                  onClick={() =>
+                    handleCancelOrder(order._id, order.order_number)
+                  }
                   style={{
                     opacity:
                       order.status === 'Cancelled' ||
@@ -82,6 +105,15 @@ const RecentOrders = () => {
           </div>
         ))}
       </div>
+
+      {selectedOrder && (
+        <ConfirmationDialog
+          message={`Are you sure you want to cancel Order #${selectedOrder.order_number}?`}
+          onCancel={cancelCancellation}
+          onConfirm={confirmCancellation}
+          orderId={selectedOrder._id}
+        />
+      )}
     </div>
   )
 }
