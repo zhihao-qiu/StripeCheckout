@@ -14,14 +14,14 @@ import Stamp from '../SvgComponents/Stamp'
 import Link from 'next/link'
 import { useReturnProcess } from '@hooks/useReturnProcess'
 import Reveal from '@components/common/reveal'
-// import CheckoutModal from '@/components/CheckoutModal'
 import { useEffect, useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
-import type { Order } from '@/components/DashBoard/types'
+import type { Order, Item } from '@/components/DashBoard/types'
 
 interface Props {
   promoState: [string, React.Dispatch<React.SetStateAction<string>>]
   order: Order
+  items: Item[]
 }
 
 interface CheckoutResponse {
@@ -36,6 +36,7 @@ const formSchema = z.object({
 export default function OrderSummary({
   promoState: [promoCode, setPromoCode],
   order,
+  items,
 }: Props) {
   const [isCheckingout, setIsCheckingout] = useState(false)
   const stripePromise = loadStripe(
@@ -76,8 +77,10 @@ export default function OrderSummary({
             'Content-Type': 'application/json', // Specify the content type as JSON
           },
           body: JSON.stringify({
-            user: returnProcess.currentData.userInfo,
+            // user: returnProcess.currentData.userInfo,
             order: order,
+            items: items,
+            currentData: returnProcess.currentData,
           }),
         })
 
@@ -121,7 +124,10 @@ export default function OrderSummary({
         if (receivedData.action === 'CheckoutSuccess') {
           console.log('Received CheckoutSuccess message!')
 
-          order.price = receivedData.price
+          order.order_details.total_cost = receivedData.price
+          order.client_details.subscription =
+            returnProcess.currentData.subscription
+
           fetch('/api/orders', {
             method: 'POST',
             headers: {

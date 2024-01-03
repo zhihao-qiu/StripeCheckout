@@ -117,8 +117,18 @@ export default function PackageInfo() {
   useEffect(() => {
     if (arrayOfLabels.length === 0) {
       form.setValue('labelFileUploads', [], { shouldValidate: true })
+    } else {
+      form.setValue(
+        'labelFileUploads',
+        arrayOfLabels.map((label) => ({
+          description: label.description ?? '',
+          attachment: label.attachment,
+          labelType: label.labelType,
+        })),
+        { shouldValidate: true }
+      )
     }
-  }, [arrayOfLabels, form])
+  }, [arrayOfLabels])
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     returnProcess.setCurrentData({ labelFileUploads: values.labelFileUploads })
@@ -258,18 +268,6 @@ export default function PackageInfo() {
   ]
   const handleChange = (loadedFile: File) => {
     setFile(loadedFile)
-    // TODO: Change this later - this is only here to pass the validation step.
-    form.setValue(
-      'labelFileUploads',
-      [
-        {
-          attachment: 'sad',
-          description: 'df',
-          labelType: 'Amazon',
-        },
-      ],
-      { shouldValidate: true }
-    )
   }
   const table = useReactTable({
     data: arrayOfLabels,
@@ -281,34 +279,22 @@ export default function PackageInfo() {
     file: File | undefined,
     type: 'Physical' | 'Digital' | 'Amazon'
   ) => {
-    if (file) {
-      setArrayOfLabels([
-        ...arrayOfLabels,
-        {
-          attachment: file?.name,
-          labelType: type,
-          description: labelDescription,
-        },
-      ])
-      setLabelDescription(undefined)
-      setFile(undefined)
-    }
+    setArrayOfLabels([
+      ...arrayOfLabels,
+      {
+        attachment: file?.name ?? 'N/A',
+        labelType: type,
+        description: labelDescription,
+      },
+    ])
+
+    setLabelDescription(undefined)
+    setFile(undefined)
     // TODO: upload file to server after implementation
   }
 
   const addPhysicalLabel = () => {
     // TODO: Change this later - this is only here to pass the validation step.
-    form.setValue(
-      'labelFileUploads',
-      [
-        {
-          attachment: 'sad',
-          description: 'df',
-          labelType: 'Amazon',
-        },
-      ],
-      { shouldValidate: true }
-    )
     setArrayOfLabels([
       ...arrayOfLabels,
       {
@@ -317,6 +303,7 @@ export default function PackageInfo() {
         description: labelDescription,
       },
     ])
+
     setLabelDescription(undefined)
   }
 
@@ -324,7 +311,6 @@ export default function PackageInfo() {
     event.preventDefault()
     setLabelDescription(event.target.value)
   }
-
   return (
     <>
       <Head>

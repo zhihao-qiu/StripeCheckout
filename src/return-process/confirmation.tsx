@@ -60,7 +60,7 @@ export default function Confirmation() {
         </Reveal>
         <Reveal>
           <SectionDescription className="text-left md:text-xl md:font-normal">
-            {returnProcess.currentData.contact_full_name}, your pickup order{' '}
+            {returnProcess.currentData.contact_full_name} , your pickup order{' '}
             <SectionHeaderHighlight>#{order.orderRef}</SectionHeaderHighlight>{' '}
             is confirmed.
           </SectionDescription>
@@ -81,7 +81,13 @@ export default function Confirmation() {
             <Reveal>
               <p className="mb-2 sm:mb-4">
                 <span className="font-bold">Location:</span>{' '}
-                {returnProcess.currentData.deliveryAddress}
+                {(() => {
+                  const deliveryAddress = returnProcess.currentData.unit_number
+                    ? `${returnProcess.currentData.unit_number}-${returnProcess.currentData.street}, ${returnProcess.currentData.city}, ${returnProcess.currentData.province}, ${returnProcess.currentData.country} ${returnProcess.currentData.postal_code}`
+                    : `${returnProcess.currentData.street}, ${returnProcess.currentData.city}, ${returnProcess.currentData.province}, ${returnProcess.currentData.country} ${returnProcess.currentData.postal_code}`
+
+                  return deliveryAddress
+                })()}
               </p>
             </Reveal>
             <Reveal>

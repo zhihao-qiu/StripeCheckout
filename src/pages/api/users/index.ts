@@ -19,7 +19,8 @@ export default async function handler(
     try {
       const userId = new ObjectId(req.query.userId as string)
 
-      const database = client.db('ReturnPal')
+      const dbName = process.env.DATABASE
+      const database = client.db(dbName)
       const usersCollection = database.collection<UserInfo>('users')
       const user = await usersCollection.findOne({
         _id: userId,
@@ -40,7 +41,8 @@ export default async function handler(
   } else if (req.method === 'POST') {
     // Create a new user
     try {
-      const database = client.db('ReturnPal')
+      const dbName = process.env.DATABASE
+      const database = client.db(dbName)
       const usersCollection = database.collection<UserInfo>('users')
       const newUser = req.body as UserInfo
 
@@ -55,7 +57,8 @@ export default async function handler(
   } else if (req.method === 'PATCH') {
     // create new address
     try {
-      const database = client.db('ReturnPal')
+      const dbName = process.env.DATABASE
+      const database = client.db(dbName)
       const usersCollection = database.collection<UserInfo>('users')
       const reqBody = req.body as reqBody
       const userId = new ObjectId(reqBody.userId)
@@ -64,9 +67,9 @@ export default async function handler(
       const newAddress_Id = new ObjectId()
       const newAddressWithId = {
         ...newAddress,
-        address_Id: newAddress_Id,
+        address_id: newAddress_Id,
       }
-      const result = await usersCollection.updateOne(
+      await usersCollection.updateOne(
         { _id: userId },
         { $push: { addresses: newAddressWithId } },
         { upsert: false }

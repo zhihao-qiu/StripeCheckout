@@ -27,6 +27,7 @@ import Head from 'next/head'
 import { type Address, addressSchema } from '@/components/DashBoard/types'
 import { SectionDescription, SectionHeader } from '@/components/common/section'
 import Reveal from '@components/common/reveal'
+import type { ObjectId } from 'mongodb'
 
 const formSchema = z.object({
   deliveryAddress: z.string().min(1),
@@ -43,28 +44,32 @@ export default function Address() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      deliveryAddress: returnProcess.currentData.deliveryAddress,
+      deliveryAddress: returnProcess.currentData.address_id?.toString(),
     },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const selectedAddress = addresses.find(
-      (address) => address.address_Id.toString() === values.deliveryAddress
+      (address) => address.address_id?.toString() === values.deliveryAddress
     )
 
     returnProcess.setCurrentData({
       contact_full_name: selectedAddress?.contact_full_name,
       contact_phone_number: selectedAddress?.contact_phone_number,
-      deliveryAddress: selectedAddress?.unitNumber
-        ? `${selectedAddress?.unitNumber}-${selectedAddress?.street}, ${selectedAddress?.city}, ${selectedAddress?.province}, ${selectedAddress?.country} ${selectedAddress?.postalCode}`
-        : `${selectedAddress?.street}, ${selectedAddress?.city}, ${selectedAddress?.province}, ${selectedAddress?.country} ${selectedAddress?.postalCode}`,
+      street: selectedAddress?.street,
+      unit_number: selectedAddress?.unit_number,
+      city: selectedAddress?.city,
+      province: selectedAddress?.province,
+      country: selectedAddress?.country,
+      postal_code: selectedAddress?.postal_code,
+      address_id: selectedAddress?.address_id,
       instructions: selectedAddress?.instructions,
     })
     returnProcess.forward()
   }
 
   useEffect(() => {
-    setAddresses(returnProcess.currentData.userInfo.addresses!)
+    setAddresses(returnProcess.currentData.userInfo.addresses)
   }, [])
 
   const validateFormData = (inputs: unknown) => {
@@ -81,7 +86,7 @@ export default function Address() {
 
       interface AddressResponse {
         message: string
-        address_id: string
+        address_id: ObjectId
       }
 
       // send information to backend once address is validated
@@ -103,7 +108,7 @@ export default function Address() {
         .then((data: AddressResponse) => {
           const newAddressWithId = {
             ...newAddress,
-            address_Id: data.address_id,
+            address_id: data.address_id,
           }
 
           const newUserInfo = {
@@ -192,42 +197,41 @@ export default function Address() {
                           className="flex flex-col space-y-3"
                         >
                           {addresses.map((address) => {
-                            const deliveryAddress = address.unitNumber
-                              ? `${address.unitNumber}-${address.street}, ${address.city}, ${address.province}, ${address.country} ${address.postalCode}`
-                              : `${address.street}, ${address.city}, ${address.province}, ${address.country} ${address.postalCode}`
+                            const deliveryAddress = address.unit_number
+                              ? `${address.unit_number}-${address.street}, ${address.city}, ${address.province}, ${address.country} ${address.postal_code}`
+                              : `${address.street}, ${address.city}, ${address.province}, ${address.country} ${address.postal_code}`
 
                             return (
                               <Reveal
-                                key={address.address_Id.toString()}
+                                key={address.address_id?.toString()}
                                 width="100%"
                               >
                                 <FormItem className="h-15 flex w-full items-center sm:h-10">
                                   <RadioGroupItem
-                                    id={address.address_Id.toString()}
-                                    value={address.address_Id.toString()}
+                                    id={address.address_id?.toString()}
+                                    value={address.address_id?.toString()}
                                   />
                                   <Label
-                                    htmlFor={address.address_Id.toString()}
+                                    htmlFor={address.address_id?.toString()}
                                     className="sm:keep-all mx-6 ml-2 w-[20%] max-sm:text-xs sm:w-[18%] sm:font-bold md:pl-2 lg:mx-2 lg:w-[15%]"
                                   >
                                     {address.contact_full_name}
                                   </Label>
                                   <Label
-                                    htmlFor={address.address_Id.toString()}
+                                    htmlFor={address.address_id?.toString()}
                                     className="break-word mx-2 my-4 w-[40%] max-w-max max-sm:text-xs sm:w-[50%] md:mx-0"
                                   >
                                     {deliveryAddress}
                                   </Label>
-                                  <br />
                                   <Label
-                                    htmlFor={address.address_Id.toString()}
+                                    htmlFor={address.address_id?.toString()}
                                     className="sm:keep-all mx-6 ml-2 w-[20%] max-sm:text-xs sm:w-[18%] sm:font-bold md:pl-2 lg:mx-2 lg:w-[15%]"
                                   >
                                     {address.instructions &&
                                       address.instructions}
                                   </Label>
                                   <Label
-                                    htmlFor={address.address_Id.toString()}
+                                    htmlFor={address.address_id?.toString()}
                                     className="mx-2 font-bold text-primary max-sm:text-xs"
                                   >
                                     {address.primary && 'Default address'}
@@ -297,7 +301,7 @@ export default function Address() {
                                 onChange={(e) =>
                                   setAddressFromForm({
                                     ...addressFromForm,
-                                    unitNumber: e.target.value,
+                                    unit_number: e.target.value,
                                   } as Address)
                                 }
                               />
@@ -377,7 +381,7 @@ export default function Address() {
                                 onChange={(e) =>
                                   setAddressFromForm({
                                     ...addressFromForm,
-                                    postalCode: e.target.value,
+                                    postal_code: e.target.value,
                                   } as Address)
                                 }
                               />

@@ -13,7 +13,8 @@ export default async function handler(
   if (req.method === 'GET') {
     // Get addresses based on userid
     try {
-      const database = client.db('ReturnPal')
+      const dbName = process.env.DATABASE
+      const database = client.db(dbName)
       const usersCollection = database.collection<UserInfo>('users')
       const user = await usersCollection.findOne({
         _id: userId,
@@ -35,7 +36,8 @@ export default async function handler(
   } else if (req.method === 'POST') {
     // Create a new address
     try {
-      const database = client.db('ReturnPal')
+      const dbName = process.env.DATABASE
+      const database = client.db(dbName)
       const userCollection = database.collection<UserInfo>('users')
 
       const existingUser = await userCollection.findOne({ _id: userId })
@@ -46,7 +48,7 @@ export default async function handler(
       }
 
       const newAdditionalAddress = req.body as Address
-
+      console.log(newAdditionalAddress)
       // const result = await userCollection.updateOne(
       await userCollection.updateOne(
         { _id: userId },

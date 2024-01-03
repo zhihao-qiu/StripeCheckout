@@ -7,6 +7,7 @@ import {
   type SetStateAction,
 } from 'react'
 import type { UserInfo } from '@components/DashBoard/types'
+import type { ObjectId } from 'mongodb'
 
 export type ReturnProcessStep = {
   id: string
@@ -25,9 +26,15 @@ export type ReturnProcessFullObjectType = {
   dateAndTime: string
   contact_full_name: string
   contact_phone_number: string
-  deliveryAddress: string
+  address_id: ObjectId
+  street: string
+  unit_number: string
+  city: string
+  province: string
+  country: string
+  postal_code: string
   deliveryOption: 'Direct Handoff' | 'Leave on Doorstep'
-  subscription: 'Bronze' | 'Silver' | 'Gold' | 'Platinum'
+  subscription: string
   labelFileUploads: FileUploadType[]
   instructions?: string
 }

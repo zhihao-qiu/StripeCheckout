@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Stripe } from 'stripe'
-import type { Order, UserInfo } from '@/components/DashBoard/types'
+import type { Order, UserInfo, Item } from '@/components/DashBoard/types'
+import type { ReturnProcessFullObjectType } from '@/context/ReturnProcessContext'
 
 interface LineItem {
   price: string
@@ -18,14 +19,23 @@ export default async function handler(
   if (req.method === 'POST') {
     try {
       const { order } = req.body as { order: Order }
-      const { user } = req.body as { user: UserInfo }
-      const lineItems: LineItem[] = order.items.map((item) => ({
+      const { items } = req.body as { items: Item[] }
+      const { currentData } = req.body as {
+        currentData: Partial<ReturnProcessFullObjectType>
+      }
+      // const { user } = req.body as { user: UserInfo }
+      // search for price_id of subscription
+
+      const lineItems: LineItem[] = items.map((item) => ({
         price: item.itemId,
         quantity: item.quantity ?? 0,
       }))
 
-      const mode = order.subscription == 'Bronze' ? 'payment' : 'subscription'
-
+      const mode =
+        !currentData.subscription ||
+        currentData.subscription.toLowerCase() === 'bronze'
+          ? 'payment'
+          : 'subscription'
       const session: Stripe.Checkout.Session =
         await stripe.checkout.sessions.create({
           // ui_mode: 'embedded',
@@ -40,7 +50,7 @@ export default async function handler(
           // automatic_tax: { enabled: true },
           success_url: `${req.headers.origin}/api/checkout_success?session_id={CHECKOUT_SESSION_ID}`,
           cancel_url: `${req.headers.origin}/?canceled=true`,
-          customer_email: user.email,
+          customer_email: order.client_details.email,
         })
 
       res.status(200).json({

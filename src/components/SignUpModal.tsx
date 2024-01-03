@@ -17,6 +17,7 @@ import Image from 'next/image'
 import useAuth from '@/services/authentication/useAuth'
 import { motion } from 'framer-motion'
 import { container, item } from '@styles/framer'
+import { type ModalPropsType } from '@/components/DashBoard/types'
 
 const formSchema = z
   .object({
@@ -50,7 +51,7 @@ const formSchema = z
     }
   )
 
-function SignUpModule() {
+function SignUpModule({ setIsOpen, isOpen }: ModalPropsType) {
   const { writeUserInfoToFragment } = useAuth()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -66,10 +67,11 @@ function SignUpModule() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
     writeUserInfoToFragment(values.email, values.firstName, values.lastName)
+    setIsOpen() // close modal
   }
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Link href="/" className="font-semibold text-primary">
           <span>&nbsp;Sign Up</span>

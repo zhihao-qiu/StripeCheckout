@@ -25,12 +25,13 @@ import { subscriptionData } from '@/return-process/subscriptions'
 const planData = subscriptionData
 
 const formSchema = z.object({
-  plan: z.union([
-    z.literal('Bronze'),
-    z.literal('Silver'),
-    z.literal('Gold'),
-    z.literal('Platinum'),
-  ]),
+  plan: z.string(),
+  // plan: z.union([
+  //   z.literal('Bronze'),
+  //   z.literal('Silver'),
+  //   z.literal('Gold'),
+  //   z.literal('Platinum'),
+  // ]),
 })
 
 export default function ChoosePlan() {
