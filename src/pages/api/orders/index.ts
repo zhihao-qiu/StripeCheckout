@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import client, { connectDB, disconnectDB } from '@/lib/db'
 import type { UserInfo, Order } from '@/components/DashBoard/types'
 import { ObjectId } from 'mongodb'
+const dbName = process.env.DATABASE
 
 export default async function handler(
   req: NextApiRequest,
@@ -23,7 +24,6 @@ export default async function handler(
     const newOrder = reqBody.order
     const currentUser = reqBody.user
     try {
-      const dbName = process.env.DATABASE
       const database = client.db(dbName)
 
       // TODO: need to update orderNumber here
@@ -70,7 +70,6 @@ export default async function handler(
   if (req.method === 'GET') {
     // Get all orders
     try {
-      const dbName = process.env.DATABASE
       const database = client.db(dbName)
       const orders = database.collection<Order>('orders')
       const allOrders = await orders.find({}).toArray()

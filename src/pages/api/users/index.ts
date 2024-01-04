@@ -84,7 +84,7 @@ export default async function handler(
       res.status(500).json({ message: 'Error creating address', error })
     }
   } else {
-    res.setHeader('Allow', ['GET', 'POST'])
+    res.setHeader('Allow', ['GET', 'POST', 'PATCH'])
     res.status(405).end(`Method ${req.method} Not Allowed`)
   }
 

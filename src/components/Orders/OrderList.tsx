@@ -6,6 +6,17 @@ interface OrderListProps {
   orders?: Order[]
 }
 
+const formatPickupDate = (dateString: string | undefined): string => {
+  const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' }
+  const date = dateString ? new Date(dateString) : null
+
+  if (date) {
+    return date.toLocaleDateString(undefined, options)
+  }
+
+  return ''
+}
+
 const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
   return (
     <div className="rounded-3xl p-4">
@@ -16,11 +27,19 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
             className="mb-4 flex items-center justify-between  border-b-2 border-b-gray-300 p-4"
           >
             <div className="flex items-center space-x-4 ">
-              <div className="mr-2 h-11 w-11 rounded bg-gray-300"></div>
+              <div className="ml-3 mr-5 h-11 w-11 rounded bg-gray-300"></div>
               <div className="flex flex-col space-y-2">
-                <div className="text-gray-700">Order #{order.order_number}</div>
-                <div className="text-sm text-gray-500">
-                  Pick up Scheduled for {order.order_number}
+                <div className="text-smallText font-bold text-gray-950">
+                  Order #{order.order_number}
+                </div>
+                <div className="text-sm text-gray-900">
+                  Pick up Scheduled for{' '}
+                  {order.order_details.pickup_date
+                    ? formatPickupDate(
+                        order.order_details.pickup_date.$dateFromString
+                          .dateString
+                      )
+                    : ''}
                 </div>
               </div>
             </div>
@@ -32,7 +51,7 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
             )}
             <Link href={`/orders/${order._id}`} passHref>
               <button
-                className={`cursor-pointer text-gray-700 underline focus:outline-none`}
+                className={`ml-5 cursor-pointer text-gray-800 underline  focus:outline-none`}
               >
                 Manage Order
               </button>

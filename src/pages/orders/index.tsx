@@ -38,9 +38,11 @@ const Orders: React.FC<OrdersProps> = ({ initialOrders }) => {
   }, [])
 
   return (
-    <div className="p-8">
-      <h1 className="mb-4 text-2xl font-bold">Recent Orders</h1>
-      <div className="overflow-hidden rounded bg-white sm:flex-row">
+    <div className="min-h-screen bg-paleBlue p-16">
+      <h1 className="mb-10 ml-3 bg-paleBlue text-3xl font-bold">
+        Recent Orders
+      </h1>
+      <div className="overflow-hidden rounded-xl bg-white font-bold sm:flex-row">
         {loading ? <p>Loading...</p> : <OrderList orders={orders} />}
       </div>
     </div>
