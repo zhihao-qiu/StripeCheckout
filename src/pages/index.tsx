@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { getLayout } from '@/layouts/DefaultLayout'
 import { Button } from '@/components/ui/button'
@@ -15,8 +15,15 @@ import {
 } from '@/components/common/section'
 import Faq from '@components/Faq'
 import Reveal from '@components/common/reveal'
+import PostalCodeModal from '@components/PostalCodeModal'
 
 function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen)
+  }
+
   return (
     <>
       <div className="container mx-auto flex max-w-5xl pb-16 pt-12 md:pt-20 xl:max-w-7xl">
@@ -38,13 +45,17 @@ function Home() {
                   </p>
                 </Reveal>
               </SectionDescription>
-              <Link href="/return" className=" self-start justify-self-center">
-                <Reveal>
-                  <Button className="h-7 text-sm lg:h-9 lg:text-base xl:h-12 xl:text-lg">
-                    Schedule a Pickup Now
-                  </Button>
-                </Reveal>
-              </Link>
+              <Reveal>
+                <Button
+                  onClick={toggleModal}
+                  className="h-7 text-sm lg:h-9 lg:text-base xl:h-12 xl:text-lg"
+                >
+                  Schedule a Pickup Now
+                </Button>
+              </Reveal>
+              {isModalOpen && (
+                <PostalCodeModal setIsOpen={toggleModal} isOpen={isModalOpen} />
+              )}
             </Section>
             <div className="hidden flex-1 md:block">
               <Reveal width="100%">

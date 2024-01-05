@@ -26,17 +26,6 @@ function Contact() {
             height={240}
           />
         </Reveal>
-        {/* <Link href="/">
-          <Reveal>
-            <Image
-              className="my-4 pl-10"
-              src={'/images/returnpal-short-logo.png'}
-              alt="Contact Us"
-              width={160}
-              height={0}
-            />
-          </Reveal>
-        </Link> */}
       </section>
     </div>
   )

@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import SigninModal from '@/components/SigninModal'
 import { HeaderContent } from '@components/common/header'
 import { Button } from '@components/ui/button'
+import PostalCodeModal from '@components/PostalCodeModal'
 
 export type MenuItem = {
   title: string
@@ -47,6 +48,7 @@ export default function DesktopHeader() {
         })}
       </div>
       <div className="flex space-x-2 lg:space-x-5">
+        <PostalCodeModal headerType="desktop" />
         <SigninModal headerType="desktop" />
         <Link href="/return">
           <Button className="h-9 w-36">Schedule Pickup</Button>
