@@ -34,12 +34,19 @@ import {
 import Reveal from '@components/common/reveal'
 import { motion } from 'framer-motion'
 import { fadeIn } from '@styles/framer'
+import { useState, useEffect } from 'react'
+import type { UserInfo } from '@components/DashBoard/types'
 
 export default function PickDate() {
+  // this is a fake userId, the logic of retrieving user info might be updated in the future
+  const userId = '657a3c20334ac659a3b33708'
   const returnProcess = useReturnProcess()
   const dateSelection = useDateSelection(new Date())
+
+  const [user, setUser] = useState<UserInfo>()
+
   const formSchema = z.object({
-    pickupDate: z.coerce
+    dateAndTime: z.coerce
       .string()
       .refine((data) => new Date(data) > dateSelection.initialDate, {
         message: 'Start date must be in the future',
@@ -48,12 +55,16 @@ export default function PickDate() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      pickupDate: returnProcess.currentData.pickupDate,
+      dateAndTime: returnProcess.currentData.dateAndTime,
     },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    returnProcess.setCurrentData(values)
+    // returnProcess.setCurrentData(values)
+    returnProcess.setCurrentData({
+      userInfo: user,
+      dateAndTime: values.dateAndTime,
+    })
     returnProcess.forward()
   }
 
@@ -63,6 +74,30 @@ export default function PickDate() {
 
   function weekBackwards() {
     dateSelection.back()
+  }
+
+  useEffect(() => {
+    void retrieveUserInfo()
+  }, [])
+
+  const retrieveUserInfo = async (): Promise<void> => {
+    try {
+      const response = await fetch(`/api/users/?userId=${userId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (response.ok) {
+        const userInfo = (await response.json()) as UserInfo
+        setUser(userInfo)
+      } else {
+        console.error('Error retrieving user info:', response.statusText)
+      }
+    } catch (error) {
+      console.error('Error retrieving user info:', error)
+    }
   }
 
   return (
@@ -137,7 +172,7 @@ export default function PickDate() {
                 />
                 <FormField
                   control={form.control}
-                  name="pickupDate"
+                  name="dateAndTime"
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormControl>

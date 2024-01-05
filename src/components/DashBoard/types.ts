@@ -1,30 +1,31 @@
 import { type UseFormReturn } from 'react-hook-form'
 import * as z from 'zod'
 import { type ColumnDef } from '@tanstack/react-table'
+import type { ObjectId } from 'mongodb'
 
 export const addressSchema = z.object({
-  apartmentUnitNumber: z
+  contact_full_name: z
     .string()
-    .min(1)
+    .min(1, {
+      message: 'Last name is required',
+    })
+    .max(60, {
+      message: 'Last name must be less than 60 characters',
+    }),
+  contact_phone_number: z.string().min(8).max(15),
+  unit_number: z
+    .string()
     .max(10)
     .regex(/^[a-zA-Z0-9]*$/, {
       message: 'Please enter a valid apartment unit number',
-    })
-    .optional(),
-  streetNumber: z.coerce
-    .number()
-    .min(1, {
-      message: 'Please enter a valid number',
-    })
-    .max(999999, {
-      message: 'Please enter a valid number',
     }),
-  streetName: z.string().min(3).max(50),
+  street: z.string().min(3).max(50),
   city: z.string().min(3).max(50),
   province: z.string().min(2).max(2),
-  postal: z
+  country: z.string().min(2).max(50),
+  postal_code: z
     .string()
-    .min(6)
+    .min(5)
     .max(7)
     // use regex to validate postal code
     .regex(/^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/, {
@@ -38,14 +39,17 @@ export const addressSchema = z.object({
 
       return val
     }),
+  instructions: z.string().min(0).optional(),
+  primary: z.boolean().default(false),
 })
 
-export type Address = Omit<z.infer<typeof addressSchema>, 'streetNumber'> & {
-  streetNumber: string | number
+export type Address = Omit<z.infer<typeof addressSchema>, 'instructions'> & {
+  instructions?: string
+  address_id: ObjectId
 }
 
 export const profileFormSchema = z.object({
-  firstName: z
+  first_name: z
     .string()
     .min(1, {
       message: 'First name is required',
@@ -53,7 +57,7 @@ export const profileFormSchema = z.object({
     .max(60, {
       message: 'First name must be less than 60 characters',
     }),
-  lastName: z
+  last_name: z
     .string()
     .min(1, {
       message: 'Last name is required',
@@ -61,24 +65,26 @@ export const profileFormSchema = z.object({
     .max(60, {
       message: 'Last name must be less than 60 characters',
     }),
-  primaryAddress: addressSchema,
-  role: z.enum(['Admin', 'Platinum', 'Gold', 'Silver', 'Bronze']),
-  email: z.string().email({
-    message: 'Please enter a valid email address',
-  }),
-  additionalAddress: z.array(addressSchema).optional(),
+  email: z
+    .string()
+    .min(1, { message: 'Email is required' })
+    .email('Please enter a valid email address'),
+  addresses: z.array(addressSchema).optional(),
+  subscription: z.string(),
+  phone_number: z.string().min(8).max(15),
 })
 
-type UserInfoBaseWithoutPrimaryAddress = Omit<
-  z.infer<typeof profileFormSchema>,
-  'primaryAddress'
->
+// type UserInfoBaseWithoutPrimaryAddress = Omit<
+//   z.infer<typeof profileFormSchema>,
+//   'primaryAddress'
+// >
 
-type UserInfoBase = Omit<UserInfoBaseWithoutPrimaryAddress, 'additionalAddress'>
+type UserInfoBase = Omit<z.infer<typeof profileFormSchema>, 'addresses'>
 
 export type UserInfo = UserInfoBase & {
-  primaryAddress: Address
-  additionalAddress?: Address[]
+  addresses: Address[]
+  _id: ObjectId
+  payment_type: string
 }
 
 export type EditProfileFormPropsType = {
@@ -138,6 +144,13 @@ export const orderSchema = z.object({
       dateString: z.string(),
     }),
   }),
+  order_status: z.enum([
+    'Driver received',
+    'Driver on the way',
+    'Driver delivered to post office',
+    'Delivered',
+    'Cancelled',
+  ]),
   order_details: z.object({
     total_cost: z.number(),
     pickup_date: z.object({
@@ -150,15 +163,15 @@ export const orderSchema = z.object({
     extra_packages_included: z.number(),
     promo_code: z.string(),
     pickup_details: z.object({
-      first_name: z.string(),
-      last_name: z.string(),
-      phone_number: z.string(),
+      contact_full_name: z.string(),
+      contact_phone_number: z.string(),
       street: z.string(),
-      unitNumber: z.string(),
+      unit_number: z.string(),
       city: z.string(),
       province: z.string(),
       country: z.string(),
-      postalCode: z.string(),
+      postal_code: z.string(),
+      instructions: z.string(),
     }),
   }),
   client_details: z.object({
@@ -170,7 +183,6 @@ export const orderSchema = z.object({
     payment_type: z.string(),
     addresses: z.array(
       z.object({
-        _id: z.string(),
         street: z.string(),
         unit_number: z.string(),
         city: z.string(),
@@ -186,31 +198,21 @@ export const orderSchema = z.object({
       dateString: z.string(),
     }),
   }),
-  address_id: z.string(),
-  itemName: z.string(),
-  quantity: z.number(),
-  price: z.number(),
-  customerName: z.string(),
-  customerPhoneNumber: z.string(),
-  deliveryAddress: z.string(),
-  dateAndTime: z.string(),
-  deliveryOption: z.string(),
-  packageOrderType: z.string(),
-  labelType: z.string(),
-  paymentMethod: z.string(),
-  promoCode: z.string(),
-  upgradeOption: z.string(),
-  specialInstructions: z.string().optional(),
-  status: z.enum([
-    'Driver received',
-    'Driver on the way',
-    'Driver delivered to post office',
-    'Delivered',
-    'Cancelled',
-  ]),
 })
 
-export type Order = z.infer<typeof orderSchema>
+export type Order = Omit<z.infer<typeof orderSchema>, '_id'> & {
+  _id: ObjectId
+  order_details: {
+    pickup_details: {
+      address_id: ObjectId
+    }
+  }
+  client_details: {
+    addresses: Array<{
+      address_id: ObjectId
+    }>
+  }
+}
 
 export type ModalPropsType = {
   isOpen: boolean
@@ -221,4 +223,20 @@ export type LeadData = {
   fullName: string
   postalCode: string
   email: string
+}
+
+export interface Item {
+  itemId: string
+  itemName?: string
+  quantity?: number
+}
+
+export type SubscriptionPlan = {
+  name: string
+  price: number
+  period?: string
+  total?: string
+  duration?: string
+  speed?: string
+  support?: string
 }

@@ -44,59 +44,61 @@ function EditAddressForm({
   const addressForm = useForm({
     resolver: zodResolver(addressSchema),
     defaultValues: {
-      apartmentUnitNumber: address.apartmentUnitNumber,
-      streetNumber: address.streetNumber,
-      streetName: address.streetName,
+      unitNumber: address.unitNumber,
+      // streetNumber: address.streetNumber,
+      street: address.street,
       city: address.city,
       province: address.province,
-      postal: address.postal,
+      country: address.country,
+      postalCode: address.postalCode,
     },
   })
 
-  const onSubmit = (values: Address) => {
-    setUserInfo((prev) => ({
-      ...prev,
-      additionalAddress: prev.additionalAddress
-        ? prev.additionalAddress.map((item, i) => (i === index ? values : item))
-        : undefined,
-    }))
-  }
+  // const onSubmit = (values: Address) => {
+  //   setUserInfo((prev) => ({
+  //     ...prev,
+  //     additionalAddress: prev.additionalAddress
+  //       ? prev.additionalAddress.map((item, i) => (i === index ? values : item))
+  //       : undefined,
+  //   }))
+  // }
 
-  const onCreate = (values: Address) => {
-    setUserInfo((prev) => ({
-      ...prev,
-      additionalAddress: prev.additionalAddress
-        ? [...prev.additionalAddress, values]
-        : undefined,
-    }))
-  }
+  // const onCreate = (values: Address) => {
+  //   setUserInfo((prev) => ({
+  //     ...prev,
+  //     additionalAddress: prev.additionalAddress
+  //       ? [...prev.additionalAddress, values]
+  //       : undefined,
+  //   }))
+  // }
 
-  const onClickDelete = () => {
-    setUserInfo((prev) => {
-      return {
-        ...prev,
-        additionalAddress: prev.additionalAddress
-          ? prev.additionalAddress.filter((_, i) => i !== index)
-          : undefined,
-      }
-    })
-  }
+  // const onClickDelete = () => {
+  //   setUserInfo((prev) => {
+  //     return {
+  //       ...prev,
+  //       additionalAddress: prev.additionalAddress
+  //         ? prev.additionalAddress.filter((_, i) => i !== index)
+  //         : undefined,
+  //     }
+  //   })
+  // }
 
   return (
     <div
-      key={address.streetNumber}
+      key={address.street}
       className="flex items-center justify-between gap-32"
     >
-      {' '}
+      {/* {' '}
       {type === 'edit' ? (
         <span>
-          {typeof address.apartmentUnitNumber === 'string' ? '# ' : ''}
-          {address.apartmentUnitNumber}{' '}
-          {typeof address.apartmentUnitNumber === 'string' ? '- ' : ''}
-          {address.streetNumber} {address.streetName}
+          {typeof address.unitNumber === 'string' ? '# ' : ''}
+          {address.unitNumber}{' '}
+          {typeof address.unitNumber === 'string' ? '- ' : ''}
+          {address.street}
           {', '} {address.city}
           {', '} {address.province}
-          {', '} {address.postal}
+          {', '} {address.country}
+          {', '} {address.postalCode}
         </span>
       ) : null}
       <span className="flex gap-4">
@@ -129,14 +131,14 @@ function EditAddressForm({
                 <div className="flex flex-col">
                   <FormField
                     control={addressForm.control}
-                    name="apartmentUnitNumber"
+                    name="unitNumber"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-right">
                           Apartment/Unit Number
                         </FormLabel>
                         <FormControl>
-                          <Input id="apartmentUnitNumber" {...field} />
+                          <Input id="unitNumber" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -244,7 +246,7 @@ function EditAddressForm({
             <MdOutlineDeleteOutline onClick={onClickDelete} />
           </Button>
         ) : null}
-      </span>
+      </span> */}
     </div>
   )
 }

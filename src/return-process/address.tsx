@@ -24,94 +24,108 @@ import {
 } from '@/components/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import Head from 'next/head'
-import { addressSchema } from '@/components/DashBoard/types'
+import { type Address, addressSchema } from '@/components/DashBoard/types'
 import { SectionDescription, SectionHeader } from '@/components/common/section'
 import Reveal from '@components/common/reveal'
+import type { ObjectId } from 'mongodb'
 
 const formSchema = z.object({
-  address: z.string().min(1),
+  deliveryAddress: z.string().min(1),
 })
 
 export default function Address() {
-  const [addresses, setAddresses] = useState<
-    { name: string; address: string; default: boolean }[]
-  >([])
+  const [addresses, setAddresses] = useState<Address[]>([])
+
   const [addressFormVisibility, setAddressFormVisiblity] = useState(false)
-  const [senderName, setSenderName] = useState<string | null>(null)
-  const [addressFromForm, setAddressFromForm] = useState<newAddress | null>(
-    null
-  )
+  const [addressFromForm, setAddressFromForm] = useState<Address | null>()
   const { toast } = useToast()
   const returnProcess = useReturnProcess()
-
-  type newAddress = {
-    apartmentUnitNumber?: string
-    streetNumber?: number
-    streetName?: string
-    city?: string
-    province?: string
-    postal?: string
-  }
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      address: returnProcess.currentData.address,
+      deliveryAddress: returnProcess.currentData.address_id?.toString(),
     },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    returnProcess.setCurrentData(values)
+    const selectedAddress = addresses.find(
+      (address) => address.address_id?.toString() === values.deliveryAddress
+    )
+
+    returnProcess.setCurrentData({
+      contact_full_name: selectedAddress?.contact_full_name,
+      contact_phone_number: selectedAddress?.contact_phone_number,
+      street: selectedAddress?.street,
+      unit_number: selectedAddress?.unit_number,
+      city: selectedAddress?.city,
+      province: selectedAddress?.province,
+      country: selectedAddress?.country,
+      postal_code: selectedAddress?.postal_code,
+      address_id: selectedAddress?.address_id,
+      instructions: selectedAddress?.instructions,
+    })
     returnProcess.forward()
   }
 
-  const mockAddresses: { name: string; address: string; default: boolean }[] = [
-    {
-      name: 'Bartholomew Gunderson',
-      address: '6500 Boulevard de Rome, Brossard, QC, J4Y 0B6, Canada',
-      default: true,
-    },
-    {
-      name: 'Chandler Bing',
-      address: '20-90 Bedford St, New York, NY 10014, USA',
-      default: false,
-    },
-    {
-      name: 'Henry Norman Bethune',
-      address: '235 John Street North, Gravenhurst, Ontario P1P 1G4, Canada',
-      default: false,
-    },
-  ]
+  useEffect(() => {
+    setAddresses(returnProcess.currentData.userInfo.addresses)
+  }, [])
 
   const validateFormData = (inputs: unknown) => {
     const isValidData = addressSchema.parse(inputs)
     return isValidData
   }
-  const addressValidator = (name: string, addressObj: newAddress) => {
+
+  const addressValidator = (newAddress: Address) => {
     try {
-      const valid = validateFormData(addressObj)
+      const valid = validateFormData(newAddress)
       if (!valid) {
         return
       }
-      //TODO: send information to backend once address is validated
-      let addressString
-      if (addressObj.apartmentUnitNumber) {
-        addressString = `${addressObj.apartmentUnitNumber}-${addressObj.streetNumber} ${addressObj.streetName}, ${addressObj.city}, ${addressObj.province} ${addressObj.postal}`
-      } else {
-        addressString = `${addressObj.streetNumber} ${addressObj.streetName}, ${addressObj.city}, ${addressObj.province}, ${addressObj.postal}`
+
+      interface AddressResponse {
+        message: string
+        address_id: ObjectId
       }
 
-      const newAddress: { name: string; address: string; default: boolean } = {
-        name: name,
-        address: addressString,
-        default: false,
+      // send information to backend once address is validated
+      const newAddressWithPrimary = {
+        ...newAddress,
+        primary: false,
       }
-      if (addresses.length === 0) {
-        newAddress.default = true
-      }
-      setAddresses([...addresses, newAddress])
-      setSenderName(null)
-      setAddressFromForm(null)
+      fetch(`/api/users`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: returnProcess.currentData.userInfo._id,
+          address: newAddressWithPrimary,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data: AddressResponse) => {
+          const newAddressWithId = {
+            ...newAddress,
+            address_id: data.address_id,
+          }
+
+          const newUserInfo = {
+            ...returnProcess.currentData.userInfo,
+            addresses: [
+              ...(returnProcess.currentData.userInfo?.addresses ?? []),
+              newAddressWithId,
+            ],
+          }
+
+          returnProcess.setCurrentData({ userInfo: newUserInfo })
+          setAddresses([...addresses, newAddressWithId])
+          setAddressFromForm(null)
+        })
+        .catch((error) => {
+          console.error('Error:', error)
+        })
     } catch (err: unknown) {
       console.log(err)
       toast({
@@ -121,10 +135,7 @@ export default function Address() {
       })
     }
   }
-  useEffect(() => {
-    setAddresses(mockAddresses)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+
   const toggleAddressForm = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -135,8 +146,9 @@ export default function Address() {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault()
-    if (senderName && addressFromForm) {
-      addressValidator(senderName, addressFromForm)
+    if (addressFromForm) {
+      addressValidator(addressFromForm)
+      setAddressFormVisiblity(!addressFormVisibility)
     }
   }
 
@@ -175,7 +187,7 @@ export default function Address() {
                 </Reveal>
                 <FormField
                   control={form.control}
-                  name="address"
+                  name="deliveryAddress"
                   render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormControl>
@@ -185,30 +197,44 @@ export default function Address() {
                           className="flex flex-col space-y-3"
                         >
                           {addresses.map((address) => {
+                            const deliveryAddress = address.unit_number
+                              ? `${address.unit_number}-${address.street}, ${address.city}, ${address.province}, ${address.country} ${address.postal_code}`
+                              : `${address.street}, ${address.city}, ${address.province}, ${address.country} ${address.postal_code}`
+
                             return (
-                              <Reveal key={address.address} width="100%">
+                              <Reveal
+                                key={address.address_id?.toString()}
+                                width="100%"
+                              >
                                 <FormItem className="h-15 flex w-full items-center sm:h-10">
                                   <RadioGroupItem
-                                    id={address.address}
-                                    value={address.address}
+                                    id={address.address_id?.toString()}
+                                    value={address.address_id?.toString()}
                                   />
                                   <Label
-                                    htmlFor={address.address}
+                                    htmlFor={address.address_id?.toString()}
                                     className="sm:keep-all mx-6 ml-2 w-[20%] max-sm:text-xs sm:w-[18%] sm:font-bold md:pl-2 lg:mx-2 lg:w-[15%]"
                                   >
-                                    {address.name}
+                                    {address.contact_full_name}
                                   </Label>
                                   <Label
-                                    htmlFor={address.address}
+                                    htmlFor={address.address_id?.toString()}
                                     className="break-word mx-2 my-4 w-[40%] max-w-max max-sm:text-xs sm:w-[50%] md:mx-0"
                                   >
-                                    {address.address}
+                                    {deliveryAddress}
                                   </Label>
                                   <Label
-                                    htmlFor={address.address}
+                                    htmlFor={address.address_id?.toString()}
+                                    className="sm:keep-all mx-6 ml-2 w-[20%] max-sm:text-xs sm:w-[18%] sm:font-bold md:pl-2 lg:mx-2 lg:w-[15%]"
+                                  >
+                                    {address.instructions &&
+                                      address.instructions}
+                                  </Label>
+                                  <Label
+                                    htmlFor={address.address_id?.toString()}
                                     className="mx-2 font-bold text-primary max-sm:text-xs"
                                   >
-                                    {address.default && 'Default address'}
+                                    {address.primary && 'Default address'}
                                   </Label>
                                 </FormItem>
                               </Reveal>
@@ -238,9 +264,30 @@ export default function Address() {
                               <Label className="mx-2 w-1/3">Name:</Label>
                               <Input
                                 type="text"
-                                name="name"
+                                name="address"
                                 className="my-2  w-3/4"
-                                onChange={(e) => setSenderName(e.target.value)}
+                                onChange={(e) =>
+                                  setAddressFromForm({
+                                    ...addressFromForm,
+                                    contact_full_name: e.target.value,
+                                  } as Address)
+                                }
+                              />
+                            </div>
+                          </Reveal>
+                          <Reveal width="100%">
+                            <div className="flex items-center">
+                              <Label className="mx-2 w-1/3">Phone #:</Label>
+                              <Input
+                                type="text"
+                                name="address"
+                                className="my-2  w-3/4"
+                                onChange={(e) =>
+                                  setAddressFromForm({
+                                    ...addressFromForm,
+                                    contact_phone_number: e.target.value,
+                                  } as Address)
+                                }
                               />
                             </div>
                           </Reveal>
@@ -254,8 +301,8 @@ export default function Address() {
                                 onChange={(e) =>
                                   setAddressFromForm({
                                     ...addressFromForm,
-                                    apartmentUnitNumber: e.target.value,
-                                  })
+                                    unit_number: e.target.value,
+                                  } as Address)
                                 }
                               />
                               <Label className="mx-2 w-1/3">Street #: </Label>
@@ -266,26 +313,8 @@ export default function Address() {
                                 onChange={(e) =>
                                   setAddressFromForm({
                                     ...addressFromForm,
-                                    streetNumber: Number(e.target.value),
-                                  })
-                                }
-                              />
-                            </div>
-                          </Reveal>
-                          <Reveal width="100%">
-                            <div className="flex items-center">
-                              <Label className="mx-2 w-1/3">
-                                Street Name:{' '}
-                              </Label>
-                              <Input
-                                type="text"
-                                name="address"
-                                className="my-2  w-3/4"
-                                onChange={(e) =>
-                                  setAddressFromForm({
-                                    ...addressFromForm,
-                                    streetName: e.target.value,
-                                  })
+                                    street: e.target.value,
+                                  } as Address)
                                 }
                               />
                             </div>
@@ -301,7 +330,7 @@ export default function Address() {
                                   setAddressFromForm({
                                     ...addressFromForm,
                                     city: e.target.value,
-                                  })
+                                  } as Address)
                                 }
                               />
                             </div>
@@ -319,7 +348,23 @@ export default function Address() {
                                   setAddressFromForm({
                                     ...addressFromForm,
                                     province: e.target.value,
-                                  })
+                                  } as Address)
+                                }
+                              />
+                            </div>
+                          </Reveal>
+                          <Reveal width="100%">
+                            <div className="flex items-center">
+                              <Label className="mx-2 w-1/3">Country: </Label>
+                              <Input
+                                type="text"
+                                name="address"
+                                className="my-2  w-3/4"
+                                onChange={(e) =>
+                                  setAddressFromForm({
+                                    ...addressFromForm,
+                                    country: e.target.value,
+                                  } as Address)
                                 }
                               />
                             </div>
@@ -336,8 +381,26 @@ export default function Address() {
                                 onChange={(e) =>
                                   setAddressFromForm({
                                     ...addressFromForm,
-                                    postal: e.target.value,
-                                  })
+                                    postal_code: e.target.value,
+                                  } as Address)
+                                }
+                              />
+                            </div>
+                          </Reveal>
+                          <Reveal width="100%">
+                            <div className="flex items-center">
+                              <Label className="mx-2 w-1/3">
+                                Instructions:{' '}
+                              </Label>
+                              <Input
+                                type="text"
+                                name="address"
+                                className="my-2  w-3/4"
+                                onChange={(e) =>
+                                  setAddressFromForm({
+                                    ...addressFromForm,
+                                    instructions: e.target.value,
+                                  } as Address)
                                 }
                               />
                             </div>
