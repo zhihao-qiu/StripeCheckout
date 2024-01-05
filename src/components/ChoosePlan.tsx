@@ -20,63 +20,18 @@ import {
 } from '@components/common/return-process'
 import { motion } from 'framer-motion'
 import { container, item } from '@styles/framer'
+import { subscriptionData } from '@/return-process/subscriptions'
 
-export type PlanDataType = {
-  name: string
-  price: number
-  period: string
-  total: string
-  duration: string
-  speed: string
-  support: string
-}
-
-const planData: PlanDataType[] = [
-  {
-    name: 'Bronze',
-    price: 1099,
-    period: '+$3.99 per additional box',
-    total: '(One-time pickup)',
-    duration: 'One-time pickup',
-    speed: 'Repackaging and labeling',
-    support: 'Email and phone support',
-  },
-  {
-    name: 'Silver',
-    price: 2099,
-    period: 'per month',
-    total: '$20.99 billed monthly',
-    duration: 'Unlimited pickups during the month',
-    speed: 'Repackaging and labeling',
-    support: 'Email and phone support',
-  },
-  {
-    name: 'Gold',
-    price: 1899,
-    period: 'per month',
-    total: '$56.97 billed quarterly',
-    duration: 'Unlimited pickups for 3 months',
-    speed: 'Expedited repackaging and labeling service',
-    support: 'Email and phone support',
-  },
-  {
-    name: 'Platinum',
-    price: 1479,
-    period: 'per month',
-    total: '$177.48 billed yearly',
-    duration: 'Unlimited pickups for 1 year',
-    speed: 'Expedited repackaging and labeling service',
-    support: 'Email and phone support',
-  },
-]
+const planData = subscriptionData
 
 const formSchema = z.object({
-  plan: z.union([
-    z.literal('bronze'),
-    z.literal('silver'),
-    z.literal('gold'),
-    z.literal('platinum'),
-  ]),
+  plan: z.string(),
+  // plan: z.union([
+  //   z.literal('Bronze'),
+  //   z.literal('Silver'),
+  //   z.literal('Gold'),
+  //   z.literal('Platinum'),
+  // ]),
 })
 
 export default function ChoosePlan() {
@@ -85,12 +40,14 @@ export default function ChoosePlan() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      plan: returnProcess.currentData.plan,
+      plan: returnProcess.currentData.subscription,
     },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    returnProcess.setCurrentData(values)
+    returnProcess.setCurrentData({
+      subscription: values.plan,
+    })
     returnProcess.forward()
   }
 
@@ -123,10 +80,7 @@ export default function ChoosePlan() {
                       {planData.map((plan) => {
                         return (
                           <motion.div key={plan.name} variants={item}>
-                            <ExtendedToggleGroupItem
-                              value={plan.name.toLowerCase()}
-                              asChild
-                            >
+                            <ExtendedToggleGroupItem value={plan.name} asChild>
                               <Plan plan={plan} />
                             </ExtendedToggleGroupItem>
                           </motion.div>

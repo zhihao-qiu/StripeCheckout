@@ -9,12 +9,12 @@ import { Check } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { Label } from '@/components/ui/label'
 import Stamp from '@components/SvgComponents/Stamp'
-import { type PlanDataType } from './ChoosePlan'
+import type { SubscriptionPlan } from '@components/DashBoard/types'
 import React from 'react'
 import { cn } from '@lib/utils'
 
 type PlanProps = {
-  plan: PlanDataType
+  plan: SubscriptionPlan
 }
 
 export const planTextClassName = (plan: string) => {

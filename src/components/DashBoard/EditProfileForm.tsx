@@ -32,7 +32,8 @@ function EditProfileForm({ form, onSubmit }: EditProfileFormPropsType) {
         <Form {...form}>
           {/* TODO figure out api call for user profile update */}
           {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          {/* <form onSubmit={form.handleSubmit(onSubmit)}> */}
+          <form>
             <DialogHeader>
               <DialogTitle>Edit profile</DialogTitle>
               <DialogDescription>

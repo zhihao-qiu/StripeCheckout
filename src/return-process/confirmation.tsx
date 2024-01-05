@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import CloseX from '@components/SvgComponents/CloseX'
 import Link from 'next/link'
 import Reveal from '@components/common/reveal'
+import { useReturnProcess } from '@/hooks/useReturnProcess'
 
 interface Order {
   name: string
@@ -24,7 +25,7 @@ interface Order {
   cardNumber: number
 }
 
-const mockOrder: Order = {
+const order: Order = {
   name: 'John',
   orderRef: 'R957394',
   email: 'johndoe2394@gmail.com',
@@ -37,6 +38,8 @@ const mockOrder: Order = {
 }
 
 export default function Confirmation() {
+  const returnProcess = useReturnProcess()
+
   return (
     <ReturnProcessRoot className="mb-4 flex w-full flex-col items-center space-y-2 pt-2 sm:space-y-8 sm:pt-6 md:pt-10 lg:pt-16">
       <ReturnProcessSection className="relative mt-0 w-full space-y-1 text-base text-brand sm:my-2 sm:w-5/6 sm:space-y-3 sm:pr-12 md:my-4 md:text-smallText">
@@ -57,17 +60,17 @@ export default function Confirmation() {
         </Reveal>
         <Reveal>
           <SectionDescription className="text-left md:text-xl md:font-normal">
-            {mockOrder.name}, your pickup order{' '}
-            <SectionHeaderHighlight>
-              #{mockOrder.orderRef}
-            </SectionHeaderHighlight>{' '}
+            {returnProcess.currentData.contact_full_name} , your pickup order{' '}
+            <SectionHeaderHighlight>#{order.orderRef}</SectionHeaderHighlight>{' '}
             is confirmed.
           </SectionDescription>
         </Reveal>
         <Reveal>
           <SectionDescription className="text-left md:text-xl md:font-normal">
             A confirmation email will be sent to:{' '}
-            <SectionHeaderHighlight>{mockOrder.email}</SectionHeaderHighlight>
+            <SectionHeaderHighlight>
+              {returnProcess.currentData.userInfo.email}
+            </SectionHeaderHighlight>
           </SectionDescription>
         </Reveal>
       </ReturnProcessSection>
@@ -78,31 +81,37 @@ export default function Confirmation() {
             <Reveal>
               <p className="mb-2 sm:mb-4">
                 <span className="font-bold">Location:</span>{' '}
-                {mockOrder.location}
+                {(() => {
+                  const deliveryAddress = returnProcess.currentData.unit_number
+                    ? `${returnProcess.currentData.unit_number}-${returnProcess.currentData.street}, ${returnProcess.currentData.city}, ${returnProcess.currentData.province}, ${returnProcess.currentData.country} ${returnProcess.currentData.postal_code}`
+                    : `${returnProcess.currentData.street}, ${returnProcess.currentData.city}, ${returnProcess.currentData.province}, ${returnProcess.currentData.country} ${returnProcess.currentData.postal_code}`
+
+                  return deliveryAddress
+                })()}
               </p>
             </Reveal>
             <Reveal>
               <p className="mb-2 sm:mb-4">
                 <span className="font-bold">Pickup Date:</span>{' '}
-                {mockOrder.pickupDate}
+                {returnProcess.currentData.dateAndTime}
               </p>
             </Reveal>
             <Reveal>
               <p className="mb-2 sm:mb-4">
                 <span className="font-bold">Pickup Method:</span>{' '}
-                {mockOrder.pickupMethod}
+                {returnProcess.currentData.deliveryOption}
               </p>
             </Reveal>
             <Reveal>
               <p className="mb-2 sm:mb-4">
                 <span className="font-bold">Total Packages:</span>{' '}
-                {mockOrder.totalPackages}
+                {returnProcess.currentData.labelFileUploads.length}
               </p>
             </Reveal>
             <Reveal>
               <p className="mb-0">
                 <span className="font-bold">Payment Method:</span>{' '}
-                {mockOrder.cardType} ending in {mockOrder.cardNumber}
+                {order.cardType} ending in {order.cardNumber}
               </p>
             </Reveal>
           </section>

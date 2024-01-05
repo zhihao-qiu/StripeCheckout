@@ -6,6 +6,8 @@ import {
   type Dispatch,
   type SetStateAction,
 } from 'react'
+import type { UserInfo } from '@components/DashBoard/types'
+import type { ObjectId } from 'mongodb'
 
 export type ReturnProcessStep = {
   id: string
@@ -20,12 +22,21 @@ export type FileUploadType = {
 }
 
 export type ReturnProcessFullObjectType = {
-  pickupDate: string
-  sender: string
-  address: string
-  pickupType: 'direct' | 'doorstep'
-  plan: 'bronze' | 'silver' | 'gold' | 'platinum'
+  userInfo: UserInfo
+  dateAndTime: string
+  contact_full_name: string
+  contact_phone_number: string
+  address_id: ObjectId
+  street: string
+  unit_number: string
+  city: string
+  province: string
+  country: string
+  postal_code: string
+  deliveryOption: 'Direct Handoff' | 'Leave on Doorstep'
+  subscription: string
   labelFileUploads: FileUploadType[]
+  instructions?: string
 }
 
 export type ReturnProcessContextType = {

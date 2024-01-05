@@ -12,27 +12,30 @@ import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import Reveal from '@components/common/reveal'
+import type { Item, Order } from '@/components/DashBoard/types'
+import { priceData } from '@/return-process/prices'
+import type { ObjectId } from 'mongodb'
 
-export interface MockData {
-  plan: 'bronze' | 'silver' | 'gold' | 'platinum'
-  extraBoxes?: number
-  bronzePrice: number
-  extraBoxPrice: number
-  productList: Record<string, number>
-}
+// export interface MockData {
+//   plan: 'bronze' | 'silver' | 'gold' | 'platinum'
+//   extraBoxes?: number
+//   bronzePrice: number
+//   extraBoxPrice: number
+//   productList: Record<string, number>
+// }
 
-export interface Order {
-  name: string
-  tel: string
-  orderRef: string
-  email: string
-  address: string
-  pickupDate: string
-  pickupMethod: string
-  totalPackages: number
-  cardType: string
-  cardNumber: number
-}
+// export interface Order {
+//   name: string
+//   tel: string
+//   orderRef: string
+//   email: string
+//   address: string
+//   pickupDate: string
+//   pickupMethod: string
+//   totalPackages: number
+//   cardType: string
+//   cardNumber: number
+// }
 
 export default function ConfirmPickup() {
   // If the user enters a Promo Code in the Order Summary, it will be held in state here
@@ -43,33 +46,128 @@ export default function ConfirmPickup() {
 
   const returnProcess = useReturnProcess()
 
-  const mockOrder: Order = {
-    // name: returnProcess.currentData.sender,
-    name: 'John Doe',
-    tel: '(123) 456-7891',
-    orderRef: 'R957394',
-    email: 'johndoe2394@gmail.com',
-    // address: returnProcess.currentData.address,
-    address: '6500 Boulevard de Rome, Brossard, QC, J4Y 0B6, Canada',
-    pickupDate: returnProcess.currentData.pickupDate,
-    // pickupMethod: 'Direct Handoff',
-    pickupMethod: returnProcess.currentData.pickupType,
-    totalPackages: returnProcess.currentData.labelFileUploads.length,
-    cardType: 'Visa',
-    cardNumber: 4832,
+  const items: Item[] = []
+  const foundSubscription = priceData.find(
+    (plan) =>
+      plan.name.toLowerCase() ===
+      returnProcess.currentData.subscription.toLowerCase()
+  )
+  if (foundSubscription) {
+    const subscriptionItem = {
+      itemId: foundSubscription.itemId,
+      itemName: foundSubscription.name,
+      quantity: 1,
+    }
+    items.push(subscriptionItem)
+    if (
+      returnProcess.currentData.subscription === 'Bronze' &&
+      returnProcess.currentData.labelFileUploads.length > 1
+    ) {
+      const packageItem = {
+        itemId: priceData.find((plan) => plan.name.toLowerCase() === 'extra')!
+          .itemId,
+        itemName: priceData.find((plan) => plan.name.toLowerCase() === 'extra')!
+          .name,
+        quantity: returnProcess.currentData.labelFileUploads.length - 1,
+      }
+      items.push(packageItem)
+    }
   }
 
-  const mockData: MockData = {
-    // plan: returnProcess.currentData.plan,
-    plan: 'bronze',
-    extraBoxes: 1,
-    bronzePrice: 1099,
-    extraBoxPrice: 399,
-    productList: {
-      price_1OFQ6pJLx3jkPDehgceZQr2g: 2,
-      price_1OIJOdJLx3jkPDehZUoDKJsU: 3,
-      price_1OIJLLJLx3jkPDehIEOgyYa4: 1,
+  const addExpiryDate = (orderDate: Date, subscription: string): string => {
+    const expiryDate = new Date(orderDate)
+
+    switch (subscription) {
+      case 'Silver':
+        expiryDate.setDate(expiryDate.getDate() + 30)
+        break
+      case 'Gold':
+        expiryDate.setDate(expiryDate.getDate() + 90)
+        break
+      case 'Platinum':
+        expiryDate.setDate(expiryDate.getDate() + 365)
+        break
+      default:
+        break
+    }
+    return expiryDate.toString()
+  }
+
+  const calculateCost = (subscription: string, packages: number) => {
+    if (subscription === 'Bronze') {
+      const bronzePrice = priceData.find(
+        (plan) => plan.name.toLowerCase() === subscription.toLowerCase()
+      )!.price
+      const extraPrice = priceData.find(
+        (plan) => plan.name.toLowerCase() === 'Extra'.toLowerCase()
+      )!.price
+      return bronzePrice + (packages - 1) * extraPrice
+    } else {
+      const subscriptionPrice = priceData.find(
+        (plan) => plan.name.toLowerCase() === subscription.toLowerCase()
+      )!.price
+      return subscriptionPrice
+    }
+  }
+
+  const order: Order = {
+    // generate order_number here
+    _id: undefined as unknown as ObjectId,
+    order_number: '',
+    order_date: {
+      $dateFromString: {
+        dateString: new Date().toString(),
+      },
     },
+    order_status: 'Driver received',
+    order_details: {
+      total_cost: calculateCost(
+        returnProcess.currentData.subscription,
+        returnProcess.currentData.labelFileUploads.length
+      ),
+      pickup_date: {
+        $dateFromString: {
+          dateString: returnProcess.currentData.dateAndTime,
+        },
+      },
+      pickup_method: returnProcess.currentData.deliveryOption,
+      total_packages: returnProcess.currentData.labelFileUploads.length,
+      extra_packages_included:
+        returnProcess.currentData.subscription === 'Bronze'
+          ? returnProcess.currentData.labelFileUploads.length - 1
+          : 0,
+      promo_code: '',
+      pickup_details: {
+        address_id: undefined as unknown as ObjectId,
+        contact_full_name: returnProcess.currentData.contact_full_name,
+        contact_phone_number: returnProcess.currentData.contact_phone_number,
+        street: returnProcess.currentData.street,
+        unit_number: returnProcess.currentData.unit_number,
+        city: returnProcess.currentData.city,
+        province: returnProcess.currentData.province,
+        country: returnProcess.currentData.country,
+        postal_code: returnProcess.currentData.postal_code,
+        instructions: returnProcess.currentData.instructions ?? '',
+      },
+    },
+    client_details: returnProcess.currentData.userInfo,
+    subscription_expiry_date: {
+      $dateFromString: {
+        dateString: addExpiryDate(
+          new Date(),
+          returnProcess.currentData.subscription
+        ),
+      },
+    },
+    // pickupMethod: 'Direct Handoff',
+    // pickupMethod: returnProcess.currentData.pickupType,
+    // totalPackages: returnProcess.currentData.labelFileUploads.length,
+    // cardType: 'Visa',
+    // cardNumber: 4832,
+    // plan: 'bronze',
+    // extraBoxes: 1,
+    // bronzePrice: 1099,
+    // extraBoxPrice: 399,
   }
 
   useEffect(() => {
@@ -90,7 +188,7 @@ export default function ConfirmPickup() {
       behavior: 'smooth',
     })
   }
-
+  console.log(order)
   return (
     <div className="mt-6 flex w-full flex-col items-center sm:mt-10 md:flex-row md:items-start md:justify-around md:tracking-wide">
       <section className="mx-1 flex w-full flex-col items-center text-base sm:mb-10 sm:w-2/3 sm:text-smallText">
@@ -125,20 +223,24 @@ export default function ConfirmPickup() {
               <div className="w-full space-y-3">
                 <Reveal>
                   <p className="font-bold">
-                    {mockOrder.name}
-                    {/* <span className="text-mediumText font-normal">
+                    {order.order_details.pickup_details.contact_full_name}
+                    <span className="text-mediumText font-normal">
                       &nbsp;|&nbsp;
-                    </span> */}
-                    {/* {mockOrder.tel} */}
+                    </span>
+                    {order.order_details.pickup_details.contact_phone_number}
                   </p>
                 </Reveal>
                 <Reveal>
-                  <p>{mockOrder.address}</p>
+                  <p>
+                    {order.order_details.pickup_details.unit_number
+                      ? `${order.order_details.pickup_details.unit_number}-${order.order_details.pickup_details.street},${order.order_details.pickup_details.city},${order.order_details.pickup_details.province},${order.order_details.pickup_details.country} ${order.order_details.pickup_details.postal_code}`
+                      : `${order.order_details.pickup_details.street},${order.order_details.pickup_details.city},${order.order_details.pickup_details.province},${order.order_details.pickup_details.country} ${order.order_details.pickup_details.postal_code}`}
+                  </p>
                 </Reveal>
-                {mockOrder.pickupMethod === 'Direct Handoff' && (
+                {order.order_details.pickup_details.instructions && (
                   <Reveal>
                     <p className="text-grey md:tracking-wide">
-                      Please ring the doorbell when picking up
+                      {order.order_details.pickup_details.instructions}
                     </p>
                   </Reveal>
                 )}
@@ -159,7 +261,10 @@ export default function ConfirmPickup() {
               <Reveal width="100%">
                 <p className="grow sm:mt-4">
                   <span className="font-bold">Pickup Date:</span>
-                  <span>&nbsp;{mockOrder.pickupDate}</span>
+                  <span>
+                    &nbsp;
+                    {order.order_details.pickup_date.$dateFromString.dateString}
+                  </span>
                 </p>
               </Reveal>
               <EditContainer />
@@ -178,7 +283,7 @@ export default function ConfirmPickup() {
               <Reveal width="100%">
                 <p className="grow sm:mt-4">
                   <span className="font-bold">Pickup Method:</span>
-                  <span>&nbsp;{mockOrder.pickupMethod}</span>
+                  <span>&nbsp;{order.order_details.pickup_method}</span>
                 </p>
               </Reveal>
               <EditContainer />
@@ -207,7 +312,7 @@ export default function ConfirmPickup() {
                   <p>
                     <span className="font-bold">Total Packages:&nbsp;</span>
                     <span>
-                      {mockData.extraBoxes ? mockData.extraBoxes + 1 : 1}
+                      {returnProcess.currentData.labelFileUploads.length}
                     </span>
                   </p>
                 </Reveal>
@@ -244,10 +349,8 @@ export default function ConfirmPickup() {
               <div className="mt-1 grow sm:mt-3">
                 <Reveal width="100%">
                   <p>
-                    <span className="font-bold">
-                      {mockOrder.cardType} ending in:&nbsp;
-                    </span>
-                    <span>{mockOrder.cardNumber} </span>
+                    <span className="font-bold">Visa ending in:&nbsp;</span>
+                    <span>1234 </span>
                   </p>
                 </Reveal>
               </div>
@@ -261,13 +364,13 @@ export default function ConfirmPickup() {
           </div>
         </div>
       </section>
-      {mockData.plan === 'bronze' && (
-        <OrderSummary
-          promoState={[promoCode, setPromoCode]}
-          orderData={mockData}
-          orderDetail={mockOrder}
-        />
-      )}
+      {/* {order.packageOrderType === 'bronze' && ( */}
+      <OrderSummary
+        promoState={[promoCode, setPromoCode]}
+        order={order}
+        items={items}
+      />
+      {/* )} */}
       {showScrollBtn && <ScrollContainer scrollDown={scrollDown} />}
     </div>
   )

@@ -12,17 +12,16 @@ import * as z from 'zod'
 import { Button } from '@components/ui/button'
 import Stamp from '../SvgComponents/Stamp'
 import Link from 'next/link'
-import { type MockData, type Order } from '@/return-process/confirm-pickup'
 import { useReturnProcess } from '@hooks/useReturnProcess'
 import Reveal from '@components/common/reveal'
-// import CheckoutModal from '@/components/CheckoutModal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
+import type { Order, Item } from '@/components/DashBoard/types'
 
 interface Props {
   promoState: [string, React.Dispatch<React.SetStateAction<string>>]
-  orderData: MockData
-  orderDetail: Order
+  order: Order
+  items: Item[]
 }
 
 interface CheckoutResponse {
@@ -36,8 +35,8 @@ const formSchema = z.object({
 
 export default function OrderSummary({
   promoState: [promoCode, setPromoCode],
-  orderData,
-  orderDetail,
+  order,
+  items,
 }: Props) {
   const [isCheckingout, setIsCheckingout] = useState(false)
   const stripePromise = loadStripe(
@@ -51,6 +50,10 @@ export default function OrderSummary({
       promo: promoCode,
     },
   })
+
+  // mock data
+  const extraBoxes = 2
+  const extraBoxPrice = 999
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setPromoCode(values.promo)
@@ -74,9 +77,10 @@ export default function OrderSummary({
             'Content-Type': 'application/json', // Specify the content type as JSON
           },
           body: JSON.stringify({
-            promoCode: promoCode,
-            orderData: orderData,
-            orderDetail: orderDetail,
+            // user: returnProcess.currentData.userInfo,
+            order: order,
+            items: items,
+            currentData: returnProcess.currentData,
           }),
         })
 
@@ -108,16 +112,58 @@ export default function OrderSummary({
     })
   }
 
-  window.addEventListener('message', (event) => {
-    if (event.data === 'CheckoutSuccess' && event.origin === window.origin) {
-      console.log('Turning forward')
-      if (returnProcess?.forward) {
-        returnProcess.forward()
-      } else {
-        console.error('returnProcess.forward is not available.')
+  interface ReceivedData {
+    action: string
+    price: number
+  }
+
+  useEffect(() => {
+    function handleMessage(event: MessageEvent) {
+      if (typeof event.data == 'string') {
+        const receivedData = JSON.parse(event.data) as ReceivedData
+        if (receivedData.action === 'CheckoutSuccess') {
+          console.log('Received CheckoutSuccess message!')
+
+          order.order_details.total_cost = receivedData.price
+          order.client_details.subscription =
+            returnProcess.currentData.subscription
+
+          fetch('/api/orders', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user: returnProcess.currentData.userInfo,
+              order: order,
+            }),
+          })
+            .then((response) => {
+              if (response.ok) {
+                returnProcess.forward()
+              }
+              if (!response.ok) {
+                throw new Error('Error saving to database')
+              }
+            })
+            .catch((error) => {
+              console.error(error)
+            })
+            .finally(() => {
+              // Remove the event listener only if it's still there
+              if (window.removeEventListener) {
+                window.removeEventListener('message', handleMessage)
+              }
+            })
+        }
       }
     }
-  })
+    window.addEventListener('message', handleMessage)
+
+    return () => {
+      window.removeEventListener('message', handleMessage)
+    }
+  }, [])
 
   return (
     <section className="mx-1 tracking-normal md:w-1/3">
@@ -134,23 +180,21 @@ export default function OrderSummary({
           <Reveal width="100%" center={true}>
             <p className="font-regular mt-2 flex w-5/6 justify-between text-smallText sm:text-xl">
               <span>One-time Return</span>
-              <span>$ {(Number(orderData.bronzePrice) / 100).toFixed(2)}</span>
+              <span>$ {(Number(1999) / 100).toFixed(2)}</span>
             </p>
           </Reveal>
-          {orderData.extraBoxes && (
+          {extraBoxes && (
             <Reveal width="100%" center={true}>
               <p className="font-regular mt-2 flex w-5/6 justify-between text-smallText sm:text-xl">
                 <span>
-                  {orderData.extraBoxes} additional box
-                  {orderData.extraBoxes > 1 && 'es'}
+                  {extraBoxes} additional box
+                  {extraBoxes > 1 && 'es'}
                 </span>
                 <span>
                   ${' '}
-                  {(
-                    (Number(orderData.extraBoxes) *
-                      Number(orderData.extraBoxPrice)) /
-                    100
-                  ).toFixed(2)}
+                  {((Number(extraBoxes) * Number(extraBoxPrice)) / 100).toFixed(
+                    2
+                  )}
                 </span>
               </p>
             </Reveal>

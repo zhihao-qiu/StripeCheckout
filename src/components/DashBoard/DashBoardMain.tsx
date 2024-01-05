@@ -14,10 +14,10 @@ function DashBoardMain({ userInfo }: { userInfo: UserInfo }) {
           Welcome back,{' '}
           <span
             className={`${planTextClassName(
-              userInfo.role
+              userInfo.subscription
             )} text-subtitle sm:text-subtitle lg:text-title`}
           >
-            {userInfo.role}
+            {userInfo.subscription}
           </span>{' '}
           user{' '}
           <span className="font-bold text-primary">{userInfo.firstName}</span>
