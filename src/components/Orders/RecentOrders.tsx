@@ -5,19 +5,48 @@ import { Button } from '@/components/ui/button'
 import ConfirmationDialog from '@components/Orders/ConfirmationDialog'
 import { useRouter } from 'next/router'
 
+interface ApiResponse {
+  paginatedOrders: Order[]
+  currentPage: number
+  totalPages: number
+  totalOrders: number
+}
+
 const RecentOrders = () => {
   const [orders, setOrders] = useState<Order[]>([])
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [totalPages, setTotalPages] = useState<number>(1)
   const router = useRouter()
 
+  const fetchRecentOrders: (page: number) => Promise<void> = async (page) => {
+    try {
+      const response = await fetch(`/api/orders?page=${page}`)
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch orders. Status: ${response.status}`)
+      }
+
+      const responseData = (await response.json()) as ApiResponse
+
+      setOrders(responseData.paginatedOrders)
+      setCurrentPage(responseData.currentPage)
+      setTotalPages(responseData.totalPages)
+    } catch (error) {
+      console.error('Error fetching recent orders:', error)
+      throw error
+    }
+  }
+
   useEffect(() => {
-    fetch('/api/orders')
-      .then((response) => response.json())
-      .then((data: Order[]) => {
-        setOrders(data)
+    const fetchData = () => {
+      fetchRecentOrders(currentPage).catch((error) => {
+        console.error('Error fetching recent orders:', error)
       })
-      .catch((error) => console.error('Error fetching orders', error))
-  }, [])
+    }
+
+    fetchData()
+  }, [currentPage])
 
   const handleCancelOrder = (_id: string, order_number: string) => {
     setSelectedOrder({ _id, order_number } as Order)
@@ -28,17 +57,18 @@ const RecentOrders = () => {
       console.log(
         `Cancel Order ${selectedOrder.order_number} (${selectedOrder._id})`
       )
+
       router
-        .push('/dashboard')
+        .replace('/dashboard')
         .then(() => {
           setSelectedOrder(null)
-          window.location.reload()
         })
         .catch((error) => {
           console.error('Error navigating to dashboard:', error)
         })
     }
   }
+
   const cancelCancellation = () => {
     setSelectedOrder(null)
   }
