@@ -11,78 +11,71 @@ export default async function handler(
 ) {
   await connectDB()
 
-  const updateOrderAndUser = async (
-    req: NextApiRequest,
-    res: NextApiResponse
-  ) => {
-    interface reqBody {
-      user: UserInfo
-      order: Order
-    }
+  const pageSize = 20
+  const page = parseInt(req.query.page as string) || 1
+  const database = client.db(dbName)
 
-    const reqBody = req.body as reqBody
-    const newOrder = reqBody.order
-    const currentUser = reqBody.user
-    try {
-      const database = client.db(dbName)
+  try {
+    const orders = database.collection<Order>('orders')
+    if (req.method === 'GET') {
+      const skip = (page - 1) * pageSize
+      const paginatedOrders = await orders
+        .find({})
+        .skip(skip)
+        .limit(pageSize)
+        .toArray()
 
+      const totalOrdersCount = await orders.countDocuments({})
+      const totalPages = Math.ceil(totalOrdersCount / pageSize)
+
+      res.status(200).json({
+        paginatedOrders,
+        currentPage: page,
+        totalPages,
+        totalOrders: totalOrdersCount,
+      })
+    } else if (req.method === 'POST') {
+      interface reqBody {
+        user: UserInfo
+        order: Order
+      }
+
+      const reqBody = req.body as reqBody
+      const newOrder = reqBody.order
+      const currentUser = reqBody.user
       // TODO: need to update orderNumber here
       // newOrder.orderNumber = generateOrderNumber()
-      const session = client.startSession()
-      try {
-        await session.withTransaction(async () => {
-          // create new order
-          const orders = database.collection<Order>('orders')
-          const resultInsertOrder = await orders.insertOne(newOrder)
-          // update subscription of user
-          const users = database.collection<UserInfo>('users')
-          const resultUpdateUser = await users.findOneAndUpdate(
-            { _id: new ObjectId(currentUser._id) },
-            {
-              $set: {
-                subscription: newOrder.client_details.subscription,
-              },
-            }
-          )
-          if (
-            resultInsertOrder.acknowledged === false ||
-            resultUpdateUser === null
-          ) {
-            throw new Error('Database transaction failed.')
-          } else {
-            res.status(200).json({
-              message: 'Order created successfully',
-              id: resultInsertOrder.insertedId,
-            })
-          }
+
+      // create new order
+      const resultInsertOrder = await orders.insertOne(newOrder)
+      // update subscription of user
+      const users = database.collection<UserInfo>('users')
+      const resultUpdateUser = await users.findOneAndUpdate(
+        { _id: new ObjectId(currentUser._id) },
+        {
+          $set: {
+            subscription: newOrder.client_details.subscription,
+          },
+        }
+      )
+      if (
+        resultInsertOrder.acknowledged === false ||
+        resultUpdateUser === null
+      ) {
+        throw new Error('Database transaction failed.')
+      } else {
+        res.status(200).json({
+          message: 'Order created successfully',
+          id: resultInsertOrder.insertedId,
         })
-      } catch (err) {
-        throw new Error('Database transaction failed.', err as Error)
-      } finally {
-        await session.endSession()
       }
-    } catch (error) {
-      console.log(error)
-      res.status(500).json({ message: 'Error creating order', error })
+    } else {
+      res.setHeader('Allow', ['GET', 'POST'])
+      res.status(405).end(`Method ${req.method} Not Allowed`)
     }
+  } catch (error) {
+    res.status(500).json({ message: 'Error processing request', error })
+  } finally {
+    await disconnectDB()
   }
-
-  if (req.method === 'GET') {
-    // Get all orders
-    try {
-      const database = client.db(dbName)
-      const orders = database.collection<Order>('orders')
-      const allOrders = await orders.find({}).toArray()
-      res.status(200).json(allOrders)
-    } catch (error) {
-      res.status(500).json({ message: 'Error retrieving orders', error })
-    }
-  } else if (req.method === 'POST') {
-    await updateOrderAndUser(req, res)
-  } else {
-    res.setHeader('Allow', ['GET', 'POST'])
-    res.status(405).end(`Method ${req.method} Not Allowed`)
-  }
-
-  await disconnectDB()
 }
