@@ -111,8 +111,7 @@ const RecentOrders = () => {
                   }
                   style={{
                     opacity:
-                      order.status === 'Cancelled' ||
-                      order.status === 'Delivered'
+                      status === 'Cancelled' || order.status === 'Delivered'
                         ? '0.7'
                         : '1',
                     cursor:
