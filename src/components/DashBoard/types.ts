@@ -198,6 +198,7 @@ export const orderSchema = z.object({
   ]),
 })
 export type Order = z.infer<typeof orderSchema>
+
 export type ModalPropsType = {
   isOpen: boolean
   setIsOpen: () => void
