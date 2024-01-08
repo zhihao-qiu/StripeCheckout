@@ -58,17 +58,25 @@ const RecentOrders = () => {
         `Cancel Order ${selectedOrder.order_number} (${selectedOrder._id})`
       )
 
+      //   setSelectedOrder((prevSelectedOrder: Order | null) => {
+      //     if (prevSelectedOrder) {
+      //       return { ...prevSelectedOrder, status: 'Cancelled' }
+      //     }
+      //     return prevSelectedOrder
+      //   })
+
       router
-        .replace('/dashboard')
+        .push('/dashboard')
         .then(() => {
+          console.log('selected order is ', selectedOrder)
           setSelectedOrder(null)
+          window.location.reload()
         })
         .catch((error) => {
           console.error('Error navigating to dashboard:', error)
         })
     }
   }
-
   const cancelCancellation = () => {
     setSelectedOrder(null)
   }
@@ -111,7 +119,8 @@ const RecentOrders = () => {
                   }
                   style={{
                     opacity:
-                      status === 'Cancelled' || order.status === 'Delivered'
+                      order.status === 'Cancelled' ||
+                      order.status === 'Delivered'
                         ? '0.7'
                         : '1',
                     cursor:

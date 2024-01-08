@@ -36,6 +36,7 @@ export const addressSchema = z.object({
       }
       return val
     }),
+  primary: z.boolean(), //Added this property
 })
 export type Address = Omit<z.infer<typeof addressSchema>, 'streetNumber'> & {
   streetNumber: string | number
@@ -118,22 +119,19 @@ export type ProfilePropsType = {
   userInfo: UserInfo
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>
 }
+
+const dateFromStringObject = z.object({
+  $date_from_string: z.object({
+    date_string: z.string(),
+  }),
+})
+
 export const orderSchema = z.object({
   _id: z.string(),
   order_number: z.string(),
-  order_date: z.object({
-    $dateFromString: z.object({
-      dateString: z.string(),
-    }),
-  }),
+  order_date: dateFromStringObject,
   order_details: z.object({
     total_cost: z.number(),
-    pickup_date: z.object({
-      $dateFromString: z.object({
-        dateString: z.string(),
-      }),
-    }),
-    pickup_method: z.string(),
     total_packages: z.number(),
     extra_packages_included: z.number(),
     promo_code: z.string(),
@@ -141,12 +139,10 @@ export const orderSchema = z.object({
       first_name: z.string(),
       last_name: z.string(),
       phone_number: z.string(),
-      street: z.string(),
-      unitNumber: z.string(),
-      city: z.string(),
-      province: z.string(),
-      country: z.string(),
-      postalCode: z.string(),
+      pickup_address: addressSchema,
+      pickup_date: dateFromStringObject,
+      pickup_method: z.string(),
+      special_instructions: z.string().optional(),
     }),
   }),
   client_details: z.object({
@@ -156,39 +152,22 @@ export const orderSchema = z.object({
     email: z.string(),
     phone_number: z.string(),
     payment_type: z.string(),
-    addresses: z.array(
-      z.object({
-        _id: z.string(),
-        street: z.string(),
-        unit_number: z.string(),
-        city: z.string(),
-        province: z.string(),
-        country: z.string(),
-        postal_code: z.string(),
-        primary: z.boolean(),
-      })
-    ),
+    client_address: addressSchema,
   }),
-  subscription_expiry_date: z.object({
-    $dateFromString: z.object({
-      dateString: z.string(),
-    }),
-  }),
-  address_id: z.string(),
-  itemName: z.string(),
+  subscription_expiry_date: dateFromStringObject,
+  item_name: z.string(),
   quantity: z.number(),
   price: z.number(),
-  customerName: z.string(),
-  customerPhoneNumber: z.string(),
-  deliveryAddress: z.string(),
-  dateAndTime: z.string(),
-  deliveryOption: z.string(),
-  packageOrderType: z.string(),
-  labelType: z.string(),
-  paymentMethod: z.string(),
-  promoCode: z.string(),
-  upgradeOption: z.string(),
-  specialInstructions: z.string().optional(),
+  customer_name: z.string(),
+  customer_phone_number: z.string(),
+  delivery_address: addressSchema,
+  delivery_date_and_time: dateFromStringObject,
+  delivery_option: z.string(),
+  package_order_type: z.string(),
+  label_type: z.string(),
+  payment_method: z.string(),
+  promo_code: z.string(),
+  upgrade_option: z.string(),
   status: z.enum([
     'Driver received',
     'Driver on the way',
