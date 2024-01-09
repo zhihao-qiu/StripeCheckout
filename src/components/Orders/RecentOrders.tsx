@@ -58,13 +58,6 @@ const RecentOrders = () => {
         `Cancel Order ${selectedOrder.order_number} (${selectedOrder._id})`
       )
 
-      //   setSelectedOrder((prevSelectedOrder: Order | null) => {
-      //     if (prevSelectedOrder) {
-      //       return { ...prevSelectedOrder, status: 'Cancelled' }
-      //     }
-      //     return prevSelectedOrder
-      //   })
-
       router
         .push('/dashboard')
         .then(() => {
@@ -89,9 +82,9 @@ const RecentOrders = () => {
 
   return (
     <div className="recent-orders-container mt-14 flex flex-col items-start p-5">
-      <div className="mb-4 flex w-full items-center justify-between">
+      <div className="mb-5 flex w-full items-center justify-between">
         <div className="recent-order-header">
-          <h2 className="mb-2 text-xl font-bold">Recent Orders</h2>
+          <h2 className="mb-2 text-2xl font-bold">Recent Orders</h2>
         </div>
         <div>
           <Link href="/orders">
