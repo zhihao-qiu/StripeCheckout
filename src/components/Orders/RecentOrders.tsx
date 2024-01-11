@@ -48,37 +48,30 @@ const RecentOrders = () => {
     fetchData()
   }, [currentPage])
 
-  const handleCancelOrder = (_id: string, order_number: string) => {
-    setSelectedOrder({ _id, order_number } as Order)
+  const handleCancelOrder = (id: string, order_number: string) => {
+    setSelectedOrder({ id, order_number } as Order)
   }
 
   const confirmCancellation = () => {
     if (selectedOrder) {
       console.log(
-        `Cancel Order ${selectedOrder.order_number} (${selectedOrder._id})`
+        `Cancel Order ${selectedOrder.order_number} (${selectedOrder.id})`
       )
 
-      //   setSelectedOrder((prevSelectedOrder: Order | null) => {
-      //     if (prevSelectedOrder) {
-      //       return { ...prevSelectedOrder, status: 'Cancelled' }
-      //     }
-      //     return prevSelectedOrder
-      //   })
-
       router
-        .push('/dashboard')
+        .replace('/dashboard')
         .then(() => {
-          console.log('selected order is ', selectedOrder)
           setSelectedOrder(null)
-          window.location.reload()
         })
         .catch((error) => {
           console.error('Error navigating to dashboard:', error)
         })
     }
   }
+
   const cancelCancellation = () => {
     setSelectedOrder(null)
+    window.location.reload()
   }
 
   const recentOrders = orders.slice(0, 3)
@@ -115,7 +108,7 @@ const RecentOrders = () => {
                 <Button
                   variant="secondary"
                   onClick={() =>
-                    handleCancelOrder(order._id, order.order_number)
+                    handleCancelOrder(order.id, order.order_number)
                   }
                   style={{
                     opacity:
@@ -135,7 +128,7 @@ const RecentOrders = () => {
                 >
                   Cancel Order
                 </Button>
-                <Link href={`/orders/${order._id}`}>
+                <Link href={`/orders/${order.id}`}>
                   <Button className="ml-2">Manage Order</Button>
                 </Link>
               </div>
@@ -149,7 +142,7 @@ const RecentOrders = () => {
           message={`Are you sure you want to cancel Order #${selectedOrder.order_number}?`}
           onCancel={cancelCancellation}
           onConfirm={confirmCancellation}
-          orderId={selectedOrder._id}
+          orderId={selectedOrder.id}
         />
       )}
     </div>
