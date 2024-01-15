@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { type Order } from '@components/DashBoard/types'
+import { type Order, type PaginatedResponse } from '@components/DashBoard/types'
 import { Button } from '@/components/ui/button'
 import ConfirmationDialog from '@components/Orders/ConfirmationDialog'
 import { useRouter } from 'next/router'
 import { type ObjectId } from 'mongodb'
-
-interface ApiResponse {
-  paginatedOrders: Order[]
-  currentPage: number
-  totalPages: number
-  totalOrders: number
-}
 
 const RecentOrders = () => {
   const [orders, setOrders] = useState<Order[]>([])
@@ -28,7 +21,7 @@ const RecentOrders = () => {
         throw new Error(`Failed to fetch orders. Status: ${response.status}`)
       }
 
-      const responseData = (await response.json()) as ApiResponse
+      const responseData = (await response.json()) as PaginatedResponse
 
       setOrders(responseData.paginatedOrders)
       setCurrentPage(responseData.currentPage)

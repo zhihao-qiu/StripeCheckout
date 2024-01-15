@@ -168,3 +168,17 @@ export type LeadData = {
   postalCode: string
   email: string
 }
+
+export interface ConfirmationDialogProps {
+  message: string
+  onCancel: () => void
+  onConfirm: () => void
+  orderId: ObjectId
+}
+
+export interface PaginatedResponse {
+  paginatedOrders: Order[]
+  currentPage: number
+  totalPages: number
+  totalOrders: number
+}

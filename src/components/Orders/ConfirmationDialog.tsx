@@ -1,13 +1,7 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { type ObjectId } from 'mongodb'
-
-interface ConfirmationDialogProps {
-  message: string
-  onCancel: () => void
-  onConfirm: () => void
-  orderId: ObjectId
-}
+import { type ConfirmationDialogProps } from '@components/DashBoard/types'
 
 const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
   message,
