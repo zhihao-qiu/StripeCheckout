@@ -23,7 +23,8 @@ export type Address = z.infer<typeof addressSchema>
 export const AddressesArraySchema = z.array(addressSchema)
 
 export const profileFormSchema = z.object({
-  firstName: z
+  _id: z.instanceof(ObjectId),
+  first_name: z
     .string()
     .min(1, {
       message: 'First name is required',
@@ -31,7 +32,7 @@ export const profileFormSchema = z.object({
     .max(60, {
       message: 'First name must be less than 60 characters',
     }),
-  lastName: z
+  last_name: z
     .string()
     .min(1, {
       message: 'Last name is required',
@@ -39,22 +40,18 @@ export const profileFormSchema = z.object({
     .max(60, {
       message: 'Last name must be less than 60 characters',
     }),
-  primaryAddress: addressSchema,
-  role: z.enum(['Admin', 'Platinum', 'Gold', 'Silver', 'Bronze']),
+  subscription: z.string(),
+  subscription_expiry_date: z.date().optional(),
+  phone_number: z.string(),
   email: z.string().email({
     message: 'Please enter a valid email address',
   }),
-  additionalAddress: z.array(addressSchema).optional(),
+  payment_type: z.string(),
+  addresses: z.array(addressSchema),
 })
-type UserInfoBaseWithoutPrimaryAddress = Omit<
-  z.infer<typeof profileFormSchema>,
-  'primaryAddress'
->
-type UserInfoBase = Omit<UserInfoBaseWithoutPrimaryAddress, 'additionalAddress'>
-export type UserInfo = UserInfoBase & {
-  primaryAddress: Address
-  additionalAddress?: Address[]
-}
+
+export type UserInfo = z.infer<typeof profileFormSchema>
+
 export type EditProfileFormPropsType = {
   form: UseFormReturn<{
     firstName: string
