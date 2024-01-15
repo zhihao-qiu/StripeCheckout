@@ -8,15 +8,15 @@ const addressSchema = z.object({
   contact_full_name: z.string(),
   contact_phone_number: z.string(),
   street: z.string(),
-  unit_number: z.string(),
+  unit_number: z.string().optional(),
   city: z.string(),
   province: z.string().default('Ontario'),
   country: z.string().default('Canada'),
   postal_code: z.string().refine((value) => /^\w\d\w\s?\d\w\d$/.test(value), {
     message: 'Invalid postal code format',
   }),
-  instructions: z.string(),
-  primary: z.boolean(),
+  instructions: z.string().optional(),
+  primary: z.boolean().default(false),
 })
 export type Address = z.infer<typeof addressSchema>
 
