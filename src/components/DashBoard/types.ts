@@ -150,7 +150,13 @@ const OrdersCollectionSchema = z.object({
   _id: z.instanceof(ObjectId),
   order_number: z.string(), // System-generated
   order_date: z.date(),
-  status: z.string(),
+  status: z.enum([
+    'Driver received',
+    'Driver on the way',
+    'Driver delivered to post office',
+    'Delivered',
+    'Cancelled',
+  ]),
   order_details: OrderDetailsSchema,
   client_details: ClientDetailsSchema,
 })
