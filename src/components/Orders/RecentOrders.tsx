@@ -4,6 +4,7 @@ import { type Order } from '@components/DashBoard/types'
 import { Button } from '@/components/ui/button'
 import ConfirmationDialog from '@components/Orders/ConfirmationDialog'
 import { useRouter } from 'next/router'
+import { type ObjectId } from 'mongodb'
 
 interface ApiResponse {
   paginatedOrders: Order[]
@@ -48,20 +49,23 @@ const RecentOrders = () => {
     fetchData()
   }, [currentPage])
 
-  const handleCancelOrder = (id: string, order_number: string) => {
-    setSelectedOrder({ id, order_number } as Order)
+  const handleCancelOrder = (id: ObjectId, order_number: string) => {
+    setSelectedOrder({ _id: id, order_number } as Order)
   }
 
   const confirmCancellation = () => {
     if (selectedOrder) {
       console.log(
-        `Cancel Order ${selectedOrder.order_number} (${selectedOrder.id})`
+        `Cancel Order ${selectedOrder.order_number} (${String(
+          selectedOrder._id
+        )})`
       )
 
       router
         .replace('/dashboard')
         .then(() => {
           setSelectedOrder(null)
+          window.location.reload()
         })
         .catch((error) => {
           console.error('Error navigating to dashboard:', error)
@@ -71,7 +75,6 @@ const RecentOrders = () => {
 
   const cancelCancellation = () => {
     setSelectedOrder(null)
-    window.location.reload()
   }
 
   const recentOrders = orders.slice(0, 3)
@@ -108,7 +111,7 @@ const RecentOrders = () => {
                 <Button
                   variant="secondary"
                   onClick={() =>
-                    handleCancelOrder(order.id, order.order_number)
+                    handleCancelOrder(order._id, order.order_number)
                   }
                   style={{
                     opacity:
@@ -128,7 +131,7 @@ const RecentOrders = () => {
                 >
                   Cancel Order
                 </Button>
-                <Link href={`/orders/${order.id}`}>
+                <Link href={`/orders/${String(order._id)}`}>
                   <Button className="ml-2">Manage Order</Button>
                 </Link>
               </div>
@@ -142,7 +145,7 @@ const RecentOrders = () => {
           message={`Are you sure you want to cancel Order #${selectedOrder.order_number}?`}
           onCancel={cancelCancellation}
           onConfirm={confirmCancellation}
-          orderId={selectedOrder.id}
+          orderId={selectedOrder._id}
         />
       )}
     </div>

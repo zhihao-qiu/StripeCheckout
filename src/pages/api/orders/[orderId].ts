@@ -10,7 +10,7 @@ export default async function handler(
 ) {
   const { orderId } = req.query
 
-  if (!orderId || Array.isArray(orderId) || !ObjectId.isValid(orderId)) {
+  if (!orderId || Array.isArray(orderId)) {
     res.status(400).json({ message: 'Invalid orderId' })
     return
   }
@@ -21,7 +21,7 @@ export default async function handler(
     try {
       const database = client.db(dbName)
       const orders = database.collection<Order>('orders')
-      const objectId = new ObjectId(String(orderId))
+      const objectId = new ObjectId(orderId)
       const order = await orders.findOne({
         _id: objectId,
       })
@@ -42,7 +42,7 @@ export default async function handler(
       const updatedOrder = req.body as Order
 
       const result = await orders.updateOne(
-        { _id: new ObjectId(String(orderId)) },
+        { _id: new ObjectId(orderId) },
         { $set: updatedOrder }
       )
 

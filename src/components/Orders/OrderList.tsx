@@ -27,7 +27,7 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
       {orders.length > 0 ? (
         orders.map((order) => (
           <div
-            key={order.id}
+            key={String(order._id)}
             className="mb-4 flex items-center justify-between  border-b-2 border-b-gray-300 p-4"
           >
             <div className="flex items-center space-x-4 ">
@@ -52,7 +52,7 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
                 Cancelled
               </div>
             )}
-            <Link href={`/orders/${order.id}`} passHref>
+            <Link href={`/orders/${String(order._id)}`} passHref>
               <button
                 className={`ml-5 cursor-pointer text-gray-800 underline  focus:outline-none`}
               >
