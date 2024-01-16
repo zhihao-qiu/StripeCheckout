@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import OrderList from '@components/Orders/OrderList'
 import axios from 'axios'
-import { type Order } from '@components/DashBoard/types'
+import { type Order, type PaginatedResponse } from '@components/DashBoard/types'
 import { Button } from '@/components/ui/button'
 
 interface OrdersProps {
   initialOrders: Order[]
-}
-
-interface PaginatedResponse {
-  paginatedOrders: Order[]
-  currentPage: number
-  totalPages: number
-  totalOrders: number
 }
 
 const pageSize = 20
