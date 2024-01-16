@@ -117,6 +117,7 @@ const PickupDetailsSchema = z.object({
   }),
   instructions: z.string(),
   pickup_date: z.date(),
+  pickup_method: z.string(),
 })
 
 const PackageDetailsArraySchema = z.array(PackageDetailSchema)
@@ -124,8 +125,6 @@ const PackageDetailsArraySchema = z.array(PackageDetailSchema)
 const OrderDetailsSchema = z.object({
   total_cost: z.number(),
   promo_code: z.string(),
-  pickup_date: z.date(),
-  pickup_method: z.string(),
   total_packages: z.number(),
   extra_packages_included: z.number(),
   package_details: PackageDetailsArraySchema,

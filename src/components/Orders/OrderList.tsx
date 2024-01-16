@@ -38,7 +38,7 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
                 </div>
                 <div className="text-sm text-gray-900">
                   Pick up Scheduled for{' '}
-                  {order.order_details.pickup_date
+                  {order.order_details.pickup_details.pickup_date
                     ? formatPickupDate(
                         order.order_details.pickup_details.pickup_date
                       )
