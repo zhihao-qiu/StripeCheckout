@@ -70,7 +70,7 @@ const Orders: React.FC<OrdersProps> = ({ initialOrders }) => {
             {orders.length > 0 ? (
               <OrderList orders={orders} />
             ) : (
-              <p>No orders to display.</p>
+              <p className="ml-3 ">Currently no orders placed.</p>
             )}
             {canShowPagination && (
               <div className="pagination ml-10 p-2">
