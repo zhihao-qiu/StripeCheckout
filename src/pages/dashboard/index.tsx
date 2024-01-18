@@ -33,14 +33,14 @@ function Dashboard() {
   const [userInfo, setUserInfo] = useState<UserInfo>({
     firstName: 'John',
     lastName: 'Doe',
-    primaryAddress: {
-      apartmentUnitNumber: '12A',
-      streetNumber: 1234,
-      streetName: 'Main St',
-      city: 'Toronto',
-      province: 'ON',
-      postal: 'M1M1M1',
-    },
+    // primaryAddress: {
+    //   apartmentUnitNumber: '12A',
+    //   streetNumber: 1234,
+    //   streetName: 'Main St',
+    //   city: 'Toronto',
+    //   province: 'ON',
+    //   postal: 'M1M1M1',
+    // },
     role: 'Platinum',
     email: 'john@example.com',
     additionalAddress: [
@@ -100,26 +100,26 @@ function Dashboard() {
     },
   ]
 
-  // TODO: replace this with Apollo client query instead of fragment
-  useEffect(() => {
-    setUserInfo((preV) => {
-      return userInCache
-        ? {
-            firstName: userInCache.user.firstName,
-            lastName: userInCache.user.lastName,
-            primaryAddress: {
-              streetNumber: userInCache.primaryAddress.streetNumber,
-              streetName: userInCache.primaryAddress.streetName,
-              city: userInCache.primaryAddress.city,
-              province: userInCache.primaryAddress.province,
-              postal: userInCache.primaryAddress.postal,
-            },
-            role: userInCache.user.role,
-            email: userInCache.user.email,
-          }
-        : preV
-    })
-  }, [userInCache])
+  //   // TODO: replace this with Apollo client query instead of fragment
+  //   useEffect(() => {
+  //     setUserInfo((preV) => {
+  //       return userInCache
+  //         ? {
+  //             firstName: userInCache.user.firstName,
+  //             lastName: userInCache.user.lastName,
+  //             primaryAddress: {
+  //               streetNumber: userInCache.primaryAddress.streetNumber,
+  //               streetName: userInCache.primaryAddress.streetName,
+  //               city: userInCache.primaryAddress.city,
+  //               province: userInCache.primaryAddress.province,
+  //               postal: userInCache.primaryAddress.postal,
+  //             },
+  //             role: userInCache.user.role,
+  //             email: userInCache.user.email,
+  //           }
+  //         : preV
+  //     })
+  //   }, [userInCache])
 
   return (
     <DashBoardMain userInfo={userInfo} setUserInfo={setUserInfo} />
