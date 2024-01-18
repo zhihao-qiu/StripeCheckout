@@ -1,9 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import NounDelivery from '@/components/SvgComponents/NounDelivery'
-import Link from 'next/link'
 import { type UserInfo } from '@/components/DashBoard/types'
-import { planTextClassName } from '@/components/Plan'
 import Reveal from '@components/common/reveal'
 import {
   Card,
@@ -11,9 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import HandingPackage from '@/components/SvgComponents/HandingPackage'
 import { useRouter } from 'next/navigation'
-import Profile from './Profile'
+import Profile from '@/components/DashBoard/Profile'
 import { CiCalendar } from 'react-icons/ci'
 import { FaRegCircleUser, FaRegClock } from 'react-icons/fa6'
 
@@ -25,33 +20,26 @@ function DashBoardMain({
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>
 }) {
   const [showProfile, setShowProfile] = useState(false)
-
   const cardClassnames =
-    'border-l-0 border-r-0 border-t-0 border-b-0  border-black flex h-45 md:w-1/3 select-none flex-row items-center p-4 bg-white text-brand'
-  const cardTitleClassnames = 'text-xl md:text-2xl font-semibold'
-
+    'border-l-0 border-r-0 border-t-0 border-b-0  border-black flex h-23 md:w-3/4 select-none flex-row items-center p-4 bg-white mr-100 text-brand'
+  const cardTitleClassnames = 'text-xl md:text-2xl font-semibold '
   const cardDescriptionClassNames = 'text-sm text-brand'
-
   const router = useRouter()
-
   const handleRedirect = (path: string) => {
     router.push(path)
   }
-
   const handleProfileClick = () => {
     setShowProfile(true)
   }
-
   return (
     <section className="lg:p-30 flex flex-col justify-center space-y-8  p-20 lg:space-y-16">
       {!showProfile && (
         <div>
           <Reveal>
-            <h3 className="mb-6 text-subtitle font-bold lg:text-title">
+            <h3 className="mb-6 text-subtitle font-bold lg:text-5xl">
               Your Dashboard
             </h3>
           </Reveal>
-
           <div className="justify-left mb-12 flex">
             <Card
               onClick={() => handleRedirect('/return')}
@@ -85,7 +73,6 @@ function DashBoardMain({
                 </Reveal>
               </CardHeader>
             </Card>
-
             <Card
               onClick={() => handleRedirect('/return')}
               className={`${cardClassnames} mr-4`}
@@ -118,7 +105,6 @@ function DashBoardMain({
                 </Reveal>
               </CardHeader>
             </Card>
-
             <Card
               onClick={handleProfileClick}
               className={`${cardClassnames}`}
@@ -129,7 +115,7 @@ function DashBoardMain({
                   <div className="flex items-center">
                     <div className="mr-4">
                       <Reveal>
-                        <FaRegCircleUser className="h-12 w-12 fill-secondary xxs:h-16 xxs:w-16 xs:h-24 xs:w-24"/>
+                        <FaRegCircleUser className="fill-secondary h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
                         {/* <HandingPackage className="h-12 w-12 fill-primary xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" /> */}
                       </Reveal>
                     </div>
@@ -148,12 +134,11 @@ function DashBoardMain({
               </CardHeader>
             </Card>
           </div>
-          <h4 className="text-subtitle font-bold">Recent Orders</h4>
+          <RecentOrders />
         </div>
       )}
       {showProfile && <Profile userInfo={userInfo} setUserInfo={setUserInfo} />}
     </section>
   )
 }
-
 export default DashBoardMain
