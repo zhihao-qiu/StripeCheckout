@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { type Order } from '@components/DashBoard/types'
+import { type Order, type PaginatedResponse } from '@components/DashBoard/types'
 import { Button } from '@/components/ui/button'
 import ConfirmationDialog from '@components/Orders/ConfirmationDialog'
 import { useRouter } from 'next/router'
-
-interface ApiResponse {
-  paginatedOrders: Order[]
-  currentPage: number
-  totalPages: number
-  totalOrders: number
-}
+import { type ObjectId } from 'mongodb'
 
 const RecentOrders = () => {
   const [orders, setOrders] = useState<Order[]>([])
@@ -27,7 +21,7 @@ const RecentOrders = () => {
         throw new Error(`Failed to fetch orders. Status: ${response.status}`)
       }
 
-      const responseData = (await response.json()) as ApiResponse
+      const responseData = (await response.json()) as PaginatedResponse
 
       setOrders(responseData.paginatedOrders)
       setCurrentPage(responseData.currentPage)
@@ -48,20 +42,21 @@ const RecentOrders = () => {
     fetchData()
   }, [currentPage])
 
-  const handleCancelOrder = (_id: string, order_number: string) => {
-    setSelectedOrder({ _id, order_number } as Order)
+  const handleCancelOrder = (id: ObjectId, order_number: string) => {
+    setSelectedOrder({ _id: id, order_number } as Order)
   }
 
   const confirmCancellation = () => {
     if (selectedOrder) {
       console.log(
-        `Cancel Order ${selectedOrder.order_number} (${selectedOrder._id})`
+        `Cancel Order ${selectedOrder.order_number} (${String(
+          selectedOrder._id
+        )})`
       )
 
       router
-        .push('/dashboard')
+        .replace('/dashboard')
         .then(() => {
-          console.log('selected order is ', selectedOrder)
           setSelectedOrder(null)
           window.location.reload()
         })
@@ -70,6 +65,7 @@ const RecentOrders = () => {
         })
     }
   }
+
   const cancelCancellation = () => {
     setSelectedOrder(null)
   }
@@ -128,7 +124,7 @@ const RecentOrders = () => {
                 >
                   Cancel Order
                 </Button>
-                <Link href={`/orders/${order._id}`}>
+                <Link href={`/orders/${String(order._id)}`}>
                   <Button className="ml-2">Manage Order</Button>
                 </Link>
               </div>

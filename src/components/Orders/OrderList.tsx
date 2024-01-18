@@ -6,12 +6,16 @@ interface OrderListProps {
   orders?: Order[]
 }
 
-const formatPickupDate = (dateString: string | undefined): string => {
+const formatPickupDate = (date: Date | string | undefined): string => {
   const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' }
-  const date = dateString ? new Date(dateString) : null
 
-  if (date) {
+  if (date instanceof Date) {
     return date.toLocaleDateString(undefined, options)
+  } else if (typeof date === 'string') {
+    const parsedDate = new Date(date)
+    if (!isNaN(parsedDate.getTime())) {
+      return parsedDate.toLocaleDateString(undefined, options)
+    }
   }
 
   return ''
@@ -23,7 +27,7 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
       {orders.length > 0 ? (
         orders.map((order) => (
           <div
-            key={order._id}
+            key={String(order._id)}
             className="mb-4 flex items-center justify-between  border-b-2 border-b-gray-300 p-4"
           >
             <div className="flex items-center space-x-4 ">
@@ -34,10 +38,9 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
                 </div>
                 <div className="text-sm text-gray-900">
                   Pick up Scheduled for{' '}
-                  {order.order_details.pickup_date
+                  {order.order_details.pickup_details.pickup_date
                     ? formatPickupDate(
-                        order.order_details.pickup_date.$dateFromString
-                          .dateString
+                        order.order_details.pickup_details.pickup_date
                       )
                     : ''}
                 </div>
@@ -49,7 +52,7 @@ const OrderList: React.FC<OrderListProps> = ({ orders = [] }) => {
                 Cancelled
               </div>
             )}
-            <Link href={`/orders/${order._id}`} passHref>
+            <Link href={`/orders/${String(order._id)}`} passHref>
               <button
                 className={`ml-5 cursor-pointer text-gray-800 underline  focus:outline-none`}
               >

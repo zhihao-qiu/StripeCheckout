@@ -1,13 +1,7 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
-import { useRouter } from 'next/router'
-
-interface ConfirmationDialogProps {
-  message: string
-  onCancel: () => void
-  onConfirm: () => void
-  orderId: string
-}
+import { type ObjectId } from 'mongodb'
+import { type ConfirmationDialogProps } from '@components/DashBoard/types'
 
 const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
   message,
@@ -15,11 +9,9 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
   onConfirm,
   orderId,
 }) => {
-  const router = useRouter()
-
   const handleConfirm = async (): Promise<void> => {
     try {
-      const response = await fetch(`/api/orders/${String(orderId)}`, {
+      const response = await fetch(`/api/orders/${orderId.toString()}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
