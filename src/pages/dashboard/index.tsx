@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import DefaultLayout from '@/layouts/DefaultLayout'
+import DashboardLayout from '@/layouts/DashboardLayout'
 import { Separator } from '@/components/ui/separator'
 import Image from 'next/image'
 import { LiaHomeSolid } from 'react-icons/lia'
@@ -114,49 +115,50 @@ function Dashboard() {
   // }, [userInCache])
 
   return (
-    <Tabs defaultValue="main" className="h-full animate-in animate-out">
-      <section className="flex">
-        <TabsList className="hidden h-full min-h-screen w-1/4 flex-col justify-center space-y-5 rounded-none bg-brand pb-40 text-white md:flex">
-          <Link href="/" className="mb-16 p-4">
-            <Image
-              src={'/images/returnpal-logo.png'}
-              alt="logo"
-              width="0"
-              height="0"
-              sizes="200px"
-              style={{ width: 'auto', height: '100%' }}
-              className="mx-auto"
-            />
-          </Link>
-          {tabsData.map((tab) => (
-            <Fragment key={tab.id}>
-              {/* Render a Separator on top when tap is "Sign Out" */}
-              {tab.title === 'Sign Out' ? (
-                <Separator key={`separator ${tab.id}`} className="mb-16" />
-              ) : null}
-              <TabsTrigger
-                className={tabsTriggerClassName}
-                value={tab.value}
-                key={tab.id}
-              >
-                {tab.icon}
-                {tab.title === 'Sign Out' ? (
-                  <Link href={'/'} key={`link ${tab.id}`}>
-                    <p className="ml-4 mt-2">{tab.title}</p>
-                  </Link>
-                ) : (
-                  <p key={`p tag ${tab.id}`} className="ml-4 mt-2">
-                    {tab.title}
-                  </p>
-                )}
-              </TabsTrigger>
-            </Fragment>
-          ))}
-        </TabsList>
+    <DashBoardMain userInfo={userInfo} setUserInfo={setUserInfo} />
+    // <Tabs defaultValue="main" className="h-full animate-in animate-out">
+    //   <section className="flex">
+    //     <TabsList className="hidden h-full min-h-screen w-1/4 flex-col justify-center space-y-5 rounded-none bg-brand pb-40 text-white md:flex">
+    //       <Link href="/" className="mb-16 p-4">
+    //         <Image
+    //           src={'/images/returnpal-logo.png'}
+    //           alt="logo"
+    //           width="0"
+    //           height="0"
+    //           sizes="200px"
+    //           style={{ width: 'auto', height: '100%' }}
+    //           className="mx-auto"
+    //         />
+    //       </Link>
+    //       {tabsData.map((tab) => (
+    //         <Fragment key={tab.id}>
+    //           {/* Render a Separator on top when tap is "Sign Out" */}
+    //           {tab.title === 'Sign Out' ? (
+    //             <Separator key={`separator ${tab.id}`} className="mb-16" />
+    //           ) : null}
+    //           <TabsTrigger
+    //             className={tabsTriggerClassName}
+    //             value={tab.value}
+    //             key={tab.id}
+    //           >
+    //             {tab.icon}
+    //             {tab.title === 'Sign Out' ? (
+    //               <Link href={'/'} key={`link ${tab.id}`}>
+    //                 <p className="ml-4 mt-2">{tab.title}</p>
+    //               </Link>
+    //             ) : (
+    //               <p key={`p tag ${tab.id}`} className="ml-4 mt-2">
+    //                 {tab.title}
+    //               </p>
+    //             )}
+    //           </TabsTrigger>
+    //         </Fragment>
+    //       ))}
+    //     </TabsList>
 
-        <TabsList className="flex p-0 md:hidden">
-          <MobileSideBar />
-        </TabsList>
+    //     <TabsList className="flex p-0 md:hidden">
+    //       <MobileSideBar />
+    //     </TabsList>
 
         {/* <TabsContent value="main" className="mt-0 min-h-screen w-full md:w-3/4">
           <DashBoardMain userInfo={userInfo} />
@@ -195,9 +197,9 @@ function Dashboard() {
 
 Dashboard.getLayout = (page: React.ReactElement) => {
   return (
-    <DefaultLayout isHeaderShow={false} isFooterShow={false}>
+    <DashboardLayout isHeaderShow={true} isFooterShow={false}>
       {page}
-    </DefaultLayout>
+    </DashboardLayout>
   )
 }
 

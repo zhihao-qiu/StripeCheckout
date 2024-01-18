@@ -1,12 +1,36 @@
-import React from 'react'
-import { Button } from '@/components/ui/button'
-import NounDelivery from '@/components/SvgComponents/NounDelivery'
-import Link from 'next/link'
+import React, { useState } from 'react'
 import { type UserInfo } from '@/components/DashBoard/types'
-import { planTextClassName } from '@/components/Plan'
 import Reveal from '@components/common/reveal'
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { useRouter } from 'next/navigation'
+import Profile from '@/components/DashBoard/Profile'
+import { CiCalendar } from 'react-icons/ci'
+import { FaRegCircleUser, FaRegClock } from 'react-icons/fa6'
 
-function DashBoardMain({ userInfo }: { userInfo: UserInfo }) {
+function DashBoardMain({
+  userInfo,
+  setUserInfo,
+}: {
+  userInfo: UserInfo
+  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>
+}) {
+  const [showProfile, setShowProfile] = useState(false)
+  const cardClassnames =
+    'border-l-0 border-r-0 border-t-0 border-b-0  border-black flex h-23 md:w-3/4 select-none flex-row items-center p-4 bg-white mr-100 text-brand'
+  const cardTitleClassnames = 'text-xl md:text-2xl font-semibold '
+  const cardDescriptionClassNames = 'text-sm text-brand'
+  const router = useRouter()
+  const handleRedirect = (path: string) => {
+    router.push(path)
+  }
+  const handleProfileClick = () => {
+    setShowProfile(true)
+  }
   return (
     <section className="lg:p-30 flex flex-col justify-center space-y-8  p-20 lg:space-y-16">
       <Reveal>
@@ -43,9 +67,9 @@ function DashBoardMain({ userInfo }: { userInfo: UserInfo }) {
             </div>
           </Reveal>
         </div>
-      </Reveal>
+      )}
+      {showProfile && <Profile userInfo={userInfo} setUserInfo={setUserInfo} />}
     </section>
   )
 }
-
 export default DashBoardMain
