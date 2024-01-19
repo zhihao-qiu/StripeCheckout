@@ -20,16 +20,18 @@ function DashBoardMain({
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>
 }) {
   const cardClassnames =
-    'border-l-0 border-r-0 border-t-0 border-b-0 border-black flex h-23 min-w-72 sm:w-1/3 md:w-1/3 lg:w-1/4  select-none flex-row items-center p-1 bg-white mr-8 text-brand '
-  const cardTitleClassnames = 'text-xl md:text-2xl font-semibold '
-  const cardDescriptionClassNames = 'text-sm text-brand md:text-xl'
+    'border-l-0 border-r-0 border-t-0 border-b-0 border-black flex h-23 h-23 sm:w-1/3 md:w-1/3 lg:w-1/4  select-none flex-row items-center p-1 bg-white mr-8 text-brand '
+  const cardTitleClassnames =
+    'text-xl sm:text-base md:text-l lg:text-xl font-semibold '
+  const cardDescriptionClassNames =
+    'text-sm text-brand sm:text-base md:text-l lg:text-xl'
   const router = useRouter()
   const handleRedirect = (path: string) => {
     router.push(path)
   }
 
   return (
-    <section className="lg:p-30 flex flex-col justify-center space-y-8  p-20 lg:space-y-16">
+    <section className="lg:p-30 flex flex-col justify-center space-y-8 pb-10 pl-20 pr-20 pt-10 lg:space-y-16">
       <div>
         <Reveal>
           <h3 className="mb-6 text-subtitle font-bold lg:text-4xl">
@@ -40,14 +42,18 @@ function DashBoardMain({
           <Card
             onClick={() => handleRedirect('/return')}
             className={`${cardClassnames}`}
-            style={{ borderLeft: '16px solid black', minWidth: '290px' }}
+            style={{
+              borderLeft: '16px solid black',
+              minWidth: '335px',
+              minHeight: '150px',
+            }}
           >
             <CardHeader className="flex items-center pl-5">
               <Reveal>
                 <div className="flex items-center">
                   <div className="mr-4">
                     <Reveal>
-                      <CiCalendar className="fill-secondary h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
+                      <CiCalendar className="fill-secondary xs:h-19 xs:w-19 h-12 w-12 xxs:h-16 xxs:w-16" />
                     </Reveal>
                   </div>
                   <div>
@@ -67,14 +73,18 @@ function DashBoardMain({
           <Card
             onClick={() => handleRedirect('/return')}
             className={`${cardClassnames}`}
-            style={{ borderLeft: '16px solid black', minWidth: '290px' }}
+            style={{
+              borderLeft: '16px solid black',
+              minWidth: '335px',
+              minHeight: '150px',
+            }}
           >
             <CardHeader className="flex items-center pl-5">
               <Reveal>
                 <div className="flex items-center">
                   <div className="mr-4">
                     <Reveal>
-                      <FaRegClock className="fill-secondary h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
+                      <FaRegClock className="fill-secondary xs:h-19 xs:w-19 h-12 w-12 xxs:h-16 xxs:w-16" />
                     </Reveal>
                   </div>
                   <div>
@@ -93,14 +103,18 @@ function DashBoardMain({
           </Card>
           <Card
             className={`${cardClassnames}`}
-            style={{ borderLeft: '16px solid black', minWidth: '290px' }}
+            style={{
+              borderLeft: '16px solid black',
+              minWidth: '335px',
+              maxHeight: '200px',
+            }}
           >
             <CardHeader className="flex items-center pl-5">
               <Reveal>
                 <div className="flex items-center">
                   <div className="mr-4">
                     <Reveal>
-                      <FaRegCircleUser className="fill-secondary h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
+                      <FaRegCircleUser className="fill-secondary xs:h-19 xs:w-19 h-12 w-12 xxs:h-16 xxs:w-16" />
                     </Reveal>
                   </div>
                   <div>
