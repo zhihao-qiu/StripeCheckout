@@ -20,7 +20,7 @@ function DashBoardMain({
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>
 }) {
   const cardClassnames =
-    'border-l-0 border-r-0 border-t-0 border-b-0 border-black flex h-23 sm:min-w-280 md:min-w-280 lg:min-w-280 sm:w-1/3 md:w-1/3 lg:w-1/4  select-none flex-row items-center p-1 bg-white mr-8 text-brand '
+    'border-l-0 border-r-0 border-t-0 border-b-0 border-black flex h-23 min-w-72 sm:w-1/3 md:w-1/3 lg:w-1/4  select-none flex-row items-center p-1 bg-white mr-8 text-brand '
   const cardTitleClassnames = 'text-xl md:text-2xl font-semibold '
   const cardDescriptionClassNames = 'text-sm text-brand md:text-xl'
   const router = useRouter()
@@ -40,7 +40,7 @@ function DashBoardMain({
           <Card
             onClick={() => handleRedirect('/return')}
             className={`${cardClassnames}`}
-            style={{ borderLeft: '16px solid black' }}
+            style={{ borderLeft: '16px solid black', minWidth: '290px' }}
           >
             <CardHeader className="flex items-center pl-5">
               <Reveal>
@@ -67,7 +67,7 @@ function DashBoardMain({
           <Card
             onClick={() => handleRedirect('/return')}
             className={`${cardClassnames}`}
-            style={{ borderLeft: '16px solid black' }}
+            style={{ borderLeft: '16px solid black', minWidth: '290px' }}
           >
             <CardHeader className="flex items-center pl-5">
               <Reveal>
@@ -93,7 +93,7 @@ function DashBoardMain({
           </Card>
           <Card
             className={`${cardClassnames}`}
-            style={{ borderLeft: '16px solid black' }}
+            style={{ borderLeft: '16px solid black', minWidth: '290px' }}
           >
             <CardHeader className="flex items-center pl-5">
               <Reveal>
