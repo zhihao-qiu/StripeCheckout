@@ -30,37 +30,7 @@ function Dashboard() {
   const userInCache = readUserInfoFromFragment()
 
   // TODO: replace this with global state management like Apollo Client cache
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    firstName: 'John',
-    lastName: 'Doe',
-    // primaryAddress: {
-    //   apartmentUnitNumber: '12A',
-    //   streetNumber: 1234,
-    //   streetName: 'Main St',
-    //   city: 'Toronto',
-    //   province: 'ON',
-    //   postal: 'M1M1M1',
-    // },
-    role: 'Platinum',
-    email: 'john@example.com',
-    additionalAddress: [
-      {
-        apartmentUnitNumber: '0',
-        streetNumber: 999,
-        streetName: 'Main St',
-        city: 'Toronto',
-        province: 'ON',
-        postal: 'M1M1M1',
-      },
-      {
-        streetNumber: 123,
-        streetName: 'Main St',
-        city: 'Toronto',
-        province: 'ON',
-        postal: 'M1M1M1',
-      },
-    ],
-  })
+
   const tabsData = [
     {
       id: 1,
@@ -122,7 +92,7 @@ function Dashboard() {
   //   }, [userInCache])
 
   return (
-    <DashBoardMain userInfo={userInfo} setUserInfo={setUserInfo} />
+    <DashBoardMain />
     // <Tabs defaultValue="main" className="h-full animate-in animate-out">
     //   <section className="flex">
     //     <TabsList className="hidden h-full min-h-screen w-1/4 flex-col justify-center space-y-5 rounded-none bg-brand pb-40 text-white md:flex">
