@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from 'react'
 import Footer from '@/components/Footer'
-import AlternateHeader from '@/components/AlternateHeader'
+import DashboardHeader from '@components/DashboardHeader'
 
 export default function DashboardLayout({
   children,
@@ -14,7 +14,7 @@ export default function DashboardLayout({
     <>
       <div className="flex h-[100dvh] overflow-hidden bg-paleBlue">
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-          {isHeaderShow ? <AlternateHeader /> : null}
+          {isHeaderShow ? <DashboardHeader /> : null}
           <main className="grow">{children}</main>
           {isFooterShow ? <Footer /> : null}
         </div>
