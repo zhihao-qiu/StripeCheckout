@@ -15,7 +15,6 @@ export default function AlternateHeader() {
           <div className="flex items-center space-x-2">
             {/* <ReturnPalTitle className="hidden h-10 w-40 lg:flex" />
             <Logo className="h-7 w-7 shrink-0 fill-primary" /> */}
-            <Link href="/" className="mb-1 p-4">
               <Image
                 src={'/images/returnpal-logo.png'}
                 alt="logo"
@@ -25,7 +24,6 @@ export default function AlternateHeader() {
                 style={{ width: 'auto', height: '100%' }}
                 className="mx-auto"
               />
-            </Link>
           </div>
         </Link>
         <MobileMenu />

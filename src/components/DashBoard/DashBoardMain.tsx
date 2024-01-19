@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { type UserInfo } from '@/components/DashBoard/types'
 import Reveal from '@components/common/reveal'
 import {
@@ -45,14 +45,9 @@ function DashBoardMain({
             <CardHeader className="flex items-center pl-5">
               <Reveal>
                 <div className="flex items-center">
-                  {' '}
-                  {/* Added a container */}
                   <div className="mr-4">
-                    {' '}
-                    {/* Container for the icon */}
                     <Reveal>
                       <CiCalendar className="fill-secondary h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
-                      {/* <HandingPackage className="h-12 w-12 fill-primary xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" /> */}
                     </Reveal>
                   </div>
                   <div>
@@ -77,13 +72,8 @@ function DashBoardMain({
             <CardHeader className="flex items-center pl-5">
               <Reveal>
                 <div className="flex items-center">
-                  {' '}
-                  {/* Added a container */}
                   <div className="mr-4">
-                    {' '}
-                    {/* Container for the icon */}
                     <Reveal>
-                      {/* <HandingPackage className="h-12 w-12 fill-primary xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" /> */}
                       <FaRegClock className="fill-secondary h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
                     </Reveal>
                   </div>
@@ -111,7 +101,6 @@ function DashBoardMain({
                   <div className="mr-4">
                     <Reveal>
                       <FaRegCircleUser className="fill-secondary h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
-                      {/* <HandingPackage className="h-12 w-12 fill-primary xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" /> */}
                     </Reveal>
                   </div>
                   <div>
