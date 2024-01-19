@@ -18,12 +18,13 @@ import Reveal from '@components/common/reveal'
 //   const form = useForm({
 //     resolver: zodResolver(profileFormSchema),
 //     defaultValues: {
-//       firstName: userInfo.firstName,
-//       lastName: userInfo.lastName,
-//       primaryAddress: userInfo.primaryAddress,
+//       first_name: userInfo.first_name,
+//       last_name: userInfo.last_name,
+//       subscription: userInfo.subscription,
+//       phone_number: userInfo.phone_number,
 //       email: userInfo.email,
-//       role: userInfo.role,
-//       additionalAddress: userInfo.additionalAddress,
+//       payment_type: userInfo.payment_type,
+//       addresses: userInfo.addresses,
 //     },
 //   })
 
@@ -31,10 +32,10 @@ import Reveal from '@components/common/reveal'
 //     setUserInfo((prev) => {
 //       return {
 //         ...prev,
-//         firstName: values.firstName,
-//         lastName: values.lastName,
+//         first_name: values.first_name,
+//         last_name: values.last_name,
 //         email: values.email,
-//         primaryAddress: values.primaryAddress,
+//         addresses: values.addresses,
 //       }
 //     })
 //   }
@@ -42,8 +43,8 @@ import Reveal from '@components/common/reveal'
 //   return (
 //     <>
 //       <DashBoardHeader
-//         firstName={userInfo.firstName}
-//         lastName={userInfo.lastName}
+//         firstName={userInfo.first_name}
+//         lastName={userInfo.last_name}
 //         email={userInfo.email}
 //       />
 //       <section className="flex h-[75vh] flex-col justify-between space-y-6 p-10 text-xl">
@@ -54,11 +55,11 @@ import Reveal from '@components/common/reveal'
 //           <div className="mb-2 flex h-8 items-center gap-10">
 //             <label className="block">First Name:</label>
 
-//             <span>{userInfo.firstName}</span>
+//             <span>{userInfo.first_name}</span>
 //             <Separator orientation="vertical" className="bg-brand" />
 //             <label className="block">Last Name:</label>
 
-//             <span>{userInfo.lastName}</span>
+//             <span>{userInfo.last_name}</span>
 //           </div>
 //         </Reveal>
 //         <Reveal>
@@ -73,7 +74,7 @@ import Reveal from '@components/common/reveal'
 //             <label className="block">Primary Address:</label>
 
 //             <span>
-//               {typeof userInfo.primaryAddress.apartmentUnitNumber === 'string'
+//               {typeof userInfo.addresses.unit_number === 'string'
 //                 ? '# '
 //                 : ''}
 //               {userInfo.primaryAddress.apartmentUnitNumber}{' '}
