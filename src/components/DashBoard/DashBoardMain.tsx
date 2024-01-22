@@ -45,6 +45,7 @@ function DashBoardMain({
             style={{
               borderLeft: '16px solid black',
               minWidth: '335px',
+              minHeight: '150px',
               maxHeight: '150px',
             }}
           >
@@ -76,6 +77,7 @@ function DashBoardMain({
             style={{
               borderLeft: '16px solid black',
               minWidth: '335px',
+              minHeight: '150px',
               maxHeight: '150px',
             }}
           >
@@ -106,6 +108,7 @@ function DashBoardMain({
             style={{
               borderLeft: '16px solid black',
               minWidth: '335px',
+              minHeight: '150px',
               maxHeight: '150px',
             }}
           >
