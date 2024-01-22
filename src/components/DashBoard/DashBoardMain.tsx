@@ -27,16 +27,18 @@ function DashBoardMain({
 }) {
 >>>>>>> 700c38dffde940fdeada921111a9543a56990fe6
   const cardClassnames =
-    'border-l-0 border-r-0 border-t-0 border-b-0 border-black flex h-23 sm:min-w-280 md:min-w-280 lg:min-w-280 sm:w-1/3 md:w-1/3 lg:w-1/4  select-none flex-row items-center p-1 bg-white mr-8 text-brand '
-  const cardTitleClassnames = 'text-xl md:text-2xl font-semibold '
-  const cardDescriptionClassNames = 'text-sm text-brand md:text-xl'
+    'border-l-0 border-r-0 border-t-0 border-b-0 border-black flex h-23 h-23 sm:w-1/3 md:w-1/3 lg:w-1/4  select-none flex-row items-center p-1 bg-white mr-8 text-brand '
+  const cardTitleClassnames =
+    'text-xl sm:text-base md:text-l lg:text-xl font-semibold '
+  const cardDescriptionClassNames =
+    'text-sm text-brand sm:text-base md:text-l lg:text-xl'
   const router = useRouter()
   const handleRedirect = (path: string) => {
     router.push(path)
   }
 
   return (
-    <section className="lg:p-30 flex flex-col justify-center space-y-8  p-20 lg:space-y-16">
+    <section className="lg:p-30 flex flex-col justify-center space-y-8 pb-10 pl-20 pr-20 pt-10 lg:space-y-16">
       <div>
         <Reveal>
 <<<<<<< HEAD
@@ -58,8 +60,12 @@ function DashBoardMain({
           <Card
             onClick={() => handleRedirect('/return')}
             className={`${cardClassnames}`}
->>>>>>> 700c38dffde940fdeada921111a9543a56990fe6
-            style={{ borderLeft: '16px solid black' }}
+            style={{
+              borderLeft: '16px solid black',
+              minWidth: '335px',
+              minHeight: '150px',
+              maxHeight: '150px',
+            }}
           >
             <CardHeader className="flex items-center pl-5">
               <Reveal>
@@ -76,8 +82,7 @@ function DashBoardMain({
 =======
                   <div className="mr-4">
                     <Reveal>
-                      <CiCalendar className="fill-secondary h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
->>>>>>> 700c38dffde940fdeada921111a9543a56990fe6
+                      <CiCalendar className="fill-secondary xs:h-19 xs:w-19 h-12 w-12 xxs:h-16 xxs:w-16" />
                     </Reveal>
                   </div>
                   <div>
@@ -98,8 +103,13 @@ function DashBoardMain({
 
           <Card
             onClick={() => handleRedirect('/return')}
-            className={`${cardClassnames} mr-4`}
-            style={{ borderLeft: '16px solid black' }}
+            className={`${cardClassnames}`}
+            style={{
+              borderLeft: '16px solid black',
+              minWidth: '335px',
+              minHeight: '150px',
+              maxHeight: '150px',
+            }}
           >
             <CardHeader className="flex items-center pl-5">
               <Reveal>
@@ -110,8 +120,7 @@ function DashBoardMain({
                     {' '}
                     {/* Container for the icon */}
                     <Reveal>
-                      {/* <HandingPackage className="h-12 w-12 fill-primary xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" /> */}
-                      <FaRegClock className="fill-secondary h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
+                      <FaRegClock className="fill-secondary xs:h-19 xs:w-19 h-12 w-12 xxs:h-16 xxs:w-16" />
                     </Reveal>
                   </div>
                   <div>
@@ -124,9 +133,6 @@ function DashBoardMain({
                       </CardDescription>
                     </Reveal>
                   </div>
-=======
-                  </div>
->>>>>>> 700c38dffde940fdeada921111a9543a56990fe6
                 </div>
               </Reveal>
             </CardHeader>
@@ -140,47 +146,19 @@ function DashBoardMain({
             onClick={() => handleRedirect('/return')}
 >>>>>>> 700c38dffde940fdeada921111a9543a56990fe6
             className={`${cardClassnames}`}
-            style={{ borderLeft: '16px solid black' }}
+            style={{
+              borderLeft: '16px solid black',
+              minWidth: '335px',
+              minHeight: '150px',
+              maxHeight: '150px',
+            }}
           >
             <CardHeader className="flex items-center pl-5">
               <Reveal>
                 <div className="flex items-center">
                   <div className="mr-4">
                     <Reveal>
-<<<<<<< HEAD
-                      <FaRegCircleUser className="fill-secondary h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
-                      {/* <HandingPackage className="h-12 w-12 fill-primary xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" /> */}
-=======
-                      <FaRegClock className="fill-secondary h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
->>>>>>> 700c38dffde940fdeada921111a9543a56990fe6
-                    </Reveal>
-                  </div>
-                  <div>
-                    <CardTitle className={cardTitleClassnames}>
-<<<<<<< HEAD
-=======
-                      View Recent Orders
-                    </CardTitle>
-                    <Reveal>
-                      <CardDescription className={cardDescriptionClassNames}>
-                        View all your recently scheduled orders here.
-                      </CardDescription>
-                    </Reveal>
-                  </div>
-                </div>
-              </Reveal>
-            </CardHeader>
-          </Card>
-          <Card
-            className={`${cardClassnames}`}
-            style={{ borderLeft: '16px solid black' }}
-          >
-            <CardHeader className="flex items-center pl-5">
-              <Reveal>
-                <div className="flex items-center">
-                  <div className="mr-4">
-                    <Reveal>
-                      <FaRegCircleUser className="fill-secondary h-12 w-12 xxs:h-16 xxs:w-16 xs:h-24 xs:w-24" />
+                      <FaRegCircleUser className="fill-secondary xs:h-19 xs:w-19 h-12 w-12 xxs:h-16 xxs:w-16" />
                     </Reveal>
                   </div>
                   <div>
