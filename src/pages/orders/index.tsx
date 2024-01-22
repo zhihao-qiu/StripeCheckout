@@ -3,6 +3,7 @@ import OrderList from '@components/Orders/OrderList'
 import axios from 'axios'
 import { type Order, type PaginatedResponse } from '@components/DashBoard/types'
 import { Button } from '@/components/ui/button'
+import DashboardLayout from '@/layouts/DashboardLayout'
 
 interface OrdersProps {
   initialOrders: Order[]
@@ -58,49 +59,51 @@ const Orders: React.FC<OrdersProps> = ({ initialOrders }) => {
   const canShowPagination = totalPages > 1
 
   return (
-    <div className="min-h-screen bg-paleBlue p-16">
-      <h1 className="mb-10 ml-3 bg-paleBlue text-3xl font-bold">
-        Recent Orders
-      </h1>
-      <div className="overflow-hidden rounded-xl bg-white font-bold sm:flex-row">
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <>
-            {orders.length > 0 ? (
-              <OrderList orders={orders} />
-            ) : (
-              <p className="ml-3 ">Currently no orders placed.</p>
-            )}
-            {canShowPagination && (
-              <div className="pagination ml-10 p-2">
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className="mr-2"
-                >
-                  Previous
-                </Button>
-                <span className="mr-2">
-                  Page {currentPage} of {totalPages}
-                </span>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  className="mr-2"
-                >
-                  Next
-                </Button>
-              </div>
-            )}
-          </>
-        )}
+    <DashboardLayout>
+      <div className="min-h-screen bg-paleBlue p-16">
+        <h1 className="mb-10 ml-3 bg-paleBlue text-3xl font-bold">
+          Recent Orders
+        </h1>
+        <div className="overflow-hidden rounded-xl bg-white font-bold sm:flex-row">
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <>
+              {orders.length > 0 ? (
+                <OrderList orders={orders} />
+              ) : (
+                <p className="ml-3 ">Currently no orders placed.</p>
+              )}
+              {canShowPagination && (
+                <div className="pagination ml-10 p-2">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="mr-2"
+                  >
+                    Previous
+                  </Button>
+                  <span className="mr-2">
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="mr-2"
+                  >
+                    Next
+                  </Button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </DashboardLayout>
   )
 }
 
