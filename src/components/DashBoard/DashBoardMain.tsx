@@ -46,6 +46,7 @@ function DashBoardMain({
               borderLeft: '16px solid black',
               minWidth: '335px',
               minHeight: '150px',
+              maxHeight: '150px',
             }}
           >
             <CardHeader className="flex items-center pl-5">
@@ -77,6 +78,7 @@ function DashBoardMain({
               borderLeft: '16px solid black',
               minWidth: '335px',
               minHeight: '150px',
+              maxHeight: '150px',
             }}
           >
             <CardHeader className="flex items-center pl-5">
@@ -106,7 +108,8 @@ function DashBoardMain({
             style={{
               borderLeft: '16px solid black',
               minWidth: '335px',
-              maxHeight: '200px',
+              minHeight: '150px',
+              maxHeight: '150px',
             }}
           >
             <CardHeader className="flex items-center pl-5">
