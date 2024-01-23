@@ -39,7 +39,6 @@ function DashBoardMain({
         </Reveal>
         <div className="justify-left mb-12 flex">
           <Card
-            onClick={() => handleRedirect('/return')}
             className={`${cardClassnames}`}
             style={{
               borderLeft: '16px solid black',
@@ -71,7 +70,6 @@ function DashBoardMain({
             </CardHeader>
           </Card>
           <Card
-            onClick={() => handleRedirect('/return')}
             className={`${cardClassnames}`}
             style={{
               borderLeft: '16px solid black',
