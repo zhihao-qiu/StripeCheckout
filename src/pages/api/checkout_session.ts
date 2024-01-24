@@ -1,10 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Stripe } from 'stripe'
-import type { Order, UserInfo, Item } from '@/components/DashBoard/types'
+import type { Order } from '@/components/DashBoard/types'
 import type { ReturnProcessFullObjectType } from '@/context/ReturnProcessContext'
 
 interface LineItem {
   price: string
+  quantity: number
+}
+interface Item {
+  itemId: string
+  itemName: string
   quantity: number
 }
 

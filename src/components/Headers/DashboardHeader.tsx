@@ -23,9 +23,12 @@ export default function DashboardHeader() {
   const pathname = usePathname()
   const router = useRouter()
 
-  const handleDashboardClick = (e, href) => {
+  const handleDashboardClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
     e.preventDefault()
-    router.push(href)
+    // router.push(href)
     if (router.pathname === href) {
       router.reload() // Reload the page if the current pathname matches the href
     }
@@ -53,10 +56,10 @@ export default function DashboardHeader() {
         })}
       </div>
       <div className="flex space-x-2 lg:space-x-5">
-        <Button variant="secondary" className="h-9 w-fit mt-2">
+        <Button variant="secondary" className="mt-2 h-9 w-fit">
           Sign Out
         </Button>
-        
+
         <FaRegCircleUser style={{ fontSize: '50px', color: '#d9d9d9' }} />
       </div>
     </HeaderContent>

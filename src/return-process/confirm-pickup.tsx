@@ -12,9 +12,15 @@ import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import Reveal from '@components/common/reveal'
-import type { Item, Order } from '@/components/DashBoard/types'
+import type { Order } from '@/components/DashBoard/types'
 import { priceData } from '@/return-process/prices'
 import type { ObjectId } from 'mongodb'
+
+interface Item {
+  itemId: string
+  itemName: string
+  quantity: number
+}
 
 // export interface MockData {
 //   plan: 'bronze' | 'silver' | 'gold' | 'platinum'
@@ -74,7 +80,7 @@ export default function ConfirmPickup() {
     }
   }
 
-  const addExpiryDate = (orderDate: Date, subscription: string): string => {
+  const addExpiryDate = (orderDate: Date, subscription: string): Date => {
     const expiryDate = new Date(orderDate)
 
     switch (subscription) {
@@ -90,7 +96,7 @@ export default function ConfirmPickup() {
       default:
         break
     }
-    return expiryDate.toString()
+    return expiryDate
   }
 
   const calculateCost = (subscription: string, packages: number) => {
@@ -110,37 +116,27 @@ export default function ConfirmPickup() {
     }
   }
 
-  const order: Order = {
+  const order: Partial<Order> = {
     // generate order_number here
     _id: undefined as unknown as ObjectId,
     order_number: '',
-    order_date: {
-      $dateFromString: {
-        dateString: new Date().toString(),
-      },
-    },
-    order_status: 'Driver received',
+    order_date: new Date(),
+    status: 'Driver received',
     order_details: {
       total_cost: calculateCost(
         returnProcess.currentData.subscription,
         returnProcess.currentData.labelFileUploads.length
       ),
-      pickup_date: {
-        $dateFromString: {
-          dateString: returnProcess.currentData.dateAndTime,
-        },
-      },
-      pickup_method: returnProcess.currentData.deliveryOption,
+      promo_code: '',
       total_packages: returnProcess.currentData.labelFileUploads.length,
       extra_packages_included:
         returnProcess.currentData.subscription === 'Bronze'
           ? returnProcess.currentData.labelFileUploads.length - 1
           : 0,
-      promo_code: '',
+      package_details: returnProcess.currentData.labelFileUploads,
       pickup_details: {
-        address_id: undefined as unknown as ObjectId,
-        contact_full_name: returnProcess.currentData.contact_full_name,
-        contact_phone_number: returnProcess.currentData.contact_phone_number,
+        full_name: returnProcess.currentData.contact_full_name,
+        phone_number: returnProcess.currentData.contact_phone_number,
         street: returnProcess.currentData.street,
         unit_number: returnProcess.currentData.unit_number,
         city: returnProcess.currentData.city,
@@ -148,16 +144,16 @@ export default function ConfirmPickup() {
         country: returnProcess.currentData.country,
         postal_code: returnProcess.currentData.postal_code,
         instructions: returnProcess.currentData.instructions ?? '',
+        pickup_date: new Date(returnProcess.currentData.dateAndTime),
+        pickup_method: returnProcess.currentData.deliveryOption,
       },
     },
-    client_details: returnProcess.currentData.userInfo,
-    subscription_expiry_date: {
-      $dateFromString: {
-        dateString: addExpiryDate(
-          new Date(),
-          returnProcess.currentData.subscription
-        ),
-      },
+    client_details: {
+      ...returnProcess.currentData.userInfo,
+      subscription_expiry_date: addExpiryDate(
+        new Date(),
+        returnProcess.currentData.subscription
+      ),
     },
     // pickupMethod: 'Direct Handoff',
     // pickupMethod: returnProcess.currentData.pickupType,
@@ -223,24 +219,34 @@ export default function ConfirmPickup() {
               <div className="w-full space-y-3">
                 <Reveal>
                   <p className="font-bold">
-                    {order.order_details.pickup_details.contact_full_name}
+                    {order.order_details!.pickup_details.full_name}
                     <span className="text-mediumText font-normal">
                       &nbsp;|&nbsp;
                     </span>
-                    {order.order_details.pickup_details.contact_phone_number}
+                    {order.order_details!.pickup_details.phone_number}
                   </p>
                 </Reveal>
                 <Reveal>
                   <p>
-                    {order.order_details.pickup_details.unit_number
-                      ? `${order.order_details.pickup_details.unit_number}-${order.order_details.pickup_details.street},${order.order_details.pickup_details.city},${order.order_details.pickup_details.province},${order.order_details.pickup_details.country} ${order.order_details.pickup_details.postal_code}`
-                      : `${order.order_details.pickup_details.street},${order.order_details.pickup_details.city},${order.order_details.pickup_details.province},${order.order_details.pickup_details.country} ${order.order_details.pickup_details.postal_code}`}
+                    {order.order_details!.pickup_details.unit_number
+                      ? `${order.order_details!.pickup_details.unit_number}-${
+                          order.order_details!.pickup_details.street
+                        },${order.order_details!.pickup_details.city},${
+                          order.order_details!.pickup_details.province
+                        },${order.order_details!.pickup_details.country} ${
+                          order.order_details!.pickup_details.postal_code
+                        }`
+                      : `${order.order_details!.pickup_details.street},${
+                          order.order_details!.pickup_details.city
+                        },${order.order_details!.pickup_details.province},${
+                          order.order_details!.pickup_details.country
+                        } ${order.order_details!.pickup_details.postal_code}`}
                   </p>
                 </Reveal>
-                {order.order_details.pickup_details.instructions && (
+                {order.order_details!.pickup_details.instructions && (
                   <Reveal>
                     <p className="text-grey md:tracking-wide">
-                      {order.order_details.pickup_details.instructions}
+                      {order.order_details!.pickup_details.instructions}
                     </p>
                   </Reveal>
                 )}
@@ -263,7 +269,7 @@ export default function ConfirmPickup() {
                   <span className="font-bold">Pickup Date:</span>
                   <span>
                     &nbsp;
-                    {order.order_details.pickup_date.$dateFromString.dateString}
+                    {order.order_details!.pickup_details.pickup_date.toLocaleDateString()}
                   </span>
                 </p>
               </Reveal>
@@ -283,7 +289,9 @@ export default function ConfirmPickup() {
               <Reveal width="100%">
                 <p className="grow sm:mt-4">
                   <span className="font-bold">Pickup Method:</span>
-                  <span>&nbsp;{order.order_details.pickup_method}</span>
+                  <span>
+                    &nbsp;{order.order_details!.pickup_details.pickup_method}
+                  </span>
                 </p>
               </Reveal>
               <EditContainer />

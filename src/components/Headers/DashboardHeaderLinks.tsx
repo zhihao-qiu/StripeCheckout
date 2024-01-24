@@ -24,7 +24,7 @@ export default function DashboardHeaderLinks() {
 
   const handleDashboardClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault()
-    router.push(href)
+    // router.push(href)
     if (router.pathname === href) {
       router.reload() // Reload the page if the current pathname matches the href
     }

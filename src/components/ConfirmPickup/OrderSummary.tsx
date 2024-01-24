@@ -16,11 +16,17 @@ import { useReturnProcess } from '@hooks/useReturnProcess'
 import Reveal from '@components/common/reveal'
 import { useEffect, useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
-import type { Order, Item } from '@/components/DashBoard/types'
+import type { Order } from '@/components/DashBoard/types'
+
+interface Item {
+  itemId: string
+  itemName: string
+  quantity: number
+}
 
 interface Props {
   promoState: [string, React.Dispatch<React.SetStateAction<string>>]
-  order: Order
+  order: Partial<Order>
   items: Item[]
 }
 
@@ -124,8 +130,8 @@ export default function OrderSummary({
         if (receivedData.action === 'CheckoutSuccess') {
           console.log('Received CheckoutSuccess message!')
 
-          order.order_details.total_cost = receivedData.price
-          order.client_details.subscription =
+          order.order_details!.total_cost = receivedData.price
+          order.client_details!.subscription =
             returnProcess.currentData.subscription
 
           fetch('/api/orders', {

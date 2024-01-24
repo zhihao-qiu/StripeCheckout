@@ -108,7 +108,7 @@ function SignInForm() {
           <motion.div variants={item}>
             <p className="my-8 font-semibold text-grey">
               Don&apos;t have an account yet?
-              <SignUpModule />
+              {/* <SignUpModule /> */}
             </p>
           </motion.div>
         </div>

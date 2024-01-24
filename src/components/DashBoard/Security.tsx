@@ -42,8 +42,8 @@ function Security({ userInfo }: { userInfo: UserInfo }) {
   return (
     <>
       <DashBoardHeader
-        firstName={userInfo.firstName}
-        lastName={userInfo.lastName}
+        firstName={userInfo.first_name}
+        lastName={userInfo.last_name}
         email={userInfo.email}
       />
       <div className="flex flex-col space-y-8 px-8 py-4 text-brand">

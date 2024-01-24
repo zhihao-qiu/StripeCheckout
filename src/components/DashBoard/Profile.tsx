@@ -14,35 +14,35 @@ import EditAddressForm from '@/components/DashBoard/EditAddressForm'
 import { type ProfilePropsType } from '@/components/DashBoard/types'
 import Reveal from '@components/common/reveal'
 
-// function Profile({ userInfo, setUserInfo }: ProfilePropsType) {
-//   const form = useForm({
-//     resolver: zodResolver(profileFormSchema),
-//     defaultValues: {
-//       first_name: userInfo.first_name,
-//       last_name: userInfo.last_name,
-//       subscription: userInfo.subscription,
-//       phone_number: userInfo.phone_number,
-//       email: userInfo.email,
-//       payment_type: userInfo.payment_type,
-//       addresses: userInfo.addresses,
-//     },
-//   })
+function Profile({ userInfo, setUserInfo }: ProfilePropsType) {
+  const form = useForm({
+    resolver: zodResolver(profileFormSchema),
+    defaultValues: {
+      first_name: userInfo.first_name,
+      last_name: userInfo.last_name,
+      subscription: userInfo.subscription,
+      phone_number: userInfo.phone_number,
+      email: userInfo.email,
+      payment_type: userInfo.payment_type,
+      addresses: userInfo.addresses,
+    },
+  })
 
-//   const onSubmit = (values: UserInfo) => {
-//     setUserInfo((prev) => {
-//       return {
-//         ...prev,
-//         first_name: values.first_name,
-//         last_name: values.last_name,
-//         email: values.email,
-//         addresses: values.addresses,
-//       }
-//     })
-//   }
+  const onSubmit = (values: UserInfo) => {
+    setUserInfo((prev) => {
+      return {
+        ...prev,
+        first_name: values.first_name,
+        last_name: values.last_name,
+        email: values.email,
+        addresses: values.addresses,
+      }
+    })
+  }
 
-//   return (
-//     <>
-//       <DashBoardHeader
+  return (
+    <>
+      {/* //       <DashBoardHeader
 //         firstName={userInfo.first_name}
 //         lastName={userInfo.last_name}
 //         email={userInfo.email}
@@ -66,13 +66,13 @@ import Reveal from '@components/common/reveal'
 //           <div className="mb-2 flex gap-10">
 //             <label className="block">Email:</label>
 
-            <span>{userInfo.email}</span>
-          </div>
-        </Reveal>
-        <Reveal>
-          <div className="mb-2 flex gap-10">
-            <label className="block">Primary Address:</label>
-
+//            <span>{userInfo.email}</span>
+//          </div>
+//        </Reveal>
+//        <Reveal>
+//          <div className="mb-2 flex gap-10">
+//            <label className="block">Primary Address:</label>
+//
 //             <span>
 //               {typeof userInfo.addresses.unit_number === 'string'
 //                 ? '# '
@@ -132,9 +132,9 @@ import Reveal from '@components/common/reveal'
 //             />
 //           </Reveal>
 //         </div>
-//       </section>
-//     </>
-//   )
-// }
+//       </section> */}
+    </>
+  )
+}
 
 export default Profile

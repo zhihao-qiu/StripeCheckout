@@ -44,13 +44,13 @@ function EditAddressForm({
   const addressForm = useForm({
     resolver: zodResolver(addressSchema),
     defaultValues: {
-      unitNumber: address.unitNumber,
+      unitNumber: address.unit_number,
       // streetNumber: address.streetNumber,
       street: address.street,
       city: address.city,
       province: address.province,
       country: address.country,
-      postalCode: address.postalCode,
+      postalCode: address.postal_code,
     },
   })
 

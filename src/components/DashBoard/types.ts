@@ -3,7 +3,7 @@ import * as z from 'zod'
 import { type ColumnDef } from '@tanstack/react-table'
 import { ObjectId } from 'mongodb'
 
-const addressSchema = z.object({
+export const addressSchema = z.object({
   address_id: z.instanceof(ObjectId),
   contact_full_name: z.string(),
   contact_phone_number: z.string(),

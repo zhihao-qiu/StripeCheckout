@@ -107,7 +107,9 @@ const OrderId = () => {
   const confirmCancellation = () => {
     if (selectedOrder) {
       console.log(
-        `Cancel Order ${selectedOrder.order_number} (${selectedOrder._id})`
+        `Cancel Order ${
+          selectedOrder.order_number
+        } (${selectedOrder._id.toString()})`
       )
       router
         .replace('/orders')
@@ -120,7 +122,7 @@ const OrderId = () => {
     }
   }
   const handleCancelOrder = (_id: string, order_number: string) => {
-    setSelectedOrder({ _id, order_number } as Order)
+    // setSelectedOrder({ _id, order_number } as Order)
   }
   return (
     <div>
@@ -219,7 +221,9 @@ const OrderId = () => {
               </Link>
               <Button
                 className="ring-offset-background focus-visible:ring-ring inline-flex h-10 items-center justify-center whitespace-nowrap rounded-full border-2 border-primary bg-white px-4 py-2 text-sm font-bold text-primary transition-colors hover:bg-slate-100/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-95 active:shadow-none active:ring-0 active:ring-offset-0 disabled:pointer-events-none disabled:opacity-50 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80"
-                onClick={() => handleCancelOrder(order._id, order.order_number)}
+                onClick={() =>
+                  handleCancelOrder(order._id.toString(), order.order_number)
+                }
                 style={{
                   opacity:
                     order.status === 'Cancelled' || order.status === 'Delivered'

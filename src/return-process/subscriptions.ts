@@ -1,4 +1,12 @@
-import type { SubscriptionPlan } from '@components/DashBoard/types'
+interface SubscriptionPlan {
+  name: string
+  price: number
+  total: string
+  period: string
+  duration: string
+  speed: string
+  support: string
+}
 
 export const subscriptionData: SubscriptionPlan[] = [
   {

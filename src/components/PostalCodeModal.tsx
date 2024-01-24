@@ -37,7 +37,7 @@ function PostalCodeModal({ setIsOpen, isOpen }: ModalPropsType) {
           </p>
           <PostalCodeForm
             // onSuccessRedirect={}
-            onFailRedirect={(invalidPostalCode: any) =>
+            onFailRedirect={(invalidPostalCode: string) =>
               handleRedirect(`/mailing?invalidPostalCode=${invalidPostalCode}`)
             }
           />

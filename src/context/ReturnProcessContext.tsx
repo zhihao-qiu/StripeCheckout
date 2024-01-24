@@ -17,8 +17,8 @@ export type ReturnProcessStep = {
 
 export type FileUploadType = {
   attachment: string
-  labelType: 'Physical' | 'Digital' | 'Amazon'
-  description: string | undefined
+  label_type: 'Physical' | 'Digital' | 'Amazon'
+  description: string
 }
 
 export type ReturnProcessFullObjectType = {

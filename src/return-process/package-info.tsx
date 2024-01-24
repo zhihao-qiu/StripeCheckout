@@ -62,15 +62,15 @@ const formSchema = z.object(
               required_error: 'attachment req',
               description: 'des',
             }),
-            labelType: z.union(
+            label_type: z.union(
               [
                 z.literal('Physical'),
                 z.literal('Digital'),
                 z.literal('Amazon'),
               ],
               {
-                invalid_type_error: 'labelType invalid',
-                required_error: 'labelType req',
+                invalid_type_error: 'label_type invalid',
+                required_error: 'label_type req',
                 description: 'des',
               }
             ),
@@ -123,12 +123,12 @@ export default function PackageInfo() {
         arrayOfLabels.map((label) => ({
           description: label.description ?? '',
           attachment: label.attachment,
-          labelType: label.labelType,
+          label_type: label.label_type,
         })),
         { shouldValidate: true }
       )
     }
-  }, [arrayOfLabels])
+  }, [arrayOfLabels, form])
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     returnProcess.setCurrentData({ labelFileUploads: values.labelFileUploads })
@@ -147,11 +147,11 @@ export default function PackageInfo() {
       ),
     },
     {
-      accessorKey: 'labelType',
+      accessorKey: 'label_type',
       header: 'Label Type',
       cell: ({ row }) => (
         <Badge className="bg-green-200 text-primary hover:bg-brand hover:text-white">
-          {row.original.labelType}
+          {row.original.label_type}
         </Badge>
       ),
     },
@@ -283,8 +283,8 @@ export default function PackageInfo() {
       ...arrayOfLabels,
       {
         attachment: file?.name ?? 'N/A',
-        labelType: type,
-        description: labelDescription,
+        label_type: type,
+        description: labelDescription ?? '',
       },
     ])
 
@@ -299,8 +299,8 @@ export default function PackageInfo() {
       ...arrayOfLabels,
       {
         attachment: file?.name ?? 'N/A',
-        labelType: 'Physical',
-        description: labelDescription,
+        label_type: 'Physical',
+        description: labelDescription ?? '',
       },
     ])
 
