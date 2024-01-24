@@ -6,7 +6,7 @@ import { ObjectId } from 'mongodb'
 
 interface reqBody {
   userId: string
-  address: Address
+  address: Partial<Address>
 }
 export default async function handler(
   req: NextApiRequest,
@@ -65,19 +65,24 @@ export default async function handler(
 
       const newAddress = reqBody.address
       const newAddress_Id = new ObjectId()
-      const newAddressWithId = {
-        ...newAddress,
-        address_id: newAddress_Id,
-      }
-      await usersCollection.updateOne(
+      // const newAddressWithId = {
+      //   ...newAddress,
+      //   address_id: newAddress_Id,
+      //   primary: false,
+      // }
+      const result = await usersCollection.findOneAndUpdate(
         { _id: userId },
-        { $push: { addresses: newAddressWithId } },
-        { upsert: false }
+        {
+          $push: {
+            addresses: { ...newAddress, address_id: newAddress_Id } as Address,
+          },
+        },
+        { returnDocument: 'after' }
       )
 
       res.status(200).json({
         message: 'Address created successfully',
-        address_id: newAddress_Id.toString(),
+        newUserInfo: result,
       })
     } catch (error) {
       console.log('Error creating address:', error)

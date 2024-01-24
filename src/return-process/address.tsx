@@ -24,10 +24,13 @@ import {
 } from '@/components/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import Head from 'next/head'
-import { type Address, addressSchema } from '@/components/DashBoard/types'
+import {
+  type Address,
+  addressSchema,
+  type UserInfo,
+} from '@/components/DashBoard/types'
 import { SectionDescription, SectionHeader } from '@/components/common/section'
 import Reveal from '@components/common/reveal'
-import type { ObjectId } from 'mongodb'
 
 const formSchema = z.object({
   deliveryAddress: z.string().min(1),
@@ -37,7 +40,8 @@ export default function Address() {
   const [addresses, setAddresses] = useState<Address[]>([])
 
   const [addressFormVisibility, setAddressFormVisiblity] = useState(false)
-  const [addressFromForm, setAddressFromForm] = useState<Address | null>()
+  const [addressFromForm, setAddressFromForm] =
+    useState<Partial<Address> | null>()
   const { toast } = useToast()
   const returnProcess = useReturnProcess()
 
@@ -77,7 +81,7 @@ export default function Address() {
     return isValidData
   }
 
-  const addressValidator = (newAddress: Address) => {
+  const addressValidator = (newAddress: Partial<Address>) => {
     try {
       const valid = validateFormData(newAddress)
       if (!valid) {
@@ -86,14 +90,10 @@ export default function Address() {
 
       interface AddressResponse {
         message: string
-        address_id: ObjectId
+        newUserInfo: UserInfo
       }
 
       // send information to backend once address is validated
-      const newAddressWithPrimary = {
-        ...newAddress,
-        primary: false,
-      }
       fetch(`/api/users`, {
         method: 'PATCH',
         headers: {
@@ -101,26 +101,13 @@ export default function Address() {
         },
         body: JSON.stringify({
           userId: returnProcess.currentData.userInfo._id,
-          address: newAddressWithPrimary,
+          address: newAddress,
         }),
       })
         .then((response) => response.json())
         .then((data: AddressResponse) => {
-          const newAddressWithId = {
-            ...newAddress,
-            address_id: data.address_id,
-          }
-
-          const newUserInfo = {
-            ...returnProcess.currentData.userInfo,
-            addresses: [
-              ...(returnProcess.currentData.userInfo?.addresses ?? []),
-              newAddressWithId,
-            ],
-          }
-
-          returnProcess.setCurrentData({ userInfo: newUserInfo })
-          setAddresses([...addresses, newAddressWithId])
+          returnProcess.setCurrentData({ userInfo: data.newUserInfo })
+          setAddresses(data.newUserInfo.addresses)
           setAddressFromForm(null)
         })
         .catch((error) => {
@@ -203,35 +190,35 @@ export default function Address() {
 
                             return (
                               <Reveal
-                                key={address.address_id?.toString()}
+                                key={address.address_id.toString()}
                                 width="100%"
                               >
                                 <FormItem className="h-15 flex w-full items-center sm:h-10">
                                   <RadioGroupItem
-                                    id={address.address_id?.toString()}
-                                    value={address.address_id?.toString()}
+                                    id={address.address_id.toString()}
+                                    value={address.address_id.toString()}
                                   />
                                   <Label
-                                    htmlFor={address.address_id?.toString()}
+                                    htmlFor={address.address_id.toString()}
                                     className="sm:keep-all mx-6 ml-2 w-[20%] max-sm:text-xs sm:w-[18%] sm:font-bold md:pl-2 lg:mx-2 lg:w-[15%]"
                                   >
                                     {address.contact_full_name}
                                   </Label>
                                   <Label
-                                    htmlFor={address.address_id?.toString()}
+                                    htmlFor={address.address_id.toString()}
                                     className="break-word mx-2 my-4 w-[40%] max-w-max max-sm:text-xs sm:w-[50%] md:mx-0"
                                   >
                                     {deliveryAddress}
                                   </Label>
                                   <Label
-                                    htmlFor={address.address_id?.toString()}
+                                    htmlFor={address.address_id.toString()}
                                     className="sm:keep-all mx-6 ml-2 w-[20%] max-sm:text-xs sm:w-[18%] sm:font-bold md:pl-2 lg:mx-2 lg:w-[15%]"
                                   >
                                     {address.instructions &&
                                       address.instructions}
                                   </Label>
                                   <Label
-                                    htmlFor={address.address_id?.toString()}
+                                    htmlFor={address.address_id.toString()}
                                     className="mx-2 font-bold text-primary max-sm:text-xs"
                                   >
                                     {address.primary && 'Default address'}
