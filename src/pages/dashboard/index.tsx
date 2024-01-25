@@ -8,7 +8,7 @@ function Dashboard() {
   // const { readUserInfoFromFragment } = useAuth()
   // const userInCache = readUserInfoFromFragment()
   // TODO: replace this with global state management like Apollo Client cache
-  // const [userInfo, setUserInfo] = useState<UserInfo>(dummyUser)
+  const [userInfo, setUserInfo] = useState<any>(dummyUser)
   //   // TODO: replace this with Apollo client query instead of fragment
   //   useEffect(() => {
   //     setUserInfo((preV) => {
@@ -29,14 +29,14 @@ function Dashboard() {
   //         : preV
   //     })
   //   }, [userInCache])
-  // return <DashBoardMain userInfo={userInfo} setUserInfo={setUserInfo} />
+  return <DashBoardMain userInfo={userInfo} setUserInfo={setUserInfo} />
 }
 
 Dashboard.getLayout = (page: React.ReactElement) => {
   return (
-    // <DashboardLayout isHeaderShow={true} isFooterShow={false}>
+    <DashboardLayout isHeaderShow={true} isFooterShow={false}>
     { page }
-    // </DashboardLayout>
+     </DashboardLayout>
   )
 }
 
