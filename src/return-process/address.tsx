@@ -54,7 +54,7 @@ export default function Address() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const selectedAddress = addresses.find(
-      (address) => address.address_id?.toString() === values.deliveryAddress
+      (address) => address.address_id === values.deliveryAddress
     )
 
     returnProcess.setCurrentData({
@@ -66,7 +66,7 @@ export default function Address() {
       province: selectedAddress?.province,
       country: selectedAddress?.country,
       postal_code: selectedAddress?.postal_code,
-      address_id: selectedAddress?.address_id,
+      // address_id: selectedAddress?.address_id.toString,
       instructions: selectedAddress?.instructions,
     })
     returnProcess.forward()
