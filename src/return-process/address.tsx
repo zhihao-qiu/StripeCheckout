@@ -27,7 +27,7 @@ import Head from 'next/head'
 import {
   type Address,
   addressSchema,
-  type UserInfo,
+  UserInfo,
 } from '@/components/DashBoard/types'
 import { SectionDescription, SectionHeader } from '@/components/common/section'
 import Reveal from '@components/common/reveal'
@@ -54,7 +54,7 @@ export default function Address() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const selectedAddress = addresses.find(
-      (address) => address.address_id === values.deliveryAddress
+      (address) => address.address_id?.toString() === values.deliveryAddress
     )
 
     returnProcess.setCurrentData({
@@ -66,7 +66,6 @@ export default function Address() {
       province: selectedAddress?.province,
       country: selectedAddress?.country,
       postal_code: selectedAddress?.postal_code,
-      // address_id: selectedAddress?.address_id.toString,
       instructions: selectedAddress?.instructions,
     })
     returnProcess.forward()
@@ -189,36 +188,33 @@ export default function Address() {
                               : `${address.street}, ${address.city}, ${address.province}, ${address.country} ${address.postal_code}`
 
                             return (
-                              <Reveal
-                                key={address.address_id.toString()}
-                                width="100%"
-                              >
+                              <Reveal key={address.address_id} width="100%">
                                 <FormItem className="h-15 flex w-full items-center sm:h-10">
                                   <RadioGroupItem
-                                    id={address.address_id.toString()}
-                                    value={address.address_id.toString()}
+                                    id={address.address_id}
+                                    value={address.address_id!}
                                   />
                                   <Label
-                                    htmlFor={address.address_id.toString()}
+                                    htmlFor={address.address_id}
                                     className="sm:keep-all mx-6 ml-2 w-[20%] max-sm:text-xs sm:w-[18%] sm:font-bold md:pl-2 lg:mx-2 lg:w-[15%]"
                                   >
                                     {address.contact_full_name}
                                   </Label>
                                   <Label
-                                    htmlFor={address.address_id.toString()}
+                                    htmlFor={address.address_id}
                                     className="break-word mx-2 my-4 w-[40%] max-w-max max-sm:text-xs sm:w-[50%] md:mx-0"
                                   >
                                     {deliveryAddress}
                                   </Label>
                                   <Label
-                                    htmlFor={address.address_id.toString()}
+                                    htmlFor={address.address_id}
                                     className="sm:keep-all mx-6 ml-2 w-[20%] max-sm:text-xs sm:w-[18%] sm:font-bold md:pl-2 lg:mx-2 lg:w-[15%]"
                                   >
                                     {address.instructions &&
                                       address.instructions}
                                   </Label>
                                   <Label
-                                    htmlFor={address.address_id.toString()}
+                                    htmlFor={address.address_id}
                                     className="mx-2 font-bold text-primary max-sm:text-xs"
                                   >
                                     {address.primary && 'Default address'}
