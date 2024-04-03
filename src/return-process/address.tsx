@@ -31,6 +31,7 @@ import {
 } from '@/components/DashBoard/types'
 import { SectionDescription, SectionHeader } from '@/components/common/section'
 import Reveal from '@components/common/reveal'
+import { config } from 'dotenv'
 
 const formSchema = z.object({
   deliveryAddress: z.string().min(1),
@@ -72,6 +73,8 @@ export default function Address() {
   }
 
   useEffect(() => {
+    console.log(returnProcess.currentData.userInfo)
+
     setAddresses(returnProcess.currentData.userInfo.addresses)
   }, [])
 

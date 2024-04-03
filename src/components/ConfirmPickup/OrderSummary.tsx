@@ -133,7 +133,7 @@ export default function OrderSummary({
           order.order_details!.total_cost = receivedData.price
           order.client_details!.subscription =
             returnProcess.currentData.subscription
-
+          returnProcess.forward()
           fetch('/api/orders', {
             method: 'POST',
             headers: {

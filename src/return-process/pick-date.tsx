@@ -39,7 +39,7 @@ import type { UserInfo } from '@components/DashBoard/types'
 
 export default function PickDate() {
   // this is a fake userId, the logic of retrieving user info might be updated in the future
-  const userId = '657a3c20334ac659a3b33708'
+  const userId = '660cedfe272a6c09ae2ba5b0'
   const returnProcess = useReturnProcess()
   const dateSelection = useDateSelection(new Date())
 
